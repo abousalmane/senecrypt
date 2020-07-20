@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="Senecrypt" content="Cipher tools">
+  <meta name="author" content="Djibril NDIAYE">
+  <!--link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico"-->
+
+  <title>Senecrypt</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+<link rel="stylesheet" href="main.css">
+  <style>
+
+  .card {
+      background-color: coral;
+    }
+.lienCours{
+  color: maroon;
+ float: right;
+}
+.lienCours:active{
+  background-color: brown;
+}
+.lienCours:hover{
+ color: darkslateblue;
+}
+.algoLabel{
+  clear: left;
+ white-space: nowrap;
+}
+
+p input{
+  text-transform: uppercase;
+}
+input + span {
+  position: relative;
+}
+
+input + span::before {
+  position: absolute;
+  right: -20px;
+  top: 5px;
+}
+
+input select :invalid {
+  border: 2px solid red;
+}
+
+input:invalid + span::before {
+  content: '✖';
+  color: red;
+}
+
+input:valid + span::before {
+  content: '✓';
+  color: green;
+}
+
+   #affineKey1 {
+    display: none;
+   }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark ">
+      <div class="container-fluid">
+      <a class="navbar-brand" href="#">SeneCrypt</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+          <li class="nav-item active">
+            <a class="nav-link" aria-current="page" href="#">Accueil </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+              Outils Crypto
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Generer alphabet desordonné </a></li>
+              <li><a class="dropdown-item" href="#">Rechercher anagrammes</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Calculer PGCD</a></li>
+              <li><a class="dropdown-item" href="#">Algorithme d'Euclide</a></li>
+              <li><a class="dropdown-item" href="#">Trouver inverse modulo</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+              Cryptanalyse
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Analyse fréquentielle </a></li>
+              <li><a class="dropdown-item" href="#">Test de Kasiski/Babage</a></li>
+              <li><a class="dropdown-item" href="#">Indice de coincidence</a></li>
+              <li><a class="dropdown-item" href="#">Test de mot probable</a></li>
+              <li><a class="dropdown-item" href="#">Trouver anagramme</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="#">A propos</a>
+          </li>
+        </ul>
+        <!--form class="d-flex">
+          <input class="form-control mr-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
+          <button class="btn btn-outline-success" type="submit">Rechercher</button>
+        </form--> 
+      </div>
+    </div>
+    </nav>
+  </header>
+  <main class="container p-2">
+    <div class="bg-success p-5 rounded">
+      <h1>Senecrypt</h1>
+      <p class="lead">Vous permet de chiffrer ou de dechiffrer avec les algorithmes de <strong>Chiffrement par Substitution</strong>  
+         ou par <strong>Transposition</strong> 
+          et vous fournit des outils qui facilitent votre pratique de la cryptographie.</p>
+      <a class="btn btn-lg btn-primary" href="apropos.html" role="button">Voir plus &raquo;</a>
+    </div>
+  </main>
+  <div class="container mt-4" id="conteneur">
+    <div class="row">
+      <div class="col-md-4" id="algos">
+        <div class="accordion" id="algoBox">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn btn-link text-dark font-weight-bold btn-block text-center" type="button"
+                  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <h2 class="h4">Chiffrement Par Substitution</h2>
+                </button>
+              </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#algoBox">
+              <div class="card-body">
+               <div>
+                <label for="cesar" class="h4 text-left algoLabel">
+                  <input type="radio" id="cesar" name="algo" value="cesar" autocomplete="off" required onclick="substAlgo()">
+                  César</label>
+                  <a class="lienCours  font-weight-bold" href="#"> Explication</a><br />
+               </div>
+               
+              <div>
+                <label for="affine" class="h4 algoLabel">
+                <input type="radio" id="affine" name="algo" value="affine" autocomplete="off" onclick="substAlgo()" >
+                 Affine</label> 
+                <a class="lienCours  font-weight-bold" href="#"> Explication</a><br />
+              </div>
+               <div>
+                <label for="vigenere" class="h4 algoLabel">
+                  <input type="radio" id="vigenere" name="algo" value="vigenere"  onclick="substAlgo()">
+                    Vigenere </label>
+                   <a class="lienCours text-right font-weight-bold" href="#"> Explication</a><br />
+               </div>
+               <div>
+                <label for="beaufort" class="h4 algoLabel">
+                  <input type="radio" id="beaufort" name="algo" value="beaufort mr-4"  onclick="substAlgo()">
+                   Beaufort</label>
+                <a class="lienCours  font-weight-bold" href="#"> Explication</a><br />
+               </div>
+                <div>
+                  <label for="allemande1" class="h4 algoLabel">
+                   <input type="radio" id="allemande1" name="algo" value="allemande1"  onclick="substAlgo()">
+                   Allemande 1 er</label> 
+                    <a class="lienCours  font-weight-bold" href="#"> Explication</a><br />
+                </div>
+              <div>
+                <label for="allemande2" class="h4 algoLabel">
+                <input type="radio" id="allemande2" name="algo" value="allemande2"  onclick="substAlgo()">
+                   Allemande 2nd</label>
+                    <a class="lienCours  font-weight-bold" href="#"> Explication</a><br /> <br /> 
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h2 class="mb-0">
+                <button class="btn btn-link text-dark font-weight-bold btn-block text-center collapsed" type="button"
+                  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <h2 class="h4">Chiffrement Par Transposition</h2>
+                </button>
+              </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#algoBox">
+              <div class="card-body">
+                <input type="radio" id="transpoSimple" name="algo" value="transpoSimple"  onclick="transpAlgo()">
+                <label for="transpoSimple" class="h4">Transposition Simple</label><br>
+                <input type="radio" id="transpoDouble" name="algo" value="transpoDouble" onclick="transpAlgo()">
+                <label for="transpoDouble" class="h4">Transposition Double</label><br>
+                <input type="radio" id="b" name="algo" value="tableau" onclick="transpAlgo()"> 
+                <label for="b" class="h4">Tableau xxx</label>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h2 class="mb-0">
+                <button class="btn btn-link text-dark font-weight-bold btn-block text-center collapsed" type="button"
+                  data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                  aria-controls="collapseThree">
+                  <h2 class="h4">Autre methodes</h2>  
+                </button>
+              </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#algoBox">
+              <div class="card-body" class="h4">
+                Autre algos
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="col-md-8">
+        <form class="form-group">
+          <p><label for="cipherKey" id="keyLabel" class="mt-4">Clé de Chiffrement: </label>
+            <select class="mr-2" id="affineKey1" required> 
+              <option selected disabled>Inversibles mod26 dans Z/26Z</option>
+            </select>
+            <input class="mr-2" type="text" id="cipherKey" pattern="[A-Za-z]+" required > 
+             <span id="validity" ></span>
+          </p>
+          <blockquote></blockquote>
+          <p class="mt-2"><label for="champText">Entrer votre texte ici 	&curarr; </label></p>
+          <textarea class="form-control" id="textField" rows="8" placeholder="NB: Seules les caratères alphabetiques seront traitées
+          Les autres caracteres seront automatiquement supprimées" required>
+          </textarea>
+           <div id="holder" class="mt-2"> 
+           </div>
+          <button type="button" id="btnChiffrer" class="btn btn-primary mt-3 mr-4"> Chiffrer</button>
+          <button type="button" id="btnDechiffer" class="btn btn-primary mt-3" > Déchiffrer</button>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+    integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+    crossorigin="anonymous"></script>
+    
+    <!--script type="text/javascript" src="public/scripts/main.js" ></script-->
+<script type="text/javascript" src="/scripts/main.js" ></script>
+
+</body>
+
+</html>

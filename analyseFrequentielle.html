@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
+    <title>Analyse de frequence</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <header >
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark mb-2">
+      <div class="container-fluid">
+      <a class="navbar-brand" href="#">SeneCrypt</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Accueil </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+              Outils Crypto
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Generer alphabet desordonné </a></li>
+              <li><a class="dropdown-item" href="#">Rechercher anagrammes</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Calculer PGCD</a></li>
+              <li><a class="dropdown-item" href="#">Algorithme d'Euclide</a></li>
+              <li><a class="dropdown-item" href="#">Trouver inverse modulo</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+              Cryptanalyse
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li class="active"><a class="dropdown-item" href="analyseFrequentielle.html">Analyse fréquentielle </a></li>
+              <li><a class="dropdown-item" href="#">Test de Kasiski/Babage</a></li>
+              <li><a class="dropdown-item" href="#">Indice de coincidence</a></li>
+              <li><a class="dropdown-item" href="#">Test de mot probable</a></li>
+              <li><a class="dropdown-item" href="#">Trouver anagramme</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="#">A propos</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+  </header>
+<div class="container mt-5">
+  <div class="row p-5">
+    <div class="col-md-6">
+      <h2 class="h2">  Analyse Fréquentielle </h2>
+      <p class="mt-2"><label for="champText">Entrer votre texte ici 	&curarr; </label></p>
+      <textarea class="form-control" id="textField" rows="8" placeholder="NB: Seules les caratères alphabetiques seront traitées
+      Les autres caracteres seront automatiquement supprimées" required>
+      </textarea>
+       <div id="holder" class="mt-2"> 
+       </div>
+      <button type="button" id="btnValider" class="btn btn-primary mt-3 mr-4"> Afficher Fréquences</button>
+      <div class="p-3">
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <table> </table>
+    </div>
+  </div>
+</div>
+
+
+    <div>
+
+
+    </div>
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+ 
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+
+
+
+
+
+
+
+ <script>
+let btnFreq=document.getElementById("btnValider");
+btnFreq.addEventListener("click",()=>{
+let text= document.querySelector("textarea").value;
+if(text.length === 0 || !text.trim()){
+   alert("Veillez saisir un texte avant de valider !");
+   return false;
+ }
+ else {
+  text=preFormat(text);
+  var  freq= frequences(text);
+  let table = document.querySelector("table");
+  while (table.firstChild) {
+    table.removeChild(table.lastChild);
+  }
+  let body = document.createElement("tbody");
+  table.classList.add("table","table-dark","table-striped", "table-hover");
+  let title = document.createElement("caption");
+  title.innerHTML = "Fréquences des lettres du texte";
+  title.style.captionSide="top";
+  title.classList.add("h3");
+  let data = Object.keys(freq[0]);
+  generateTableHead(table, data);
+  generateTable(body, freq);
+  table.appendChild(title);
+  table.appendChild(body);
+
+  val=[];
+  lettersLabel = [];
+  for (i=0;i<26;i++)
+   {
+
+     val.push(parseFloat(freq[i]["pourcentage"].slice(0,-1))) ; // remove the last char that is % and convert to float 
+     lettersLabel.push(freq[i]["lettre"]);
+    }   
+ }
+ console.log(val);
+ console.log(lettersLabel);
+ setChart(lettersLabel,val);
+
+});
+function sortbyvaleur(a,b)
+{
+    return parseInt(b.occurences) - parseInt(a.occurences);
+}
+
+
+function frequences(texte)
+{
+	var lettres=new Array(26);
+	var alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	
+	var i;
+    
+    //texte=formate_stat_entree(texte);
+    
+
+
+   // On commence par initialiser le tableau des bigrammes...
+   for (i=0;i<26;i++)
+       {
+       	  lettres[i]=new Object;
+       	  lettres[i]["lettre"]=alphabet.charAt(i);
+          lettres[i]["occurences"]=0;
+          lettres[i]["pourcentage"]=0;
+       }
+       
+  //On le remplit!
+  
+  for (i=0;i<texte.length;i++)
+  {
+  	lettres[alphabet.indexOf(texte.charAt(i))]["occurences"]++;
+  }     
+       
+  //On trie le tableau
+  lettres.sort(sortbyvaleur);
+ 
+  for (i=0;i<26;i++)
+   {
+
+      lettres[i]["pourcentage"]=(Math.round(10000*lettres[i]["occurences"]/(texte.length-1))/100)+"%"
+    }   
+
+  return lettres;
+}
+function generateTableHead(table, data) {
+  let thead = table.createTHead();
+  let row = thead.insertRow();
+  for (let key of data) {
+    let th = document.createElement("th");
+    th.setAttribute("scope","col");
+    let text = document.createTextNode(key);
+    th.appendChild(text);
+    row.appendChild(th);
+  }
+}
+function generateTable(table, data) {
+  //let tbody= document.createElement("tbody");
+  for (let element of data) {
+    let row = table.insertRow();
+    row.setAttribute("scope","row");
+    for (key in element) {
+      let cell = row.insertCell();
+      let text = document.createTextNode(element[key]);
+      cell.appendChild(text);
+    }
+  }
+}
+function preFormat (text){
+    text=text.replace(/[^a-zA-Z]/gi, '')
+    return text.toUpperCase();
+}   
+
+function setChart(valLabels,dataval){
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+let chartobj={
+    type: 'bar',
+    data: {
+        labels: valLabels,
+        datasets: [{
+            label: 'frequences des lettres',
+            data: dataval,
+           backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+          
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 0.2)'
+                         
+            ], 
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+};
+var myChart = new Chart(ctx, chartobj);
+
+}
+
+
+
+ </script>  
+</body>
+</html>
