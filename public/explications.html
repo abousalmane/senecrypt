@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
+    <title>Explication méthodes de chiffrement</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+   #nav-cours{
+       background-color: coral;
+   }
+   .nav-link{
+       color: maroon;
+   }
+   .footer{
+       position: absolute;
+       bottom: 0;
+       width: 100%;
+       height: 80px;
+
+   }
+    </style>
+</head>
+<body>
+  <header >
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark mb-2">
+      <div class="container-fluid">
+      <a class="navbar-brand" href="/">SeneCrypt</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/">Accueil </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+              Outils Crypto
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Generation d'alphabets </a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Calcul modulaire</a></li>
+              <li><a class="dropdown-item" href="#">Algorithme d'Euclide</a></li>
+              <li><a class="dropdown-item" href="#">Calcul Rapide de Puissance</a></li>
+              <li><a class="dropdown-item" href="#">Indicateur d'Euler</a></li>
+              <li><a class="dropdown-item" href="#">Nombres Premiers et factorisation</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+              Cryptanalyse
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item active" href="analyseFrequentielle.html">Analyse fréquentielle </a></li>
+              <li><a class="dropdown-item" href="#">Test de Kasiski/Babage</a></li>
+              <li><a class="dropdown-item" href="#">Indice de coincidence</a></li>
+              <li><a class="dropdown-item" href="#">Test de mot probable</a></li>
+              <li><a class="dropdown-item" href="#">Recherche d'anagrammes</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="#">A propos</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+  </header>
+
+
+
+  <div class="container mt-5">
+    <div class="row p-4">
+        <h2> Explication des algorithmes de chiffrement</h2>
+        <nav id="nav-cours" class="col-md-3 d-sm-none d-md-block navbar navbar-light">
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link" href="#item-1">Le Chiffrement par substitution</a>
+              <nav class="nav nav-pills flex-column">
+                <a class="nav-link ml-3 my-1" href="#item-1-1">le chiffrement de césar </a>
+                <a class="nav-link ml-3 my-1" href="#item-1-2">le chiffrement de Vigenere</a>
+                <a class="nav-link ml-3 my-1" href="#item-1-3">la variante Beaufort </a>
+                <a class="nav-link ml-3 my-1" href="#item-1-4">la variante Allemande</a>
+              </nav>
+              <a class="nav-link" href="#item-2">Le chiffrement par transposition</a>
+              <a class="nav-link" href="#item-3">Le chiffrement moderne</a>
+              <nav class="nav nav-pills flex-column">
+                <a class="nav-link ml-3 my-1" href="#item-3-1">le chiffrement symetrique</a>
+                <a class="nav-link ml-3 my-1" href="#item-3-2">Le chiffrement asymetrique</a>
+              </nav>
+            </nav>
+          </nav>
+    
+          <div class= "col-md-9" data-spy="scroll" data-target="#nav-cours" data-offset="0"  style='max-height: 500px; overflow-y: scroll'>
+            <h4 id="item-1">Le Chiffrement par substitution</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis porro minus molestiae cum explicabo, ullam rem et sapiente, a maxime sunt ducimus veritatis, consequatur esse accusantium tempora dicta at numquam.
+            Aut eaque molestiae voluptate quae hic nobis veniam eius dolorem vero earum, maxime doloribus rem dicta fuga at velit sequi dolores assumenda, voluptates facere dolorum temporibus ullam? Aut, dolor expedita.
+            Minus architecto veritatis quae debitis, culpa voluptates et ab soluta expedita officia incidunt nulla explicabo eaque recusandae amet quam id. Voluptatibus exercitationem fuga mollitia architecto obcaecati at magni repudiandae blanditiis.
+            Earum distinctio voluptas eligendi, magnam iste ducimus similique numquam possimus! Placeat at atque, dolorem quas laudantium necessitatibus vitae nulla aliquid. Modi mollitia vel assumenda voluptas, neque consequuntur aliquam. Eligendi, nisi.
+            Necessitatibus, repellendus numquam voluptatem corporis reprehenderit omnis vero qui, enim quidem ex nihil porro quam aspernatur molestiae consequatur debitis explicabo expedita quae repudiandae possimus in! Cupiditate possimus necessitatibus aliquid! Suscipit.</p>
+            <h5 id="item-1-1">le chiffrement de césar </h5>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto amet delectus in voluptate, quis est quas inventore expedita, commodi ipsum quam, perferendis similique ut velit tempore aspernatur dolorum ducimus nulla.
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id ad illo beatae. Incidunt voluptate qui nihil dignissimos iste ipsum? Veniam placeat modi iusto accusamus blanditiis illum officiis incidunt odit perspiciatis.
+                Dolores iste, provident asperiores fuga repudiandae sed et temporibus, earum odio sequi voluptas dicta. Provident ipsam ex nobis a, non ipsum eligendi rerum dolorem, harum laboriosam nam voluptas perspiciatis debitis?
+                Alias facilis eaque, eligendi voluptates architecto, minus aspernatur unde eum tempora quam tempore animi sequi doloremque qui quaerat consequatur eveniet repellendus aliquam repellat, nostrum enim veritatis. Natus eveniet esse ipsam.
+                Aut odio, facilis officiis, est quas molestias repudiandae incidunt, ipsa voluptas deleniti vero impedit tenetur voluptate. Rerum velit eum sint architecto esse ipsa, sed consequuntur reprehenderit odio, odit asperiores vel.
+                Repellendus, ipsa voluptatum nulla voluptas labore dolores eos laboriosam totam sequi? Sequi soluta explicabo iusto nisi ex, facere inventore nobis quae asperiores unde velit saepe illum fugiat natus exercitationem quasi.
+                Necessitatibus eius iste accusantium laudantium nulla, sed velit doloribus deserunt iusto quasi quos impedit commodi sequi dolorem eveniet vero quam ex. Aliquam praesentium voluptatum, nobis labore assumenda vero maiores repudiandae!
+                Fugiat dolorum vitae ullam distinctio, cupiditate, sed quis sequi excepturi aliquam vero, fuga in impedit temporibus cumque quos exercitationem. Ad fuga alias soluta perferendis voluptatum, cum assumenda. Officia, obcaecati libero!
+                Vel quidem mollitia voluptas id totam odio veniam perferendis rem assumenda eligendi officia asperiores, suscipit aliquam animi libero nobis incidunt sequi fugiat ducimus debitis nulla! Doloremque recusandae modi exercitationem accusantium.
+            </p>
+            <h5 id="item-1-2">le chiffrement de vigenere</h5>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit voluptas earum laboriosam rem quasi ea eaque et inventore expedita deserunt, ab, animi in tempore iure. Incidunt doloribus autem tempora placeat?
+            Itaque, illo velit provident excepturi quidem blanditiis iusto commodi tempore. Dolore voluptatibus soluta maiores asperiores consectetur quisquam perferendis nemo reiciendis fugit. Aut ipsam doloremque fuga voluptatibus culpa commodi in alias.
+            Rem eos molestiae dolorem quaerat mollitia recusandae minus quis odio a asperiores rerum qui iste, voluptatum fugiat exercitationem officiis dolor id, tempore reprehenderit similique ab eligendi distinctio cupiditate hic. Quae.
+            Consequatur enim perferendis officia, i, est maxime. Deserunt reiciendis quis, vero animi facilis assumenda modi sit unde quasi ducimus accusamus, quidem voluptatibus minima inventore? Voluptatibus ducimus explicabo architecto quae!
+            Maiores in et ea deserunt voluptate quibusdam nemo ad deleniti mollitia voluptas non iure quisquam dignissimos alias vel quos, impedit consequatur. Ea, alias ullam. Culpa voluptate atque nostrum error maxime!
+            Neque tempore in hic! Possimus, a cumque, officia voluptatem neque sapiente nihil harum quo, perferendis ipsa inventore quas consequuntur iure. Voluptas nemo quae neque qui est maiores sit quaerat veniam!
+            Velit neque at laudantium quasi aspernatur. Molestiae numquam sapiente consequuntur, at alias inventore, ullam officia unde temporibus totam doloribus fuga. Voluptates enim error libero numquam, ab asperiores excepturi officia temporibus..</p>
+            <h5 id="item-1-3">la variante Beaufort du chiffrement de vigenere</h5>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit voluptas earum laboriosam rem quasi ea eaque et inventore expedita deserunt, ab, animi in tempore iure. Incidunt doloribus autem tempora placeat?
+            Itaque, illo velit provident excepturi quidem blanditiis iusto commodi tempore. Dolore voluptatibus soluta maiores asperiores consectetur quisquam perferendis nemo reiciendis fugit. Aut ipsam doloremque fuga voluptatibus culpa commodi in alias.
+            Rem eos molestiae dolorem quaerat mollitia recusandae minus quis odio a asperiores rerum qui iste, voluptatum fugiat exercitationem officiis dolor id, tempore reprehenderit similique ab eligendi distinctio cupiditate hic. Quae.
+            Consequatur enim perferendis officia, quas cumque amet repudiandae veniam nulla iure sunt libero maiores sequi suscipit, optio aperiam obcaecati at? Libero, beatae eveniet impedit saepe deserunt inventore repellat vero quo.
+            Dolorum necessitatibus odio cupiditate totam labore deleniti eum maiores voluptatem asperiores iusto consequatur maxime dolor temporibus ipsum, voluptate molestias architecto quia distinctio voluptatibus? Minima consequatur quisquam quasi doloremque non officiis!
+            Cupiditate, laboriosam placeat fuga adipisci omnis deleniti eaque laborum aperiam ex fugiat doloribus ratione itaque quae, accusantium odio. Nulla est et quas expedita dolorum provident neque sapiente facere fugit ad.
+            Ut ipsum ratione fuga eligendi optio debitis aliquid quos vero necessitatibus officia architecto, dignissimos ab unde laboriosam culpa? Voluptatum architecto fugiat maxime eveniet, a tempore corporis aspernatur odit reiciendis! Velit.
+            Eius deleniti voluptatum labore perspiciatis ipsum temporibus ea tenetur. Molestiae vero molestias commodi animi culpa ad beatae officia eos non, totam architecto fugiat recusandae blanditiis. Magnam animi rem possimus culpa.
+            Illo consequuntur esse possimus rem sequi, est maxime. Deserunt reiciendis quis, vero animi facilis assumenda modi sit unde quasi ducimus accusamus, quidem voluptatibus minima inventore? Voluptatibus ducimus explicabo architecto quae!
+            Maiores in et ea deserunt voluptate quibusdam nemo ad deleniti mollitia voluptas non iure quisquam dignissimos alias vel quos, impedit consequatur. Ea, alias ullam. Culpa voluptate atque nostrum error maxime!
+            Neque tempore in hic! Possimus, a cumque, officia voluptatem neque sapiente nihil harum quo, perferendis ipsa inventore quas consequuntur iure. Voluptas nemo quae neque qui est maiores sit quaerat veniam!
+            Velit neque at laudantium quasi aspernatur. Molestiae numquam sapiente consequuntur, at alias inventore, ullam officia unde temporibus totam doloribus fuga. Voluptates enim error libero numquam, ab asperiores excepturi officia temporibus..</p>
+            <h5 id="item-1-4">la variante allemande du chiffrement de vigenere</h5>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit voluptas earum laboriosam rem quasi ea eaque et inventore expedita deserunt, ab, animi in tempore iure. Incidunt doloribus autem tempora placeat?
+            Itaque, illo velit provident exceatis ipsum temporibus ea tenetur. Molestiae vero molestias commodi animi culpa ad beatae officia eos non, totam architecto fugiat recusandae blanditiis. Magnam animi rem possimus culpa.
+            Illo consequuntur esse possimus rem sequi, est maxime. Deserunt reiciendis quis, vero animi facilis assumenda modi sit unde quasi ducimus accusamus, quidem voluptatibus minima inventore? Voluptatibus ducimus explicabo architecto quae!
+            Maiores in et ea deserunt voluptate quibusdam nemo ad deleniti mollitia voluptas non iure quisquam dignissimos alias vel quos, impedit consequatur. Ea, alias ullam. Culpa voluptate atque nostrum error maxime!
+            Neque tempore in hic! Possimus, a cumque, officia voluptatem neque sapiente nihil harum quo, perferendis ipsa inventore quas consequuntur iure. Voluptas nemo quae neque qui est maiores sit quaerat veniam!
+            Velit neque at laudantium quasi aspernatur. Molestiae numquam sapiente consequuntur, at alias inventore, ullam officia unde temporibus totam doloribus fuga. Voluptates enim error libero numquam, ab asperiores excepturi officia temporibus..</p>
+            <h4 id="item-2">Le chiffrement par transposition</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt praesentium laudantium porro. Officia, numquam quaerat! Enim blanditiis eos iste nobis error, accusamus facere consectetur, saepe, optio assumenda suscipit voluptate molestiae.</p>
+            <h4 id="item-3">La cryptographie moderne</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae consequuntur perspiciatis officia delectus aliquid distinctio iusto ab dignissimos! Necessitatibus eveniet quod obcaecati explicabo omnis praesentium aspernatur veniam quia odio repellendus.
+            Eveniet possimus ipsum totam illum veniam soluta, exercitationem corrupti animi nam vitae? Id veritatis commodi sequi. Laborum quam ad rerum ullam minus soluta maxime voluptate incidunt saepe expedita. Aperiam, impedit!
+            Ut, voluptatum. Voluptatibus quia cumque culpa nihil quasi optio ad obcaecati qui error porro minus provident necessitatibus repellat explicabo voluptate, magni repellendus? Debitis voluptas natus architecto expedita magnam beatae hic.
+            Expedita harum iusto, deleniti natus molestias cupiditate magni ipsum ducimus obcaecati inventore ullam minima enim porro odio, accusantium vel rerum voluptates quidem commodi aliquam laborum amet! Esse sed suscipit saepe.
+            Voluptate quae esse quos labore quibusdam excepturi cumque ipsam delectus, molestiae, iusto dignissimos libero fuga itaque earum. In dolores doloribus iste, at, commodi, impedit officiis aperiam explicabo illum dolor provident?
+            Dolorem, accusamus reiciendis unde incidunt voluptatum, consequatur suscipit dolore ad, commodi repellat praesentium provident perspiciatis at laudantium excepturi architecto quas tempore aut corporis? Dolor, magni harum esse eveniet illum cumque.
+            Animi doloremque ducimus ut velit at, minima mollitia eos, nam a enim iste. Laudantium at, aperiam ea fugiat dolore alias totam fuga dicta rerum reprehenderit, iusto hic voluptatibus esse suscipit?
+            Saepe vitae itaque nesciunt enim facilis possimus eaque recusandae ullam animi corporis corrupti praesentium doloribus cum esse asperiores beatae nam aliquid hic ratione delectus ipsum, natus, tenetur consequuntur. A, libero.
+            Deserunt reiciendis eveniet omnis tempore esse accusamus repudiandae libero, voluptates accusantium quibusdam? Numquam laboriosam minima ratione facere, amet tempora eligendi ipsum perferendis rem libero, officiis, assumenda culpa! Assumenda, culpa excepturi?
+            Cupiditate non velit inventore voluptas iusto neque minus sint magni. Culpa fugiat nemo quos doloremque blanditiis reprehenderit ipsa placeat sint nesciunt, cum mollitia? Sint, quaerat adipisci porro magni qui voluptatum..</p>
+            <h5 id="item-3-1">le chiffrement symetrique</h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo tempore explicabo perspiciatis deleniti incidunt, tempora nisi doloribus illum omnis ipsam adipisci corporis aut ab quos iure quo, consequatur, illo nihil.
+            Obcaecati recusandae reiciendis, eum perspiciatis voluptas dolor illo in distinctio quod quo asperiores ratione officia commodi nulla aliquid, dignissimos necessitatibus at dolore animi. Velit impedit eos perferendis dolorum, beatae temporibus?
+            Aliquid esse quaerat odio tempora aspernatur nemo repellendus sed sequi ipsa. Alias culpa dolor veritatis molestias tempora aliquid, sed ad, modi facilis, odit earum laudantium illum hic vel ipsum corporis.
+            Ipsum fugiat deleniti maxime dignissimos nesciunt quasi facilis odit eveniet quam maiores, quo officiis. Ab aperiam impedit ipsum illum, sequi explicabo officiis assumenda omnis optio quibusdam veritatis earum quaerat! Quia!
+            Aperiam quod non quam, magnam dolor deleniti vel, aut quaerat id error eveniet quia est, optio ad autem a amet quidem obcaecati tempore. Et eum excepturi perspiciatis doloribus recusandae! Perferendis!
+            Quia dicta incidunt dolore et repudiandae tenetur quidem asperiores consequuntur iste, ab facere ex quos rerum fugit sit ducimus sed nam illum repellendus ipsum modi veniam reiciendis inventore possimus! Debitis!
+            Tempore, sequi! Rem animi alias deleniti ullam, itaque laborum? Quaerat vel rem nisi quis, velit non repellendus sapiente iusto reiciendis blanditiis consequatur fugit at vitae architecto officia. Cumque, odio laudantium.
+            Perspiciatis nesciunt incidunt fugit laudantium iusto dolorem. Ex amet delectus libero, eaque at nihil nam perspiciatis modi. Quod obcaecati nam officiis consectetur, quas tempora amet hic dolorem fugiat quibusdam laboriosam.
+            Voluptatibus architecto, alias labore, cum ipsum molestias quos commodi ad officia assumenda accusantium velit deleniti animi nam aliquid, impedit quae! Accusamus dolor ex praesentium rem repellendus eligendi sed enim odit?.</p>
+            <h5 id="item-3-2">Le chiffrement asymetrique</h5>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum laboriosam nam impedit architecto! Iste itaque quas odit sed,
+                 quidem aut minima at ad illum tenetur libero, vero reiciendis, eos doloremque?</p>
+          </div>
+
+          <footer class="footer">
+                <h6> source: </h6>
+                <ul>
+                    <li> <a href="#" style="color: maroon;" > source 1 </a></li>
+                    <li> <a href="#" style="color: maroon;"> source 2 </a></li>
+                </ul>
+          </footer>
+    </div>
+  </div>
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
