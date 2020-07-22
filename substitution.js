@@ -94,7 +94,6 @@ function inverseModulo26(a) {
   
 	  const cipherCharacterIndex = indicesSum % 26;                   /* If it's greater than the length of     */
 																	  /* the alphabet we subtract it's length.  */
-	  
 	  const cipherTextCharacter = ALPHABET[cipherCharacterIndex]; /* We map the alphabet's letter to this index.*/
   
 	  j = j === keyword.length - 1 ? 0 : j + 1;             /* If we reached the keyword's end start again      */   
@@ -153,7 +152,7 @@ function inverseModulo26(a) {
 	else if(operation===1)
 		 return algoFamily(text,key, 1,1,1)
 }
-  function allemande1 (text,key,operation=0, algoFamily=vigenereFamily){ // y= x - k = clair - clé; x= y + k
+  function allemande (text,key,operation=0, algoFamily=vigenereFamily){ // y= x - k = clair - clé; x= y + k
 	if(operation === 0)
 	 	return	algoFamily(text,key,1,-1,0);
 	else if(operation===1)
@@ -169,6 +168,10 @@ function beaufort (text,key,operation=0, algoFamily=vigenereFamily){  // y= k-x 
 
   module.exports = {
 	 cesar,
-	 affine
+	 affine,
+	 vigenere,
+	 beaufort,
+	 allemande
+
   };
 

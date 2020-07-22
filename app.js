@@ -24,27 +24,27 @@ let op = req.body['op'];
     console.log("key "+ key);
     console.log("text "+ text);
     console.log("op " + op);
-    console.log(subs.cesar(text,13,op));
     var result;
     switch(algo){
       case 'cesar' :
-       console.log("cesar cipher") 
        result = subs.cesar(text,parseInt(key,10),op);
        break;
       case 'affine' :
         result = subs.affine(text,parseInt(key[0],10),parseInt(key[1],10),op);
         break;
       case 'vigenere' :
-        result = subs.vigenere(text,parseInt(key[0],10),parseInt(key[1],10),op);
+        key=key.toUpperCase();
+        result = subs.vigenere(text,key,op);
         break;
       case 'beaufort' :
-        result = subs.beaufort(text,parseInt(key[0],10),parseInt(key[1],10),op);
+        key=key.toUpperCase();
+        result = subs.beaufort(text,key,op);
         break;
-      case 'allemande1' :
-        result = subs.allemande1(text,parseInt(key[0],10),parseInt(key[1],10),op);
+      case 'allemande' :
+        key=key.toUpperCase();
+        result = subs.allemande(text,key,op);
         break;
 	
-
     }
 
     res.setHeader('Content-Type','text/plain');

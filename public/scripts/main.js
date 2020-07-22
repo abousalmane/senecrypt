@@ -79,6 +79,7 @@ function  substAlgo ()
 }
 function transpAlgo(){
 
+  document.getElementById("rst").innerText= "Le chiffrement par transposition Pas encore disponible";
 console.log("not yet handled !")
 }
 
@@ -137,7 +138,6 @@ function warning(alertMsg){
 }
 
 function check(selectAlgo, key, text){
-  
  if(!selectAlgo){
   warning("Vous devez choisir un algorithme avant de valider !");
   return false;
@@ -193,14 +193,40 @@ spinShower = (bool)=> {
   divSpin.classList.add("spinner-border", "text-primary");
   divSpin.role="status";
 let span= document.createElement("span");
-    span.textContent = "Chargement en cours ...";
-    divSpin.appendChild(span);
-      holder.appendChild(divSpin);
+    span.textContent = " Chargement en cours ...";
+    span.classList.add("text-primary");
+   // span.style.float="right";
+    holder.appendChild(divSpin);
+    holder.appendChild(span);
   }
-  else { holder.removeChild(document.querySelector(".spinner-border"));}
+  else { while(holder.firstChild)
+          holder.removeChild(holder.lastChild)        
+  }
 
 }
+function formatCrypto( str){
+   
+  let ret="", pad= 5 - str.length % 5;
+  if( pad !== 0){
+    str+= randomCharGenerator(pad);
+    console.log(str)
+
+  }
+  for(i = 0, len = str.length; i < len; i += 5) {
+       ret+=str.substr(i, 5)+ "\t";
+    }
+    return ret ;
+ }
+function randomCharGenerator(length) {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
 resHandler = (respText) =>{
-  document.querySelector("blockquote").innerHTML=respText;
-  console.log("response du serveur " + respText);
+  document.getElementById("rst").innerText=formatCrypto(respText);
+  //console.log("response du serveur " + respText);
   }
