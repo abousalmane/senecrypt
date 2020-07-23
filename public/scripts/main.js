@@ -59,16 +59,19 @@ function  substAlgo ()
   }
   else if(selection.value==="affine")
   {
-    let inversible=[1,3,5,7,9,11,15,17,19,21,23,25];
     let choix=document.getElementById("affineKey1");
-    let option;
-    for(let i of inversible)
-    {
-      option=document.createElement("option");
-      option.text= i;
-      // option.value=i;
-      choix.add(option);
+    if (choix.length < 26) {
+      let inversible=[1,3,5,7,9,11,15,17,19,21,23,25];
+      let option;
+      for(let i of inversible)
+      {
+        option=document.createElement("option");
+        option.text= i;
+        // option.value=i;
+        choix.add(option);
+      }      
     }
+    
     choix.style.display="inline";
     let affKey2=document.getElementById("cipherKey");
     affKey2.type="number";

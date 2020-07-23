@@ -14,12 +14,10 @@
    .nav-link{
        color: maroon;
    }
-   .footer{
-       position: absolute;
-       bottom: 0;
-       width: 100%;
-       height: 80px;
-
+   
+   img{
+    display: block;
+    margin: auto;
    }
     </style>
 </head>
@@ -82,6 +80,7 @@
               <a class="nav-link" href="#item-1">Le Chiffrement par substitution</a>
               <nav class="nav nav-pills flex-column">
                 <a class="nav-link ml-3 my-1" href="#item-1-1">le chiffrement de césar </a>
+                <a class="nav-link ml-3 my-1" href="#item-1-1-2">le chiffrement affine </a>
                 <a class="nav-link ml-3 my-1" href="#item-1-2">le chiffrement de Vigenere</a>
                 <a class="nav-link ml-3 my-1" href="#item-1-3">la variante Beaufort </a>
                 <a class="nav-link ml-3 my-1" href="#item-1-4">la variante Allemande</a>
@@ -97,29 +96,86 @@
     
           <div class= "col-md-9" data-spy="scroll" data-target="#nav-cours" data-offset="0"  style='max-height: 500px; overflow-y: scroll'>
             <h4 id="item-1">Le Chiffrement par substitution</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis porro minus molestiae cum explicabo, ullam rem et sapiente, a maxime sunt ducimus veritatis, consequatur esse accusantium tempora dicta at numquam.
-            Aut eaque molestiae voluptate quae hic nobis veniam eius dolorem vero earum, maxime doloribus rem dicta fuga at velit sequi dolores assumenda, voluptates facere dolorum temporibus ullam? Aut, dolor expedita.
-            Minus architecto veritatis quae debitis, culpa voluptates et ab soluta expedita officia incidunt nulla explicabo eaque recusandae amet quam id. Voluptatibus exercitationem fuga mollitia architecto obcaecati at magni repudiandae blanditiis.
-            Earum distinctio voluptas eligendi, magnam iste ducimus similique numquam possimus! Placeat at atque, dolorem quas laudantium necessitatibus vitae nulla aliquid. Modi mollitia vel assumenda voluptas, neque consequuntur aliquam. Eligendi, nisi.
-            Necessitatibus, repellendus numquam voluptatem corporis reprehenderit omnis vero qui, enim quidem ex nihil porro quam aspernatur molestiae consequatur debitis explicabo expedita quae repudiandae possimus in! Cupiditate possimus necessitatibus aliquid! Suscipit.</p>
-            <h5 id="item-1-1">le chiffrement de césar </h5>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto amet delectus in voluptate, quis est quas inventore expedita, commodi ipsum quam, perferendis similique ut velit tempore aspernatur dolorum ducimus nulla.
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id ad illo beatae. Incidunt voluptate qui nihil dignissimos iste ipsum? Veniam placeat modi iusto accusamus blanditiis illum officiis incidunt odit perspiciatis.
-                Dolores iste, provident asperiores fuga repudiandae sed et temporibus, earum odio sequi voluptas dicta. Provident ipsam ex nobis a, non ipsum eligendi rerum dolorem, harum laboriosam nam voluptas perspiciatis debitis?
-                Alias facilis eaque, eligendi voluptates architecto, minus aspernatur unde eum tempora quam tempore animi sequi doloremque qui quaerat consequatur eveniet repellendus aliquam repellat, nostrum enim veritatis. Natus eveniet esse ipsam.
-                Aut odio, facilis officiis, est quas molestias repudiandae incidunt, ipsa voluptas deleniti vero impedit tenetur voluptate. Rerum velit eum sint architecto esse ipsa, sed consequuntur reprehenderit odio, odit asperiores vel.
-                Repellendus, ipsa voluptatum nulla voluptas labore dolores eos laboriosam totam sequi? Sequi soluta explicabo iusto nisi ex, facere inventore nobis quae asperiores unde velit saepe illum fugiat natus exercitationem quasi.
-                Necessitatibus eius iste accusantium laudantium nulla, sed velit doloribus deserunt iusto quasi quos impedit commodi sequi dolorem eveniet vero quam ex. Aliquam praesentium voluptatum, nobis labore assumenda vero maiores repudiandae!
-                Fugiat dolorum vitae ullam distinctio, cupiditate, sed quis sequi excepturi aliquam vero, fuga in impedit temporibus cumque quos exercitationem. Ad fuga alias soluta perferendis voluptatum, cum assumenda. Officia, obcaecati libero!
-                Vel quidem mollitia voluptas id totam odio veniam perferendis rem assumenda eligendi officia asperiores, suscipit aliquam animi libero nobis incidunt sequi fugiat ducimus debitis nulla! Doloremque recusandae modi exercitationem accusantium.
+            <p>Le chiffrement par substitution consiste à remplacer dans un message une ou plusieurs entités (généralement des lettres) par une ou plusieurs autres entités.
+                On distingue généralement deux types de cryptosystèmes par substitution :
+              <ul><li>La substitution monoalphabétique consiste à remplacer chaque lettre du message par une autre lettre de l'alphabet</li>
+                  <li>La substitution polyalphabétique consiste à utiliser une suite de chiffres monoalphabétique réutilisée périodiquement</li>
+              </ul>
+                  </p>
+            <h4 id="item-1-1">le chiffrement de césar </h4>
+            <p>Pour ses communications importantes à son armée, César chiffrait ses messages. Ce que l’on appelle le
+              chiffrement de César est un décalage des lettres par exemple : pour chiffrer un message, A devient D, B devient E, C devient F ,...
+              <span style="color: red;">A</span> &#x2794; <span style="color: green;">D</span>  <span style="color: red;">B</span> &#x2794; <span style="color: green;">E</span> &#x2794; <span style="color: red;">F</span> . . .
+              <span style="color: red;">W</span> &#x2794; <span style="color: green;">Z</span> <span style="color: red;">X</span> &#x2794; <span style="color: green;">A</span> <span style="color: red;">Y</span> &#x2794; <span style="color: green;">B</span>  <span style="color: red;">Z</span> &#x2794; 
+              <span style="color: green;">C</span>
+              Voici une figure avec l’alphabet d’origine en haut et en <span style="color: red;">rouge</span>, en correspondance avec l’alphabet pour le chiffrement
+              en-dessous et en vert. <br>
+              <img src="img/cesarAlph.png" alt="alphabet de césar"/> </p>
+              <p>
+              Pour déchiffrer le message de César, il suffit de décaler les lettres dans l’autre sens,  <span style="color: green;">D</span> se déchiffre en  <span style="color: red;">A</span>,
+              <span style="color: green;">E</span> en  <span style="color: red;">B</span>,... Et donc le cyptogramme <span style="color: green;">DOHD MDFWD HVW</span> correspond 
+              à la célèbre phrase de César : <br>
+                <span class="text-center" style="color: red;"> ALEA JACTA EST </span>                  qui traduite du latin donne « Les dés sont jetés ».
             </p>
+            <p>En pratique, il est plus facile de manipuler des nombres que des lettres, aussi nous passons à une formulation arithmétique. Nous
+              associons à chacune des 26 lettres de A à Z un nombre de 0 à 25. En termes mathématiques, nous définissons une
+              bijection :
+              f : {A, B, C, . . . , Z} &#x2794; {0, 1, 2, . . . , 25} par A &#x2794;0 B &#x2794;1 C &#x2794;2 . . . Z &#x2794;25
+              Ainsi <span style="color: green;">"A L E A"</span> devient <span style="color: green;">"0 11 4 0"</span>.<br>
+              Le chiffrement de César est un cas particulier de substitution mono-alphabétique, c’est-à-dire un chiffrement lettre à
+              lettre.</p> 
+            <h5>Chiffrer et déchiffrer</h5>
+            <p> Le chiffrement de César est simplement une addition dans Z/26Z ! Fixons un entier k qui est le décalage (par exemple
+              k = 3 dans l’exemple de César ci-dessus) et définissons la <strong>fonction de chiffrement de César de décalage k</strong> qui va de
+              l’ensemble Z/26Z dans lui-même :</p>
+              <img src="img/chiffreCesar.png" alt="Fonction chiffrement de césar">
+                  Par exemple, pour k = 3 : C<sub>3</sub>(0) = 3, C<sub>3</sub>(1) = 4. . . <br>
+                  Pour déchiffrer, rien de plus simple ! Il suffit d’aller dans l’autre sens, c’est-à-dire ici de soustraire. La <strong>fonction de
+                    déchiffrement de César de décalage k</strong> est <img src="img/dechiffreCesar.png" alt="fonction de
+                    déchiffrement de César de décalage k">
+                    En effet, si 1 a été chiffré en 4, par la fonction C<sub>3</sub> alors D <sub>3</sub> (4) = 4 − 3 = 1. On retrouve le nombre original.
+                    Mathématiquement, D<sub>k</sub> est la bijection réciproque de C<sub>k</sub> , ce qui implique que pour tout x ∈ Z/26Z : <img src="img/BjectionCesar.png" alt="bijection ">
+                    En d’autres termes, si x est un nombre, on applique la fonction de chiffrement pour obtenir le nombre crypté y = C<sub>k</sub>(x) ;
+                    ensuite la fonction de déchiffrement fait bien ce que l’on attend d’elle D<sub>k</sub>(y) = x, on retrouve le nombre original x.
+                                        <img src="img/fonctionCesar.png" alt="fonction de chiffrement reciproque">
+                    Voici le principe du chiffrement : Alice veut envoyer des messages secrets à Bruno. Ils se sont d’abord mis d’accord sur
+                    une clé secrète k, par exemple k = 11. Alice veut envoyer le message <span style="color: red;"> "COUCOU"</span> à Bruno. Elle transforme
+                    <span style="color: red;"> "COUCOU"</span> en  <span style="color: red;"> "2 14 20 2 14 20"</span>. Elle applique la fonction de chiffrement C<sub>11</sub>(x) = x + 11 à chacun des nombres : 
+                   <span style="color: green;">"13 25 5 13 25 5" </span> ce qui correspond au mot crypté <span style="color: green;"> "NZFNZF"</span> . Elle transmet le mot crypté à Bruno, qui selon le même principe
+                    applique la fonction de déchiffrement D<sub>11</sub>(x) = x − 11. <img src="img/exempleCesar.png" alt="exemple de chiffrement cesar">
+                    <h5> Espace des clés et attaque </h5>
+                        <p> Combien existe-t-il de possibilités de chiffrement par la méthode de César ? Il y a 26 fonctions C<sub>k</sub>  différentes,
+                        k = 0, 1, . . . , 25. Encore une fois, k appartient à Z/26Z, car par exemple les fonctions C<sub>29</sub> et C<sub>3</sub>  sont identiques. Le
+                        décalage k s’appelle la clé de chiffrement, c’est l’information nécessaire pour crypter le message. Il y a donc 26 clés différentes et l’espace des clés est Z/26Z. <br>
+                        Il est clair que ce chiffrement de César est d’une sécurité très faible. Si Alice envoie un message secret à Bruno et que
+                        Chloé intercepte ce message, il sera facile pour Chloé de le décrypter même si elle ne connaît pas la clé secrète k.
+                        L’attaque la plus simple pour Chloé est de tester ce que donne chacune des 26 combinaisons possibles et de reconnaître
+                        parmi ces combinaisons laquelle donne un message compréhensible.</p>
+       <h4 id="item-1-1-2">le chiffrement affine </h4>
+                  <div>Le chiffrement affine est une généralisation du chiffre de César.<br> <strong>Formule du chiffrement affine</strong> <br>
+                    Soient a et b des éléments de N Une lettre x du message d'origine sera chiffrée par la lettre y vérifiant : <br>
+                    y≡ ax + b [26] et 0 ≤y≤ 25 <br> <strong> Exemple 1: chiffrement affine :</strong> <br>
+                    Si   a=1 et b=3, on retrouve le chiffre de César. En effet, on a alors y≡ x + 3 [26], ce qui donne le tableau des alphabets clair et chiffre suivant:
+                      <img src="img/alphAfine1.png" alt="alphabet affine partie 1 "> <br> <img src="img/alphAfine2.png" alt="alphabet affine partie 2"> <br>
+                      Le mot "senecrypt" est alors chiffré en "VHQHF UBSWF" (la derniere lettre a ete ajoute pour complete la 2<sup>ème</sup> à 5 lagroupe de 5). <br>
+                      <strong>Exemple 2 :un second Chiffrement affine </strong> <br>
+                    Si a= 3 et b=5, on a alors y≡3x+5[26], ce qui donne : <img src="img/alphaAff21.png" alt="alphabet affine 1"> <br> <img src="img/alphAf22.png" alt="alphabet affine 2">
+                    le mot "SENECRYPT" est alors chiffré : "HRSRL EZYKK " 
+                     <h5>Condition de validité de la clé</h5>
+                        <p>Un couple (a,b) convient (au sens précédent) pour un algorithme de chiffrement affine si et seulement si a et 26 sont premiers entre eux, i.e. PGCD(a,26)=1. Il n’y a pas de conditions sur b.</p>
+                        Avant de nous intéresser à la preuve de ce résultat, constatons que cela donne comme valeurs possibles pour a les entiers 1,3,5,7,9,11,15,17,19,21,23,25. Il y a donc 12 possibilités pour a, et comme il y en a 26 pour b, cela donne 12×26=312 clés possibles.
+                        <p>En fait, on peut exclure la transformation identité qui correspond à a=1 et b=0. Cette dernière ne modifiant en effet aucune des lettres de l'alphabet, tout message demeurerait inchangé. Ce qui donne 311 clés possibles.</p>
+                        
+                        <h5>Formule du déchiffrement affine</h5> 
+                      <p>  Soient a et b des éléments de N tels que PGCD(a,26)=1  Soit a'   l'inverse multiplicatif de a modulo 26. On pose b'≡ −a'b[26]
+                        Une lettre y du message chiffré correspondra a' la lettre x du message d'origine vérifiant x≡a'y+b'[26] et 0 ≤ x≤ 25
+                      </p>
+                      <p class="bg-success">Rappelons que l’inverse multiplicatif modulo 26 d’un nombre a premier avec 26 s’obtient en déterminant les coefficients de Bézout de a et 26. Voir <a href="#">algorithme d'Euclide étendu </a> pour le calcul de ces coefficients.</p>
+                    </div>
+
+
             <h5 id="item-1-2">le chiffrement de vigenere</h5>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit voluptas earum laboriosam rem quasi ea eaque et inventore expedita deserunt, ab, animi in tempore iure. Incidunt doloribus autem tempora placeat?
-            Itaque, illo velit provident excepturi quidem blanditiis iusto commodi tempore. Dolore voluptatibus soluta maiores asperiores consectetur quisquam perferendis nemo reiciendis fugit. Aut ipsam doloremque fuga voluptatibus culpa commodi in alias.
-            Rem eos molestiae dolorem quaerat mollitia recusandae minus quis odio a asperiores rerum qui iste, voluptatum fugiat exercitationem officiis dolor id, tempore reprehenderit similique ab eligendi distinctio cupiditate hic. Quae.
-            Consequatur enim perferendis officia, i, est maxime. Deserunt reiciendis quis, vero animi facilis assumenda modi sit unde quasi ducimus accusamus, quidem voluptatibus minima inventore? Voluptatibus ducimus explicabo architecto quae!
-            Maiores in et ea deserunt voluptate quibusdam nemo ad deleniti mollitia voluptas non iure quisquam dignissimos alias vel quos, impedit consequatur. Ea, alias ullam. Culpa voluptate atque nostrum error maxime!
-            Neque tempore in hic! Possimus, a cumque, officia voluptatem neque sapiente nihil harum quo, perferendis ipsa inventore quas consequuntur iure. Voluptas nemo quae neque qui est maiores sit quaerat veniam!
+            <p>sapiente nihil harum quo, perferendis ipsa inventore quas consequuntur iure. Voluptas nemo quae neque qui est maiores sit quaerat veniam!
             Velit neque at laudantium quasi aspernatur. Molestiae numquam sapiente consequuntur, at alias inventore, ullam officia unde temporibus totam doloribus fuga. Voluptates enim error libero numquam, ab asperiores excepturi officia temporibus..</p>
             <h5 id="item-1-3">la variante Beaufort du chiffrement de vigenere</h5>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit voluptas earum laboriosam rem quasi ea eaque et inventore expedita deserunt, ab, animi in tempore iure. Incidunt doloribus autem tempora placeat?
@@ -169,7 +225,7 @@
                  quidem aut minima at ad illum tenetur libero, vero reiciendis, eos doloremque?</p>
           </div>
 
-          <footer class="footer">
+          <footer class="footer mt-4">
                 <h6> source: </h6>
                 <ul>
                     <li> <a href="#" style="color: maroon;" > source 1 </a></li>

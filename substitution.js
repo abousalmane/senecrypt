@@ -60,13 +60,11 @@ function inverseModulo26(a) {
 		let inverseCle1= inverseModulo26(cle1);
 		for(let i of text)
 		{
-			result+=String.fromCharCode(((inverseCle1*(i.charCodeAt()-65 - cle2))%26) + 65 ); // y = a*x+b
+			result+=String.fromCharCode((((inverseCle1*(i.charCodeAt()-65 - cle2 ))+26*inverseCle1)%26) + 65 ); // y = a*x+b
 		}	
 	}
 	return result;
   }
-
-
   const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   
   function vigenereFamily(text, keyword, xOp, yOp, operation=0) {
