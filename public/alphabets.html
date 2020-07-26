@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="Senecrypt" content="Cipher tools">
+  <meta name="author" content="Djibril NDIAYE">
+  <!--link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico"-->
+
+  <title>Senecrypt alphablets</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+<link rel="stylesheet" href="/styles/main.css">
+  <style>
+input{
+  text-transform: uppercase;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+    <header>
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark ">
+          <div class="container-fluid">
+          <a class="navbar-brand" href="/index.html">SeneCrypt</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+              <li class="nav-item active">
+                <a class="nav-link" aria-current="page" href="index.html">Accueil </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Outils Crypto
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="alphabets.html">Generation d'alphabets </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Calcul modulaire</a></li>
+                  <li><a class="dropdown-item" href="#">Algorithme d'Euclide</a></li>
+                  <li><a class="dropdown-item" href="#">Calcul Rapide de Puissance</a></li>
+                  <li><a class="dropdown-item" href="#">Indicateur d'Euler</a></li>
+                  <li><a class="dropdown-item" href="#">Nombres Premiers et factorisation</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Cryptanalyse
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="analyseFrequentielle.html">Analyse fréquentielle </a></li>
+                  <li><a class="dropdown-item" href="#">Test de Kasiski/Babbage</a></li>
+                  <li><a class="dropdown-item" href="#">Indice de coincidence</a></li>
+                  <li><a class="dropdown-item" href="#">Test de mot probable</a></li>
+                  <li><a class="dropdown-item" href="#">Recherche d'anagrammes</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="apropos.html">A propos</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </nav>
+      </header>
+
+<div class="container p-3 mt-4">
+<div class="row">
+  <!--   <figure class="figure">
+        <img src="img/AlphabetDes.png" class="figure-img img-fluid rounded" alt="Correspondance Alphabet clair et alphabet desordonne">
+        <figcaption class="figure-caption text-right">Correspondance Alphabet clair et alphabet de chiffrement</figcaption>
+      </figure> -->
+</div>
+<div class="row">
+    <div class="bg-success p-5 rounded">
+        <h1> Les aphabets désordonnés</h1>
+        <p class="lead">
+            Pour chiffrer un message on message on fait generalement corespondre a l'alphabet clair un alphabet
+            désordonné comme sur l'exemple ci-dessus. <br> 
+            Il existe donc deux techniques pour générer un alphabet désordonné à partir d’une clé.
+            
+        </p>
+      </div>
+</div>
+    <div class="row mt-3 p-2 border-bottom border-warning">
+        <h2>Generation horizontale</h2>
+        <p>L’alphabet désordonné commence par les elements du mot-clé, nettoyé de ses doublons, puis les autres lettres de l’alphabet suivent leur ordre habituel.</p>
+        <form class="form-group">
+        <label for="keyWordH" id="keyLabel" class="mr-2">Mot ou phrase clé: </label>
+        <input class="mr-2" type="text" id="keyWordH" pattern="[A-Za-z]+" required > 
+        <button type="button" id="btnGenH" class="btn btn-primary"> Generer Alphabet</button>
+        </form>
+        <div class="p-3"> 
+            <TABLE BORDER=1 CELLSPACING=2 CELLPADDING=1>
+                <TR BGCOLOR="#08FF7C" ALIGN="CENTER">
+                    <TD WIDTH="15">A</TD>
+                    <TD WIDTH="15">B</TD>
+                    <TD WIDTH="15">C</TD>
+                    <TD WIDTH="15">D</TD>
+                    <TD WIDTH="15">E</TD>
+                    <TD WIDTH="15">F</TD>
+                    <TD WIDTH="15">G</TD>
+                    <TD WIDTH="15">H</TD>
+                    <TD WIDTH="15">I</TD>
+                    <TD WIDTH="15">J</TD>
+                    <TD WIDTH="15">K</TD>
+                    <TD WIDTH="15">L</TD>
+                    <TD WIDTH="15">M</TD>
+                    <TD WIDTH="15">N</TD>
+                    <TD WIDTH="15">O</TD>
+                    <TD WIDTH="15">P</TD>
+                    <TD WIDTH="15">Q</TD>
+                    <TD WIDTH="15">R</TD>
+                    <TD WIDTH="15">S</TD>
+                    <TD WIDTH="15">T</TD>
+                    <TD WIDTH="15">U</TD>
+                    <TD WIDTH="15">V</TD>
+                    <TD WIDTH="15">W</TD>
+                    <TD WIDTH="15">X</TD>
+                    <TD WIDTH="15">Y</TD>
+                    <TD WIDTH="15">Z</TD>
+                </TR>
+                <TR BGCOLOR="#FFFF99" id="alphFieldH" ALIGN="CENTER">
+                    <TD><INPUT TYPE="TEXT" NAME="a" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="b" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="c" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="d" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="e" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="f" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="g" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="h" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="i" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="j" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="k" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="l" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="m" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="n" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="o" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="p" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="q" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="r" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="s" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="t" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="u" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="v" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="w" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="x" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="y" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="z" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                </TR>
+            </TABLE>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <h2>Generation Par tableau</h2>
+        <p> On procède en inscrivant le mot-clé et les autres les lettres par ordre alphabetique sur un tableau dont le nombre de colonne
+            est egal à la longueur du mot-clé, puis on prend les lettres colonne par colonne.</p>
+        <form>
+            <label for="keyWordV" id="keyLabel" class="mr-2">Mot ou phrase clé: </label>
+            <input class="mr-2" type="text" id="keyWordV" pattern="[A-Za-z]+" required > 
+            <button type="button" id="btnGenV" class="btn btn-primary"> Generer Alphabet</button>
+        </form>
+        <div class="p-3"> 
+          <TABLE BORDER=1 CELLSPACING=2 CELLPADDING=1>
+              <TR BGCOLOR="#08FF7C" ALIGN="CENTER">
+                  <TD WIDTH="15">A</TD>
+                  <TD WIDTH="15">B</TD>
+                  <TD WIDTH="15">C</TD>
+                  <TD WIDTH="15">D</TD>
+                  <TD WIDTH="15">E</TD>
+                  <TD WIDTH="15">F</TD>
+                  <TD WIDTH="15">G</TD>
+                  <TD WIDTH="15">H</TD>
+                  <TD WIDTH="15">I</TD>
+                  <TD WIDTH="15">J</TD>
+                  <TD WIDTH="15">K</TD>
+                  <TD WIDTH="15">L</TD>
+                  <TD WIDTH="15">M</TD>
+                  <TD WIDTH="15">N</TD>
+                  <TD WIDTH="15">O</TD>
+                  <TD WIDTH="15">P</TD>
+                  <TD WIDTH="15">Q</TD>
+                  <TD WIDTH="15">R</TD>
+                  <TD WIDTH="15">S</TD>
+                  <TD WIDTH="15">T</TD>
+                  <TD WIDTH="15">U</TD>
+                  <TD WIDTH="15">V</TD>
+                  <TD WIDTH="15">W</TD>
+                  <TD WIDTH="15">X</TD>
+                  <TD WIDTH="15">Y</TD>
+                  <TD WIDTH="15">Z</TD>
+              </TR>
+              <TR BGCOLOR="#FFFF99" id="alphFieldV" ALIGN="CENTER">
+                  <TD><INPUT TYPE="TEXT" NAME="a" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="b" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="c" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="d" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="e" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="f" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="g" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="h" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="i" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="j" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="k" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="l" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="m" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="n" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="o" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="p" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="q" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="r" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="s" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="t" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="u" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="v" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="w" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="x" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="y" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+                  <TD><INPUT TYPE="TEXT" NAME="z" SIZE="1" VALUE="" style="background-color: #FFFF99"></TD>
+              </TR>
+          </TABLE>
+      </div>
+    </div>
+</div>
+
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+      crossorigin="anonymous"></script>
+<script>
+  
+let genH= document.getElementById("btnGenH");
+let genV= document.getElementById("btnGenV");
+
+genH.addEventListener("click", () =>{
+  let keyw =  document.getElementById("keyWordH").value.toUpperCase();
+  let output="";
+    output=horizontal(keyw)
+    fillTable(output,"alphFieldH");
+});
+genV.addEventListener("click", () =>{
+  let keyw =  document.getElementById("keyWordV").value.toUpperCase();
+  let output="";
+    output=vertical(keyw)
+    fillTable(output,"alphFieldV");
+});
+
+function horizontal(clef)
+{
+    let grille  = '';
+    var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	for(var k = 0; k < clef.length;  k++){
+		ch= clef.charAt(k)
+		if (grille.indexOf (ch) < 0) {
+			grille += ch
+		}
+	}
+	for(var k = 0; k < 26; k++){
+		ch= alphabet.charAt(k)
+		if (grille.indexOf (ch) < 0) {
+			grille += ch
+		}
+	}
+	return grille;
+}
+function fillTable(alph, alphField){
+  let tableFields=document.getElementById(alphField);
+  var children = tableFields.children;
+for (var i = 0; i < children.length; i++) {
+  var tableChild = children[i];
+  tableChild.firstChild.value=alph[i];
+}
+}
+
+function vertical(clef)
+{
+    var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	var grille  = '';
+	for(var k = 0; k < 26;  k++){
+		ch= clef.charAt(k)
+		if (grille.indexOf (ch) < 0) {
+			grille += ch
+		}
+	}
+	n=grille.length
+	for(var k = 0; k < 26; k++){
+		ch= alphabet.charAt(k)
+		if (grille.indexOf (ch) < 0) {
+			grille += ch
+		}
+	}
+	tableau  = '';
+	for(var k = 0; k < n; k++){
+		for(var j = 0; j < 26; j+=n){
+			tableau += grille.charAt(k+j)
+		}
+	}
+	return tableau
+}
+
+</script>
+</body>
+
+
+</html>

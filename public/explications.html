@@ -15,9 +15,13 @@
        color: maroon;
    }
    
-   img{
+   img {
     display: block;
     margin: auto;
+   }
+   TABLE {
+ margin-left: auto;
+ margin-right: auto;
    }
     </style>
 </head>
@@ -40,7 +44,7 @@
               Outils Crypto
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Generation d'alphabets </a></li>
+              <li><a class="dropdown-item" href="alphabets.html">Generation d'alphabets </a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Calcul modulaire</a></li>
               <li><a class="dropdown-item" href="#">Algorithme d'Euclide</a></li>
@@ -55,7 +59,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item active" href="analyseFrequentielle.html">Analyse fréquentielle </a></li>
-              <li><a class="dropdown-item" href="#">Test de Kasiski/Babage</a></li>
+              <li><a class="dropdown-item" href="#">Test de Kasiski/Babbage</a></li>
               <li><a class="dropdown-item" href="#">Indice de coincidence</a></li>
               <li><a class="dropdown-item" href="#">Test de mot probable</a></li>
               <li><a class="dropdown-item" href="#">Recherche d'anagrammes</a></li>
@@ -157,10 +161,10 @@
                     y≡ ax + b [26] et 0 ≤y≤ 25 <br> <strong> Exemple 1: chiffrement affine :</strong> <br>
                     Si   a=1 et b=3, on retrouve le chiffre de César. En effet, on a alors y≡ x + 3 [26], ce qui donne le tableau des alphabets clair et chiffre suivant:
                       <img src="img/alphAfine1.png" alt="alphabet affine partie 1 "> <br> <img src="img/alphAfine2.png" alt="alphabet affine partie 2"> <br>
-                      Le mot "senecrypt" est alors chiffré en "VHQHF UBSWF" (la derniere lettre a ete ajoute pour complete la 2<sup>ème</sup> à 5 lagroupe de 5). <br>
+                      Le mot <span style="color: red;">"SENECRYPT"</span>  est alors chiffré en <span style="color: green;">"VHQHF UBSWF"</span>  (la derniere lettre a ete ajoute pour complete la 2<sup>ème</sup> à 5 lagroupe de 5). <br>
                       <strong>Exemple 2 :un second Chiffrement affine </strong> <br>
                     Si a= 3 et b=5, on a alors y≡3x+5[26], ce qui donne : <img src="img/alphaAff21.png" alt="alphabet affine 1"> <br> <img src="img/alphAf22.png" alt="alphabet affine 2">
-                    le mot "SENECRYPT" est alors chiffré : "HRSRL EZYKK " 
+                    le mot <span style="color: red;">"SENECRYPT"</span> est alors chiffré : <span style="color: green;">"HRSRL EZYKK "</span>  
                      <h5>Condition de validité de la clé</h5>
                         <p>Un couple (a,b) convient (au sens précédent) pour un algorithme de chiffrement affine si et seulement si a et 26 sont premiers entre eux, i.e. PGCD(a,26)=1. Il n’y a pas de conditions sur b.</p>
                         Avant de nous intéresser à la preuve de ce résultat, constatons que cela donne comme valeurs possibles pour a les entiers 1,3,5,7,9,11,15,17,19,21,23,25. Il y a donc 12 possibilités pour a, et comme il y en a 26 pour b, cela donne 12×26=312 clés possibles.
@@ -170,44 +174,853 @@
                       <p>  Soient a et b des éléments de N tels que PGCD(a,26)=1  Soit a'   l'inverse multiplicatif de a modulo 26. On pose b'≡ −a'b[26]
                         Une lettre y du message chiffré correspondra a' la lettre x du message d'origine vérifiant x≡a'y+b'[26] et 0 ≤ x≤ 25
                       </p>
-                      <p class="bg-success">Rappelons que l’inverse multiplicatif modulo 26 d’un nombre a premier avec 26 s’obtient en déterminant les coefficients de Bézout de a et 26. Voir <a href="#">algorithme d'Euclide étendu </a> pour le calcul de ces coefficients.</p>
+                      <p class="bg-success">Rappelons que l’inverse multiplicatif modulo 26 d’un nombre a premier avec 26 s’obtient en déterminant les coefficients de Bézout de a et 26. Voir <a href="#" class="text-dark">algorithme d'Euclide étendu </a> pour le calcul de ces coefficients.</p>
+                    <p>
+                            <h6>  Cryptanalyse des chiffrements par substitution mono-alphabétique </h6>
+                            <ul> 
+                              <li> Nombre de possibilités : n! soit > 4.10<sup>26</sup> trop grand pour une recherche exhaustive même
+                              pour un ordinateur.</li>
+                              <li>Faiblesse mono-alphabétique : pour une permutation donnée, une lettre est toujours rempla-
+                              cée par la même lettre.</li>
+                              <li> <a href="analyseFrequentielle.html" class="text-dark">Analyse fréquentielle</a> possible ! </li>
+                            </ul>
+                    </p>
                     </div>
 
 
             <h5 id="item-1-2">le chiffrement de vigenere</h5>
-            <p>sapiente nihil harum quo, perferendis ipsa inventore quas consequuntur iure. Voluptas nemo quae neque qui est maiores sit quaerat veniam!
-            Velit neque at laudantium quasi aspernatur. Molestiae numquam sapiente consequuntur, at alias inventore, ullam officia unde temporibus totam doloribus fuga. Voluptates enim error libero numquam, ab asperiores excepturi officia temporibus..</p>
+             <div> <p>Le chiffrement de vigenère effectue une substitutionnpolyalphabetique en utilisant une clé se présentant généralement sous la forme d'un
+               mot ou d'une phrase. Pour pouvoir chiffrer notre texte, à chaque caractère nous utilisons une lettre
+               de la clé pour effectuer la substitution. Évidemment, plus la clé sera longue et variée et mieux le texte sera chiffré.
+               Elle ressemble au chiffre de César mais contrairement a celui-ci, une même lettre du message clair peut, 
+               suivant sa position, être remplacée par des lettres différentes. </p>
+               <h5>Chiffremt et déchiffrement</h5>
+               <p>Mathématiquement, on identifie les lettres de l'alphabet aux nombres de 0 à 25 (A=0, B=1...). Les opérations de chiffrement et 
+                 de déchiffrement sont, pour chaque lettre, celles du chiffre de César. En désignant la ie lettre du texte clair par Texte[i], la ie du chiffré 
+                 par Chiffré[i], et la ie lettre de la clé, répétée suffisamment de fois, par Clés[i], elle se formalise par :
+                <ul> <li> Chiffré[i] = (Texte[i] + Clés[i]) modulo 26</li>
+                    <li>Texte[i] = (Chiffré[i] - Clés[i]) modulo 26</li>
+                </ul>
+                En divisant le message par bloc de longueur egal à celle de la clé k, la fonction de chiffrement
+                associe à un bloc de longueur k, un autre bloc de longueur k, ce qui donne en mathématisant les choses :
+                <img src="img/fctChifVig.png" alt="fonction de chiffrement vigenere">
+                Chacune des composantes de cette fonction est un chiffrement de César. La fonction de déchiffrement est juste
+                C<sub>−n<sub>1</sub>,−n<sub>2,...,</sub>−n<sub>k</sub></sub>  .
+              </p>
+              <h6>La table de vigenère</h6>
+              <div>
+                <TABLE BORDER=1 CELLSPACING=2 CELLPADDING=1>
+<TR  style="background-color: red;">
+	<TD style="background-color: green;"></TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">A</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">B</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">C</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">D</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">E</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">F</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">G</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">H</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">I</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">J</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">K</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">L</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">M</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">N</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">O</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">P</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">Q</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">R</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">S</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">T</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">U</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">V</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">W</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">X</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">Y</TD>
+	<TD>Y</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+</TR>
+<TR ALIGN="CENTER" BGCOLOR="#FFFF99">
+	<TD BGCOLOR=" #228B22">Z</TD>
+	<TD>Z</TD>
+	<TD>A</TD>
+	<TD>B</TD>
+	<TD>C</TD>
+	<TD>D</TD>
+	<TD>E</TD>
+	<TD>F</TD>
+	<TD>G</TD>
+	<TD>H</TD>
+	<TD>I</TD>
+	<TD>J</TD>
+	<TD>K</TD>
+	<TD>L</TD>
+	<TD>M</TD>
+	<TD>N</TD>
+	<TD>O</TD>
+	<TD>P</TD>
+	<TD>Q</TD>
+	<TD>R</TD>
+	<TD>S</TD>
+	<TD>T</TD>
+	<TD>U</TD>
+	<TD>V</TD>
+	<TD>W</TD>
+	<TD>X</TD>
+	<TD>Y</TD>
+</TR>
+</TABLE>     
+              </div>
+                <h5>Cryptanalyse</h5>
+                <p>
+                  Il y a 26<sup>k</sup> choix possibles de clés, lorsque la clé de longueur k. Pour une clé de longueur k = 4 cela en donne
+                  déjà 456 976, et même si un ordinateur teste toutes les combinaisons possibles sans problème, il n’est pas aisé de
+                  parcourir cette liste pour trouver le message en clair, c’est-à-dire celui qui est compréhensible !
+                  Il persiste tout de même une faiblesse du même ordre que celle rencontrée dans le chiffrement mono-alphabétique :
+                  En effet, si deux lettres sont situées à la même position dans deux blocs différents (comme par exemple "ALPH ABET") alors elles seront chiffrées par la même lettre.
+                  L'attaque de <strong><a href="#"> Kasiski Babbage</a></strong> illustré dans <a href="#"> cette page </a> exploite cette faiblesse.
+                  Par ailleurs, des techniques statistiques fondées sur <a href="#">l'indice de coïncidence</a> , découvertes au XXe siècle, s'avèrent
+                   encore plus efficaces pour casser ce chiffrement. <br>
+                   Pour plus de détails sur ces types d'attaques, voir les sections correspondantes dans le menu <strong>Cryptanalyse</strong> .
+                </p>
+             </div>
             <h5 id="item-1-3">la variante Beaufort du chiffrement de vigenere</h5>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit voluptas earum laboriosam rem quasi ea eaque et inventore expedita deserunt, ab, animi in tempore iure. Incidunt doloribus autem tempora placeat?
-            Itaque, illo velit provident excepturi quidem blanditiis iusto commodi tempore. Dolore voluptatibus soluta maiores asperiores consectetur quisquam perferendis nemo reiciendis fugit. Aut ipsam doloremque fuga voluptatibus culpa commodi in alias.
-            Rem eos molestiae dolorem quaerat mollitia recusandae minus quis odio a asperiores rerum qui iste, voluptatum fugiat exercitationem officiis dolor id, tempore reprehenderit similique ab eligendi distinctio cupiditate hic. Quae.
-            Consequatur enim perferendis officia, quas cumque amet repudiandae veniam nulla iure sunt libero maiores sequi suscipit, optio aperiam obcaecati at? Libero, beatae eveniet impedit saepe deserunt inventore repellat vero quo.
-            Dolorum necessitatibus odio cupiditate totam labore deleniti eum maiores voluptatem asperiores iusto consequatur maxime dolor temporibus ipsum, voluptate molestias architecto quia distinctio voluptatibus? Minima consequatur quisquam quasi doloremque non officiis!
-            Cupiditate, laboriosam placeat fuga adipisci omnis deleniti eaque laborum aperiam ex fugiat doloribus ratione itaque quae, accusantium odio. Nulla est et quas expedita dolorum provident neque sapiente facere fugit ad.
-            Ut ipsum ratione fuga eligendi optio debitis aliquid quos vero necessitatibus officia architecto, dignissimos ab unde laboriosam culpa? Voluptatum architecto fugiat maxime eveniet, a tempore corporis aspernatur odit reiciendis! Velit.
-            Eius deleniti voluptatum labore perspiciatis ipsum temporibus ea tenetur. Molestiae vero molestias commodi animi culpa ad beatae officia eos non, totam architecto fugiat recusandae blanditiis. Magnam animi rem possimus culpa.
-            Illo consequuntur esse possimus rem sequi, est maxime. Deserunt reiciendis quis, vero animi facilis assumenda modi sit unde quasi ducimus accusamus, quidem voluptatibus minima inventore? Voluptatibus ducimus explicabo architecto quae!
-            Maiores in et ea deserunt voluptate quibusdam nemo ad deleniti mollitia voluptas non iure quisquam dignissimos alias vel quos, impedit consequatur. Ea, alias ullam. Culpa voluptate atque nostrum error maxime!
-            Neque tempore in hic! Possimus, a cumque, officia voluptatem neque sapiente nihil harum quo, perferendis ipsa inventore quas consequuntur iure. Voluptas nemo quae neque qui est maiores sit quaerat veniam!
-            Velit neque at laudantium quasi aspernatur. Molestiae numquam sapiente consequuntur, at alias inventore, ullam officia unde temporibus totam doloribus fuga. Voluptates enim error libero numquam, ab asperiores excepturi officia temporibus..</p>
+            <p> <strong>Le chiffremet de Beaufort </strong>est une variante consiste du chiffre de vigenère qui consiste à soustraire
+               le message clair de la clef. </p>
             <h5 id="item-1-4">la variante allemande du chiffrement de vigenere</h5>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit voluptas earum laboriosam rem quasi ea eaque et inventore expedita deserunt, ab, animi in tempore iure. Incidunt doloribus autem tempora placeat?
-            Itaque, illo velit provident exceatis ipsum temporibus ea tenetur. Molestiae vero molestias commodi animi culpa ad beatae officia eos non, totam architecto fugiat recusandae blanditiis. Magnam animi rem possimus culpa.
-            Illo consequuntur esse possimus rem sequi, est maxime. Deserunt reiciendis quis, vero animi facilis assumenda modi sit unde quasi ducimus accusamus, quidem voluptatibus minima inventore? Voluptatibus ducimus explicabo architecto quae!
-            Maiores in et ea deserunt voluptate quibusdam nemo ad deleniti mollitia voluptas non iure quisquam dignissimos alias vel quos, impedit consequatur. Ea, alias ullam. Culpa voluptate atque nostrum error maxime!
-            Neque tempore in hic! Possimus, a cumque, officia voluptatem neque sapiente nihil harum quo, perferendis ipsa inventore quas consequuntur iure. Voluptas nemo quae neque qui est maiores sit quaerat veniam!
+            Itaque, illo velitptas nemo quae neque qui est maiores sit quaerat veniam!
             Velit neque at laudantium quasi aspernatur. Molestiae numquam sapiente consequuntur, at alias inventore, ullam officia unde temporibus totam doloribus fuga. Voluptates enim error libero numquam, ab asperiores excepturi officia temporibus..</p>
             <h4 id="item-2">Le chiffrement par transposition</h4>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt praesentium laudantium porro. Officia, numquam quaerat! Enim blanditiis eos iste nobis error, accusamus facere consectetur, saepe, optio assumenda suscipit voluptate molestiae.</p>
             <h4 id="item-3">La cryptographie moderne</h4>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae consequuntur perspiciatis officia delectus aliquid distinctio iusto ab dignissimos! Necessitatibus eveniet quod obcaecati explicabo omnis praesentium aspernatur veniam quia odio repellendus.
             Eveniet possimus ipsum totam illum veniam soluta, exercitationem corrupti animi nam vitae? Id veritatis commodi sequi. Laborum quam ad rerum ullam minus soluta maxime voluptate incidunt saepe expedita. Aperiam, impedit!
-            Ut, voluptatum. Voluptatibus quia cumque culpa nihil quasi optio ad obcaecati qui error porro minus provident necessitatibus repellat explicabo voluptate, magni repellendus? Debitis voluptas natus architecto expedita magnam beatae hic.
-            Expedita harum iusto, deleniti natus molestias cupiditate magni ipsum ducimus obcaecati inventore ullam minima enim porro odio, accusantium vel rerum voluptates quidem commodi aliquam laborum amet! Esse sed suscipit saepe.
-            Voluptate quae esse quos labore quibusdam excepturi cumque ipsam delectus, molestiae, iusto dignissimos libero fuga itaque earum. In dolores doloribus iste, at, commodi, impedit officiis aperiam explicabo illum dolor provident?
-            Dolorem, accusamus reiciendis unde incidunt voluptatum, consequatur suscipit dolore ad, commodi repellat praesentium provident perspiciatis at laudantium excepturi architecto quas tempore aut corporis? Dolor, magni harum esse eveniet illum cumque.
-            Animi doloremque ducimus ut velit at, minima mollitia eos, nam a enim iste. Laudantium at, aperiam ea fugiat dolore alias totam fuga dicta rerum reprehenderit, iusto hic voluptatibus esse suscipit?
-            Saepe vitae itaque nesciunt enim facilis possimus eaque recusandae ullam animi corporis corrupti praesentium doloribus cum esse asperiores beatae nam aliquid hic ratione delectus ipsum, natus, tenetur consequuntur. A, libero.
+            Ut, voluptatum. Vous eaque recusandae ullam animi corporis corrupti praesentium doloribus cum esse asperiores beatae nam aliquid hic ratione delectus ipsum, natus, tenetur consequuntur. A, libero.
             Deserunt reiciendis eveniet omnis tempore esse accusamus repudiandae libero, voluptates accusantium quibusdam? Numquam laboriosam minima ratione facere, amet tempora eligendi ipsum perferendis rem libero, officiis, assumenda culpa! Assumenda, culpa excepturi?
             Cupiditate non velit inventore voluptas iusto neque minus sint magni. Culpa fugiat nemo quos doloremque blanditiis reprehenderit ipsa placeat sint nesciunt, cum mollitia? Sint, quaerat adipisci porro magni qui voluptatum..</p>
             <h5 id="item-3-1">le chiffrement symetrique</h5>
@@ -228,7 +1041,7 @@
           <footer class="footer mt-4">
                 <h6> source: </h6>
                 <ul>
-                    <li> <a href="#" style="color: maroon;" > source 1 </a></li>
+                    <li> <a href="exo7.emath.fr/cours/ch_crypto.pdf" style="color: maroon;" > cours exo7 chapitre cryptographie </a></li>
                     <li> <a href="#" style="color: maroon;"> source 2 </a></li>
                 </ul>
           </footer>
