@@ -18,6 +18,8 @@ input{
   text-transform: uppercase;
   text-align: center;
 }
+.parent { display: flex; flex-wrap: wrap; justify-content: center; }
+.box { flex: 1 1 150px; /* Stretching: */  margin: 5px; }
 
 </style>
 </head>
@@ -157,7 +159,8 @@ input{
             </TABLE>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-3 parent">
+      <div class="box">
         <h2>Generation Par tableau</h2>
         <p> On procède en inscrivant le mot-clé et les autres les lettres par ordre alphabetique sur un tableau dont le nombre de colonne
             est egal à la longueur du mot-clé, puis on prend les lettres colonne par colonne.</p>
@@ -226,6 +229,12 @@ input{
               </TR>
           </TABLE>
       </div>
+      </div>
+      <div class="box">
+        <table id="alphTable">
+          table
+        </table>
+      </div>
     </div>
 </div>
 
@@ -240,15 +249,33 @@ let genV= document.getElementById("btnGenV");
 
 genH.addEventListener("click", () =>{
   let keyw =  document.getElementById("keyWordH").value.toUpperCase();
+    keyw = keyw.trim();
   let output="";
     output=horizontal(keyw)
     fillTable(output,"alphFieldH");
 });
 genV.addEventListener("click", () =>{
   let keyw =  document.getElementById("keyWordV").value.toUpperCase();
+  keyw = keyw.trim();
   let output="";
     output=vertical(keyw)
     fillTable(output,"alphFieldV");
+    let  alpTble=document.getElementById("alphTable");
+    const lenCol = keyw.length;
+    const lenRow = Math.ceil(26/lenCol)
+      let k=0;
+    for(var i = 0; i < lenRow; i++){
+        var tr = alpTble.insertRow();
+        for(var j = 0; j < lenCol; j++){
+          
+                let n = i*lenCol+j;
+                // if(n === 25) break;
+                var td = tr.insertCell();
+                td.appendChild(document.createTextNode(output[n] || '' ));
+                td.style.border = '1px solid black';
+               
+        }
+    }
 });
 
 function horizontal(clef)
@@ -289,7 +316,7 @@ function vertical(clef)
 		}
 	}
 	n=grille.length
-	for(var k = 0; k < 26; k++){
+	for(let k = 0; k < 26; k++){
 		ch= alphabet.charAt(k)
 		if (grille.indexOf (ch) < 0) {
 			grille += ch

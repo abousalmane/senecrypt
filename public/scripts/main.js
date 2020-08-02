@@ -173,7 +173,7 @@ else if(selectAlgo.value==="affine"){
 return true;
 }
 function format (text){
-    text=text.replace(/[^a-zA-Z]/gi, '')
+    text=text.replace(/[^a-zA-Z]/gi, '');
     return text.toUpperCase();
 }    
 function send(jsobject,resHandler, spinShower){
