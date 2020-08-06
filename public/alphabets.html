@@ -27,22 +27,22 @@ input{
     <header>
         <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark ">
           <div class="container-fluid">
-          <a class="navbar-brand" href="/index.html">SeneCrypt</a>
+          <a class="navbar-brand" href="/">SeneCrypt</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto mb-2 mb-md-0">
-              <li class="nav-item active">
-                <a class="nav-link" aria-current="page" href="index.html">Accueil </a>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/">Accueil </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                   Outils Crypto
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="alphabets.html">Generation d'alphabets </a></li>
+                  <li><a class="dropdown-item active" href="alphabets.html">Generation d'alphabets </a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Calcul modulaire</a></li>
                   <li><a class="dropdown-item" href="#">Algorithme d'Euclide</a></li>
@@ -90,7 +90,7 @@ input{
         </p>
       </div>
 </div>
-    <div class="row mt-3 p-2 border-bottom border-warning">
+    <div class="row mt-3 p-2 border-bottom border-dark">
         <h2>Generation horizontale</h2>
         <p>L’alphabet désordonné commence par les elements du mot-clé, nettoyé de ses doublons, puis les autres lettres de l’alphabet suivent leur ordre habituel.</p>
         <form class="form-group">
@@ -162,7 +162,7 @@ input{
     <div class="row mt-3 parent">
       <div class="box">
         <h2>Generation Par tableau</h2>
-        <p> On procède en inscrivant le mot-clé et les autres les lettres par ordre alphabetique sur un tableau dont le nombre de colonne
+        <p> On procède en inscrivant le mot-clé (sans répétition de lettres) et les autres les lettres par ordre alphabetique sur un tableau dont le nombre de colonne
             est egal à la longueur du mot-clé, puis on prend les lettres colonne par colonne.</p>
         <form>
             <label for="keyWordV" id="keyLabel" class="mr-2">Mot ou phrase clé: </label>
@@ -232,7 +232,6 @@ input{
       </div>
       <div class="box">
         <table id="alphTable">
-          table
         </table>
       </div>
     </div>
@@ -257,25 +256,11 @@ genH.addEventListener("click", () =>{
 genV.addEventListener("click", () =>{
   let keyw =  document.getElementById("keyWordV").value.toUpperCase();
   keyw = keyw.trim();
-  let output="";
-    output=vertical(keyw)
+  if(keyw){
+    let output="";
+    output=vertical(keyw);
     fillTable(output,"alphFieldV");
-    let  alpTble=document.getElementById("alphTable");
-    const lenCol = keyw.length;
-    const lenRow = Math.ceil(26/lenCol)
-      let k=0;
-    for(var i = 0; i < lenRow; i++){
-        var tr = alpTble.insertRow();
-        for(var j = 0; j < lenCol; j++){
-          
-                let n = i*lenCol+j;
-                // if(n === 25) break;
-                var td = tr.insertCell();
-                td.appendChild(document.createTextNode(output[n] || '' ));
-                td.style.border = '1px solid black';
-               
-        }
-    }
+  }
 });
 
 function horizontal(clef)
@@ -309,13 +294,13 @@ function vertical(clef)
 {
     var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	var grille  = '';
-	for(var k = 0; k < 26;  k++){
-		ch= clef.charAt(k)
+	for(let k = 0; k < clef.length;  k++){
+		ch = clef.charAt(k);
 		if (grille.indexOf (ch) < 0) {
 			grille += ch
 		}
 	}
-	n=grille.length
+	const lenCol=grille.length
 	for(let k = 0; k < 26; k++){
 		ch= alphabet.charAt(k)
 		if (grille.indexOf (ch) < 0) {
@@ -323,11 +308,27 @@ function vertical(clef)
 		}
 	}
 	tableau  = '';
-	for(var k = 0; k < n; k++){
-		for(var j = 0; j < 26; j+=n){
+	for(let k = 0; k < lenCol; k++){
+		for(let j = 0; j < 26; j+=lenCol){
 			tableau += grille.charAt(k+j)
 		}
 	}
+ let  alpTble=document.getElementById("alphTable");
+      while(alpTble.firstChild)
+        alpTble.removeChild(alpTble.lastChild);
+    const lenRow = Math.ceil(26/lenCol)
+      let k=0;
+    for(let i = 0; i < lenRow; i++){
+        var tr = alpTble.insertRow(); tr.style.backgroundColor = "#FFFF99"
+        for(var j = 0; j < lenCol; j++){
+          
+                let n = i*lenCol+j;
+                var td = tr.insertCell();
+                td.appendChild(document.createTextNode(grille[n] || '' ));
+                td.style.border = '2px solid black';               
+        }
+    } 
+    alpTble.rows[0].style.backgroundColor = "#08FF7C";
 	return tableau
 }
 

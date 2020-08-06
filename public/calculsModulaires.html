@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="Senecrypt" content="modulus calculator">
+    <meta name="author" content="Djibril NDIAYE">
+    <title>Calculs mudulaires</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+  integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+<link rel="stylesheet" href="/styles/main.css">
+<style>
+input {
+    max-width: 7rem;
+}
+
+</style>
+</head>
+<body>
+    <header>
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark ">
+          <div class="container-fluid">
+          <a class="navbar-brand" href="/">SeneCrypt</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Accueil </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Outils Crypto
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="alphabets.html">Generation d'alphabets </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item active"  aria-current="page" href="calculsModulaires.html">Calculs modulaires</a></li>
+                  <li><a class="dropdown-item" href="#">Algorithme d'Euclide</a></li>
+                  <li><a class="dropdown-item" href="#">Calcul Rapide de Puissance</a></li>
+                  <li><a class="dropdown-item" href="#">Indicateur d'Euler</a></li>
+                  <li><a class="dropdown-item" href="#">Nombres Premiers et factorisation</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Cryptanalyse
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="analyseFrequentielle.html">Analyse fréquentielle </a></li>
+                  <li><a class="dropdown-item" href="#">Test de Kasiski/Babage</a></li>
+                  <li><a class="dropdown-item" href="#">Indice de coincidence</a></li>
+                  <li><a class="dropdown-item" href="#">Test de mot probable</a></li>
+                  <li><a class="dropdown-item" href="#">Recherche d'anagrammes</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="apropos.html">A propos</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </nav>
+      </header>
+
+      <div class="container p-5 mt-4">
+        <div class="row">
+            <div class="col-md-6" >
+                <h2>Calculer a mudulo n</h2>
+                <form >
+                    <input type="number" id="aval" size="3">
+                    <span> modulo</span>
+                    <input type="number" id="nval" size="3">
+                    <button id="calModulo"> = </button>
+                    <input placeholder="?" id="resultMod" readonly>
+                </form>
+            </div>
+            <div class="col-md-6" >
+                <h2>Calculer inverse a mudulo n</h2>
+                <div class="d-inline-flex flex-nowrap p-2">
+                  <form>
+                    <input type="number" id="atoInv" size="3">
+                    <span> <sup class="font-weight-bold">-1</sup> modulo</span>
+                    <input type="number" id="nvalInv" size="3">
+                    <button id="invModulo"> = </button>
+                    <input placeholder="?" id="resultInv" readonly>
+                </form>
+                </div>
+                <div id="holder">
+
+                </div>
+            </div>
+        </div>
+<script>
+    let calculModulo = document.getElementById("calModulo");
+    calculModulo.addEventListener("click",(e)=>{
+        e.preventDefault();
+        let a = document.getElementById("aval").value || 0;
+        let n = document.getElementById("nval").value || 1;
+        let rst= a % n;
+        console.log(rst)
+        document.getElementById("resultMod").value = rst;
+
+    });
+    let inverseModulo = document.getElementById("invModulo");
+    inverseModulo.addEventListener("click",(e)=>{
+        e.preventDefault();
+        let a = document.getElementById("atoInv").value || 0;
+        let n = document.getElementById("nvalInv").value || 1;
+        let rst= ExtendEuclide(a,n);
+        if(rst[0] === 1)
+        {
+            document.getElementById("resultInv").value = rst[1];
+        }
+        else{
+          document.getElementById("resultInv").value = "\u2205" || " ∅ ";
+          warning("L'inverse modulo n'existe pas car PGCD("+a+", "+ n+ ") = " + rst[0] + " \u2260  1");
+        }
+        console.log(rst)
+        
+
+    });
+    function warning(alertMsg){
+  let msgarea=document.getElementById("holder");
+  let divWarn = document.createElement("div");
+  divWarn.classList.add("alert", "alert-warning", "alert-dismissible", "fade", "show");
+  divWarn.role="alert";
+  let  msg= document.createTextNode(alertMsg);
+  let  btn=document.createElement("button");
+   btn.type="button"; 
+   btn.classList.add("close");
+   btn.setAttribute("data-dismiss","alert" );
+   btn.setAttribute("aria-label","Close");
+   let sp=document.createElement("span");
+   sp.setAttribute("aria-hidden","true");
+   sp.innerHTML="&times;";
+   btn.appendChild(sp);
+   divWarn.appendChild(msg)
+   divWarn.appendChild(btn);
+   msgarea.appendChild(divWarn);
+   window.setTimeout(()=>{
+    let warn=new bootstrap.Alert(document.querySelector('.alert'));
+      warn.close()}, 5000);
+}
+function ExtendEuclide(a, b){
+    a= parseInt(a,10); b = parseInt(b, 10);
+    let r = a, rp= b, u= 1, v = 0, 
+    up = 0, vp = 1;
+    while(rp != 0){
+        q = Math.floor(r/rp)
+    let	rs = r, us = u, vs= v;
+    r = rp; u = up ; v = vp;
+        rp = rs - q*rp;
+        up = us - q* up
+        vp = vs - q*vp
+        
+    }
+
+    return [r,u,v];
+}
+function gcd(a,b) {
+    a = Math.abs(a);
+    b = Math.abs(b);
+    if (b > a) {var temp = a; a = b; b = temp;}
+    while (b) {
+        temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+</script>
+
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+   integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+   crossorigin="anonymous"></script>
+</body>
+</html>
