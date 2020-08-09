@@ -40,7 +40,7 @@ function  substAlgo ()
 {
   initilise();
   const selection= document.querySelector('input[type=radio]:checked');
-  console.log(selection.id);
+  //console.log(selection.id);
   let keyLabel=document.getElementById('keyLabel');
   if (selection.value==="cesar") {
 
@@ -169,7 +169,6 @@ else if(selectAlgo.value==="affine"){
    warning("Veillez saisir un texte avant de valider !");
    return false;
  }
- console.log("donnees valides");
 return true;
 }
 function format (text){
@@ -212,7 +211,6 @@ function formatCrypto( str){
   let ret="", pad= 5 - str.length % 5;
   if( pad !== 0){
     str+= randomCharGenerator(pad);
-    console.log(str)
 
   }
   for(i = 0, len = str.length; i < len; i += 5) {
@@ -231,5 +229,4 @@ function randomCharGenerator(length) {
 }
 resHandler = (respText) =>{
   document.getElementById("rst").innerText=formatCrypto(respText);
-  //console.log("response du serveur " + respText);
   }

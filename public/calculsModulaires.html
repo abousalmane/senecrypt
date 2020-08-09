@@ -39,9 +39,6 @@ input {
                   <li><a class="dropdown-item" href="alphabets.html">Generation d'alphabets </a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item active"  aria-current="page" href="calculsModulaires.html">Calculs modulaires</a></li>
-                  <li><a class="dropdown-item" href="#">Algorithme d'Euclide</a></li>
-                  <li><a class="dropdown-item" href="#">Calcul Rapide de Puissance</a></li>
-                  <li><a class="dropdown-item" href="#">Indicateur d'Euler</a></li>
                   <li><a class="dropdown-item" href="#">Nombres Premiers et factorisation</a></li>
                 </ul>
               </li>
@@ -67,31 +64,63 @@ input {
       </header>
 
       <div class="container p-5 mt-4">
-        <div class="row">
-            <div class="col-md-6" >
-                <h2>Calculer a mudulo n</h2>
+        <div class="row border border-dark">
+            <div class="col-md-6 mb-4" >
+                <h2 class="h3">Calculer <strong>a modulo n</strong> </h2>
                 <form >
-                    <input type="number" id="aval" size="3">
-                    <span> modulo</span>
-                    <input type="number" id="nval" size="3">
-                    <button id="calModulo"> = </button>
-                    <input placeholder="?" id="resultMod" readonly>
+                    <input class="mb-2" type="number" id="aval" size="3" placeholder="a">
+                    <span class="mb-2"> modulo</span>
+                    <input type="number" id="nval" size="3" placeholder="n" class="mb-2">
+                    <button id="calModulo" class="mb-2"> = </button>
+                    <input placeholder="?" id="resultMod" readonly class="mb-2">
                 </form>
             </div>
             <div class="col-md-6" >
-                <h2>Calculer inverse a mudulo n</h2>
-                <div class="d-inline-flex flex-nowrap p-2">
-                  <form>
-                    <input type="number" id="atoInv" size="3">
-                    <span> <sup class="font-weight-bold">-1</sup> modulo</span>
-                    <input type="number" id="nvalInv" size="3">
-                    <button id="invModulo"> = </button>
-                    <input placeholder="?" id="resultInv" readonly>
-                </form>
-                </div>
-                <div id="holder">
-
-                </div>
+                <h2 class="h3">Calculer <strong>inverse a modulo n</strong> </h2>
+                <form>
+                   <input class="mb-2" type="number" id="atoInv" size="3" placeholder="a"><sup class="font-weight-bold"> -1 </sup>
+                     <span class="mb-2">  modulo</span>
+                    <input class="mb-2" type="number" id="nvalInv" size="3" placeholder="n"> 
+                    <button class="mb-2" id="invModulo"> = </button>
+                    <input class="mb-2" placeholder="?" id="resultInv" readonly>
+                  </form>
+             </div>
+                <div id="holder">  </div>
+            </div>
+            <div class="row p-4 border border-dark">
+              <h2 class="h3 text-center">Exponentiation modulaire</h2>
+              <h3 class=" h5 text-center mb-3">Calculer <strong>a <sup>b</sup> modulo n</strong>  </h3>
+              <form>
+                <input class="mb-2" type="number" id="base" size="3" placeholder="a"><sup class="font-weight-bold"> ^ </sup>
+                <input class="mb-2" type="number" id="expo" size="3" placeholder="b">  
+                <span class="mb-2">  modulo</span>
+                 <input class="mb-2" type="number" id="module" size="3" placeholder="n"> 
+                 <button class="mb-2" id="equ"> = </button>
+                 <input class="mb-2" placeholder="?" id="resultExpo" readonly>
+               </form>
+            </div>
+            <div class="row p-4 border border-dark">
+              <h2 class="h3 text-center"> Algorithme d'Euclide Etendu</h2>
+              <div class="col-md-9">
+                <p> Determiner les <strong>coefficients de Bezout </strong> u et v de l'équation au + bv = 1 </p>
+              <form>
+                <label for="num1"> a = <input class="mb-2" type="number" id="num1"  placeholder="a"></label>
+                <label for="num2">b = <input class="mb-2" type="number" id="num2"  placeholder="b">  </label>
+                <button class="mb-2" id="euclide"> Démarrer l'agorithme </button>
+                <label for="uVal">u =  <input class="mb-2"  id="uVal" placeholder="?" readonly> </label>
+                <label for="vVal"> v=  <input class="mb-2"  id="vVal" placeholder="?" readonly> </label>
+              </form>
+              <div id="warnHolder"></div>
+              </div>
+              <div class="col-md-3">
+                <p class="h5"> Determiner le <strong>PGCD</strong>  des nombres a et b </p>
+              <form>
+                <label for="ap"> a = <input class="mb-2" type="number" id="ap"  placeholder="a"></label>
+                <label for="bp">b = <input class="mb-2" type="number" id="bp"  placeholder="b">  </label>
+                <button class="mb-2" id="pgcd"> Trouver PGCD(a,b) </button>
+                 <input class="mb-2"  id="pgcdVal" placeholder="PGCD = ?" readonly>
+              </form>     
+            </div>
             </div>
         </div>
 <script>
@@ -101,7 +130,6 @@ input {
         let a = document.getElementById("aval").value || 0;
         let n = document.getElementById("nval").value || 1;
         let rst= a % n;
-        console.log(rst)
         document.getElementById("resultMod").value = rst;
 
     });
@@ -117,14 +145,58 @@ input {
         }
         else{
           document.getElementById("resultInv").value = "\u2205" || " ∅ ";
-          warning("L'inverse modulo n'existe pas car PGCD("+a+", "+ n+ ") = " + rst[0] + " \u2260  1");
+          warning("L'inverse modulo n'existe pas car PGCD("+a+", "+ n+ ") = " + rst[0] + " \u2260  1","holder");
         }
-        console.log(rst)
-        
+    });
+let expoReq = document.getElementById("equ");
+    expoReq.addEventListener("click",(ev)=>{
+      ev.preventDefault();
+        let a = document.getElementById("base").value || 0;
+        let b = document.getElementById("expo").value || 1;
+        let n = document.getElementById("module").value || 1;
+        let rstExpo= fastExpo(a,b,n);      
+        document.getElementById("resultExpo").value = rstExpo;
+    });
+let extEuclide = document.getElementById("euclide");
+    extEuclide.addEventListener("click",(ev)=>{
+      ev.preventDefault();
+        let a = document.getElementById("num1").value || 0;
+        let b = document.getElementById("num2").value || 1;
+        let rst= ExtendEuclide(a,b);      
+        if(rst[0] === 1)
+        {
+            document.getElementById("uVal").value = rst[1];
+            document.getElementById("vVal").value = rst[2];
+
+        }
+        else{
+          document.getElementById("uVal").value =  "\u2205" || " ∅ ";
+            document.getElementById("vVal").value = "\u2205" || " ∅ ";
+          warning("L'équation de bézout n'admet pas de solution car PGCD("+a+", "+ b+ ") = " + rst[0] + " \u2260  1","warnHolder");
+        }
+    });
+    let btnpgcd = document.getElementById("pgcd");
+    btnpgcd.addEventListener("click",(ev)=>{
+      ev.preventDefault();
+      let a = document.getElementById("ap").value || 0;
+    let b = document.getElementById("bp").value || 0;
+    let pgcd= gcd(a,b);
+    document.getElementById("pgcdVal").value = pgcd;
 
     });
-    function warning(alertMsg){
-  let msgarea=document.getElementById("holder");
+
+    function fastExpo(base , exp, n){
+      let result = 1;
+      while (exp > 0){
+      if( (exp % 2)=== 1) 
+        result = (result * base) % n; 
+      base = (base * base) % n;
+      exp = Math.floor(exp/2);
+    }
+    return result;
+}
+    function warning(alertMsg, idHolder){
+  let msgarea=document.getElementById(idHolder);
   let divWarn = document.createElement("div");
   divWarn.classList.add("alert", "alert-warning", "alert-dismissible", "fade", "show");
   divWarn.role="alert";
