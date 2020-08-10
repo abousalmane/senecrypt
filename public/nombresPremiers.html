@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="fr">
 
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <meta name="Senecrypt" content="Cipher tools"/>
-  <meta name="author" content="Djibril NDIAYE"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="Senecrypt" content="Cipher tools">
+  <meta name="author" content="Djibril NDIAYE">
 
   <title>Nombres Premiers et factorisation</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous"/>
-<link rel="stylesheet" href="/styles/main.css"/>
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+<link rel="stylesheet" href="/styles/main.css">
 
   <style>
   input {
@@ -41,7 +41,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="alphabets.html">Generation d'alphabets </a></li>
-              <li><hr class="dropdown-divider"/></li>
+              <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="calculsModulaires.html">Calculs modulaires</a></li>
               <li><a class="dropdown-item active"  aria-current="page" href="nombresPremiers.html">Nombres Premiers et factorisation</a></li>
             </ul>
@@ -71,51 +71,27 @@
    <div class="col-md-6">
     <h2>Test de Primalité</h2>
     <p>Vérifer si un nombre n est <strong>premier</strong>  ou pas</p>
-    <label for="nval"> n = <input type="number" id="nval" pattern="[0-9.]+" placeholder="n" class="mb-2"/></label>
-    <button id="isprimeBtn" class="mb-2"> est-ce Premier ? </button> <br/>
-    <span id="resp" class="text-font-bold display-6"></span>
+    <label for="nval"> n = <input type="number" id="nval" pattern="[0-9.]+" placeholder="n" class="mb-2"></label>
+    <button id="isprimeBtn" class="mb-2"> est-ce Premier ? </button> <br>
+    <span id="resp" class="font-weight-bold display-6"></span>
    </div>
    <div class="col-md-6">
      <h2> Factorisation en Produit de nombres Premiers </h2>
-     <p>Décomoser un nombre en produit de facteur premier</p>
-     <label for="numval"> n = <input type="number" id="numval" pattern="[0-9]+" placeholder="n" class="mb-2"/></label>
-     <button id="factorBtn" class="mb-2"> Factoriser </button> <br/>
-     <span id="factResp" class="text-font-bold"></span>
+     <p>Décomposer un nombre en produit de facteurs premiers</p>
+     <label for="numval"> n = <input type="number" id="numval" pattern="[0-9]+" placeholder="n" class="mb-2"></label>
+     <button id="factorBtn" class="mb-2"> Factoriser </button> <br>
+     <span id="factResp" class="font-weight-bold display-6"></span>
    </div>
    </div>
    <div class="row">
     <div class="col text-center">
       <h2 >Calculer l'indicateur d'Euler phi</h2>
-      <p>calculer la valeur de : </p>
-        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-       <mi>&#x03C6;<!-- φ --></mi>
-       <mo stretchy="false">(</mo>
-       <mi>n</mi>
-       <mo stretchy="false">)</mo>
-       <mo>=</mo>
-       <mi>n</mi>
-       <munder>
-         <mo>&#x220F;<!-- ∏ --></mo>
-         <mrow class="MJX-TeXAtom-ORD">
-           <mi>p</mi>
-           <mo>&#x2223;<!-- ∣ --></mo>
-           <mi>n</mi>
-         </mrow>
-       </munder>
-       <mrow>
-         <mo>(</mo>
-         <mn>1</mn>
-         <mo>&#x2212;<!-- − --></mo>
-         <mfrac>
-           <mn>1</mn>
-           <mi>p</mi>
-         </mfrac>
-         <mo>)</mo>
-       </mrow>
-     </math> <br/>
-      <label for="nphi"> n = <input type="number" id="nphi" pattern="[0-9.]+" placeholder="n" class="mb-2"/></label>
-      <button id="phiBtn" class="mb-2"> Calculer φ(n) </button> <br/>
-      <span id="phiResp" class="text-font-bold display-6"></span>
+      <p>calculer la valeur de :  <span class="font-weight-bold" >φ(n) = n<span class="h5">&#x3A0</span> <sub>p|n</sub> (1 - <sup>1</sup> &frasl; <sub>p</sub>) </span></p>
+
+        <br>
+      <label for="nphi"> n = <input type="number" id="nphi" pattern="[0-9.]+" placeholder="n" class="mb-2"></label>
+      <button id="phiBtn" class="mb-2"> Calculer φ(n) </button> <br>
+      <span id="phiResp" class="font-weight-bold display-6"></span>
     </div>
    </div>
   </div>
@@ -129,8 +105,8 @@
       document.getElementById("resp").style.color = "red";
       throw "Argument error" ;    
     }
-    if ( n &lt; 2 ) {
-      document.getElementById("resp").textContent = "nombre trop petit ( &lt; 2)";
+    if (n < 2) {
+      document.getElementById("resp").textContent = "nombre trop petit (< 2)";
       document.getElementById("resp").style.color = "red";
 	}
    else if (n >= 9007199254740992) {
@@ -160,8 +136,9 @@
      rstSpace.style.color = "red";
       throw "Argument error" ;    
     }
-   if (n &lt; 2) {
-		rstSpace.textContent = "nombre trop petit (&lt; 2)";
+   if (n < 2) {
+		rstSpace.textContent = "nombre trop petit (< 2)";
+    rstSpace.style.color = "red";
 	} else if (n >= 9007199254740992) {
 		rstSpace.textContent = "Désolé, ce nombre est trop grand";
     rstSpace.style.color = "red";
@@ -177,7 +154,7 @@
 		rstSpace.textContent = n + " = " + factors.join(" " + TIMES + " ");
 		
 		// Build prime factor list with powers in superscripts
-		if (factorList.length &lt; factors.length) {
+		if (factorList.length < factors.length) {
 			clearChildren(rstSpace);
 			
 			appendText(n + " = ");
@@ -205,8 +182,8 @@
       document.getElementById("phiResp").style.color = "red";
       throw "Argument error" ;    
     }
-    if (n &lt; 2) {
-    document.getElementById("phiResp").textContent = "nombre trop petit (&lt; 2)";
+    if (n < 2) {
+    document.getElementById("phiResp").textContent = "nombre trop petit (< 2)";
     document.getElementById("phiResp").style.color = "red";
 	} else if (n >= 9007199254740992) {
     document.getElementById("phiResp").textContent = "Désolé, ce nombre est trop grand";
@@ -221,7 +198,7 @@
 
   });
     const isPrime  = (num) =>{
-        for(let i = 2 , s = Math.sqrt(num);i &lt;=s;i++)
+        for(let i = 2 , s = Math.sqrt(num);i<=s;i++)
             if(num % i === 0) return false;
         return num > 1;
 }
@@ -242,7 +219,7 @@ function eulerTotient(n){
  */
 function primeFactorList(numberText) {
   let n= parseInt(numberText, 10);
-	if (n &lt; 1)
+	if (n < 1)
 		throw "Argument error";
 	var result = [];
 	while (n != 1) {
@@ -259,12 +236,12 @@ function primeFactorList(numberText) {
  * - smallestFactor(15) = 3.
  */
  function smallestFactor(n) {
-	if (n &lt; 2)
+	if (n < 2)
 		throw "Argument error";
 	if (n % 2 === 0)
 		return 2;
 	var end = Math.floor(Math.sqrt(n));
-	for (var i = 3; i &lt;= end; i += 2) {
+	for (var i = 3; i <= end; i += 2) {
 		if (n % i === 0)
 			return i;
 	}
@@ -280,7 +257,7 @@ function primeFactorList(numberText) {
 	var result = [];
 	var prevFactor = factors[0];
 	var count = 1;
-	for (var i = 1; i &lt; factors.length; i++) {
+	for (var i = 1; i < factors.length; i++) {
 		if (factors[i] == prevFactor) {
 			count++;
 		} else {
