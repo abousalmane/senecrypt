@@ -20,10 +20,10 @@ let algo= req.body['algo'];
 let key=req.body['key'];
 let text=req.body['text'];
 let op = req.body['op'];
-    console.log("algo "+ algo);
+  /*   console.log("algo "+ algo);
     console.log("key "+ key);
     console.log("text "+ text);
-    console.log("op " + op);
+    console.log("op " + op); */
     var result;
     switch(algo){
       case 'cesar' :
@@ -51,5 +51,18 @@ let op = req.body['op'];
     res.status(200);
     res.end(result);
 });
+
+app.post('/kasiski',function (req, res) {
+  let crypto= req.body['crypto'];
+  let keyMin=req.body['keyMin'];
+  let keyMax=req.body['keyMax'];
+  let polygramme = req.body['polygramme'];
+  let rslt = "wainting....." + crypto + keyMin+" "+ keyMax+" " + polygramme;
+  res.setHeader('Content-Type','text/plain');
+  res.status(200);
+  res.end(rslt);
+  
+});
+
 
 app.listen(process.env.PORT || 8080);

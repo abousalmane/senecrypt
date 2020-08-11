@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="Senecrypt" content="modulus calculator">
+    <meta name="author" content="Djibril NDIAYE">
+    <title>Calculs mudulaires</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+  integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+<link rel="stylesheet" href="/styles/main.css">
+<style>
+input{
+  width: 5em;
+}
+
+</style>
+</head>
+<body>
+    <header>
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark ">
+          <div class="container-fluid">
+          <a class="navbar-brand" href="/">SeneCrypt</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Accueil </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Outils Crypto
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="alphabets.html">Generation d'alphabets </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item active"  aria-current="page" href="calculsModulaires.html">Calculs modulaires</a></li>
+                  <li><a class="dropdown-item" href="#">Nombres Premiers et factorisation</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Cryptanalyse
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="analyseFrequentielle.html">Analyse fréquentielle </a></li>
+                  <li><a class="dropdown-item" href="#">Test de Kasiski/Babbage</a></li>
+                  <li><a class="dropdown-item" href="#">Indice de coincidence</a></li>
+                  <li><a class="dropdown-item" href="#">Test de mot probable</a></li>
+                  <li><a class="dropdown-item" href="#">Recherche d'anagrammes</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="apropos.html">A propos</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </nav>
+      </header>
+
+      <div class="container p-5 mt-4">
+        <div class="row border border-dark">
+            <div class="col mb-4" >
+                <h2 class="h3">La methode de Kasiski / Babbage </h2>
+                <p>Cette methode permet de determiner <strong> la longueur de la clé </strong> d'un chiffre <strong>polyalphabetique</strong> 
+                (tels que Vigenere, Beaufort, Allemand, etc...) et de pouvoir donc le decrypter en separant le cryptogramme en des colonnes 
+                égales a la longueur de la clé puis de faire une etude de frequence par colonne.
+                Pour savoir les détails de cette methode, lire le texte ci-dessous apres le programme d'analyse.
+            </p>
+                <form class="form-control" style="background-color:navajowhite;">
+                    <textarea name="text" id="crypto" rows="8" class="form-control" required placeholder="Saisir ou coller votre crypto ici" ></textarea> <br/>
+                    <label for="keyMin">Longueur Clé entre <input type="number" id="keyMin" size="3" placeholder="3" value="3" min="3" max="28" class="mb-2"/></label>
+                    <label for="keyMax"> et <input type="number" id="keyMax" size="3" placeholder="25" value="25" min="5" max="30" class="mb-2"/> </label>
+                    <br/>
+                    <span>Rechercher Répétition </span> 
+                    <label for="bigramme" class="font-weight-bold"> <input type="radio" name="polygramme" value="bigramme" id="bigramme"> Bigramme </label>
+                    <label for="trigramme" class="font-weight-bold"> <input type="radio" name="polygramme" id="trigramme" value="trigramme" checked> trigramme</label>
+                    <label for="quadrigramme" class="font-weight-bold"><input type="radio" name="polygramme" value="quadrigramme" id="quadrigramme"> Quadrigramme </label> <br/>
+                    <button id="start" class="m-2"> Démarrer l'analyse </button>
+                </form>
+                <div id="rstSection">
+
+                </div>
+                <div id="holder" class="m-2">  </div>
+            </div>
+                
+          
+<script>
+ 
+ document.getElementById("start").addEventListener("click", (ev) =>{
+          ev.preventDefault();
+          inputMananger();
+
+ });
+ function inputMananger(){
+let text = document.getElementById("crypto").value;
+let keyMin = document.getElementById("keyMin").value;
+let keyMax = document.getElementById("keyMax").value;
+if(check(text, keyMin, keyMax)){
+  let radioAlgo= document.querySelector('input[type=radio]:checked').value;
+   text= format(text);
+      send({"crypto": text,
+            "keyMin": keyMin,
+            "keyMax": keyMax,
+            "polygramme" : radioAlgo          
+          }, resHandler,spinShower);
+}
+console.log(text+" "+ keyMin+ " " + keyMax);
+
+}
+function send(jsobject,resHandler, spinShower){
+  spinShower(true);
+  const http= new XMLHttpRequest();
+  http.open("POST", '/kasiski');
+  http.setRequestHeader("Content-Type","application/json");
+  http.onload = function(){
+    if(this.status===200){
+      resHandler(http.responseText);
+      spinShower(false);
+    }
+  }
+http.send(JSON.stringify(jsobject));
+}
+spinShower = (bool)=> {
+  let holder=document.getElementById("holder");
+  if(bool){
+  let divSpin = document.createElement("div");
+  divSpin.classList.add("spinner-border", "text-primary");
+  divSpin.role="status";
+let span= document.createElement("span");
+    span.textContent = " Chargement en cours ...";
+    span.classList.add("text-primary");
+    holder.appendChild(divSpin);
+    holder.appendChild(span);
+  }
+  else { while(holder.firstChild)
+          holder.removeChild(holder.lastChild)        
+  }
+
+}
+
+function check(str, keyMin, keyMax){
+  if(str.length === 0 || !str.trim()){
+   warning("Veillez saisir le texte chiffré avant de valider !");
+   return false;
+ }
+ if( parseInt(keyMin) >= parseInt(keyMax)){
+   warning("La longueur maximal de la clé doit etre plus grand que sa longueur maximal !");
+   return false;
+ }
+ return true;
+}
+function format (text){
+   text=text.replace(/[^a-zA-Z]/gi, '');
+    return text.toUpperCase();
+}  
+
+function warning(alertMsg){
+  let msgarea=document.getElementById("holder");
+  let divWarn = document.createElement("div");
+  divWarn.classList.add("alert", "alert-warning", "alert-dismissible", "fade", "show");
+  divWarn.role="alert";
+  let  msg= document.createTextNode(alertMsg);
+  let  btn=document.createElement("button");
+   btn.type="button"; 
+   btn.classList.add("close");
+   btn.setAttribute("data-dismiss","alert" );
+   btn.setAttribute("aria-label","Close");
+   let sp=document.createElement("span");
+   sp.setAttribute("aria-hidden","true");
+   sp.innerHTML="&times;";
+   btn.appendChild(sp);
+   divWarn.appendChild(msg)
+   divWarn.appendChild(btn);
+   msgarea.appendChild(divWarn);
+   window.setTimeout(()=>{
+    let warn=new bootstrap.Alert(document.querySelector('.alert'));
+      warn.close()}, 3000);
+}
+function formatResp(resptxt){
+
+  return resptxt;
+}
+resHandler = (respText) =>{
+  document.getElementById("rstSection").innerText=formatResp(respText);
+  }
+
+</script>
+
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+   integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+   crossorigin="anonymous"></script>
+</body>
+</html>
