@@ -83,11 +83,15 @@ input{
                     <label for="quadrigramme" class="font-weight-bold"><input type="radio" name="polygramme" value="quadrigramme" id="quadrigramme"> Quadrigramme </label> <br/>
                     <button id="start" class="m-2"> Démarrer l'analyse </button>
                 </form>
-                <div id="rstSection">
-
-                </div>
                 <div id="holder" class="m-2">  </div>
+                <div >
+                  <p id="rstText" class="text-weigth-bold" ></p>
+                    <table> </table>
+                </div>
+               
             </div>
+        </div>
+      </div>
                 
           
 <script>
@@ -102,7 +106,7 @@ let text = document.getElementById("crypto").value;
 let keyMin = document.getElementById("keyMin").value;
 let keyMax = document.getElementById("keyMax").value;
 if(check(text, keyMin, keyMax)){
-  let radioAlgo= document.querySelector('input[type=radio]:checked').value;
+  let radioAlgo = document.querySelector('input[type=radio]:checked').value;
    text= format(text);
       send({"crypto": text,
             "keyMin": keyMin,
@@ -182,18 +186,55 @@ function warning(alertMsg){
     let warn=new bootstrap.Alert(document.querySelector('.alert'));
       warn.close()}, 3000);
 }
-function formatResp(resptxt){
-
-  return resptxt;
-}
 resHandler = (respObj) =>{
-
-  let LongeurCles = respObj.pop();
-console.log(respObj);
-
-  //console.log(respObj);
-  document.getElementById("rstSection").innerText=formatResp(LongeurCles["LougueurCle"]);
+  let table = document.querySelector("table");
+  while (table.firstChild) {
+    table.removeChild(table.lastChild);
   }
+  if(respObj[0]["Repetition"] === "NEANT"){
+    document.getElementById("rstText").innerHTML= "<strong> Aucune répétition</strong> de "+ document.querySelector('input[type=radio]:checked').value+
+    "s n'est trouvé; <br/> La méthode d'analyse de Kasiski Babbage n'est pas applicable" ;
+    console.log("NEANT");
+    return ;
+  }
+  let longeurCles = respObj.pop();
+ document.getElementById("rstText").innerHTML= "<strong> Longueur(s) de la clef </strong> Par ordre de probabilité du plus grand au plus petit: " 
+ + "<strong>"+ longeurCles["LougueurCle"].join(' ') + "</strong> <br/> Obtenu en calulant les PGDCs de tous les écarts entres les répétitions des "+ 
+ document.querySelector('input[type=radio]:checked').value +"s présentés dans le tableau ci_dessous. " ;
+  let body = document.createElement("tbody");
+  table.classList.add("table","table-dark","table-striped", "table-hover");
+  let title = document.createElement("caption");
+  title.innerHTML = "Résultat de l'analyse :";
+  title.style.captionSide="top";
+  title.classList.add("h3");
+  let data = Object.keys(respObj[0]);
+  generateTableHead(table, data);
+  generateTable(body, respObj);
+  table.appendChild(title);
+  table.appendChild(body);
+  }
+  function generateTableHead(table, data) {
+  let thead = table.createTHead();
+  let row = thead.insertRow();
+  for (let key of data) {
+    let th = document.createElement("th");
+    th.setAttribute("scope","col");
+    let text = document.createTextNode(key);
+    th.appendChild(text);
+    row.appendChild(th);
+  }
+}
+function generateTable(table, data) {
+  for (let element of data) {
+    let row = table.insertRow();
+    row.setAttribute("scope","row");
+    for (key in element) {
+      let cell = row.insertCell();
+      let text = document.createTextNode(element[key]);
+      cell.appendChild(text);
+    }
+  }
+}
 </script>
 
  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>

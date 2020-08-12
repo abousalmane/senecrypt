@@ -1,13 +1,13 @@
-function sortbyoccurences(a,b)
+function sortbyOccurences(a,b)
 {
-    return parseInt(b.occurences) - parseInt(a.occurences);
+    return parseInt(b.Occurences) - parseInt(a.Occurences);
 }
 ecartList = (objTrig) =>{
-  objTrig["ecart"]=[];
-    for(let i = 0; i< objTrig["pos"].length - 1;i++)
+  objTrig["Ecart"]=[];
+    for(let i = 0; i< objTrig["Position"].length - 1;i++)
     {
-        for(let j = i+1; j<objTrig["pos"].length;j++)
-            objTrig["ecart"].push(Math.abs(objTrig["pos"][j] - objTrig["pos"][i]))  ;
+        for(let j = i+1; j<objTrig["Position"].length;j++)
+            objTrig["Ecart"].push(Math.abs(objTrig["Position"][j] - objTrig["Position"][i]))  ;
 
     }
 }
@@ -23,9 +23,7 @@ pgcdList = (listEcart, keyMin,keyMax) =>{
         }
             
     }
-    console.log(" tous les pgcddes ecart ---"+ pgcdEcart);
-   
-    // retourne un objet qui a pour cle les pgcd et pour occurences leurs nombres doccurences
+    // retourne un objet qui a pour cle les pgcd et pour valeur leurs nombres doccurences
     let pgcdObjt = pgcdEcart.reduce( (acc, curr) =>{
       acc[curr] ? acc[curr]++ : acc[curr] = 1;
       return acc; 
@@ -57,38 +55,39 @@ function trigramme(texte, keymin=3, keyMax=25)
        for (k=0;k<26;k++)
        {
        	  trigrammes[i*26*26+j*26+k]=new Object;
-       	  trigrammes[i*26*26+j*26+k]["nom"]=alphabet.charAt(i)+alphabet.charAt(j)+alphabet.charAt(k);;
-          trigrammes[i*26*26+j*26+k]["occurences"]=0;
-          trigrammes[i*26*26+j*26+k]["pos"]=[];
+       	  trigrammes[i*26*26+j*26+k]["Trigrammes"]=alphabet.charAt(i)+alphabet.charAt(j)+alphabet.charAt(k);;
+          trigrammes[i*26*26+j*26+k]["Occurences"]=0;
+          trigrammes[i*26*26+j*26+k]["Position"]=[];
        }
        
   //On le remplit!
   
   for (i=0;i<texte.length-2;i++)
   {
-    trigrammes[alphabet.indexOf(texte.charAt(i))*26*26+alphabet.indexOf(texte.charAt(i+1))*26+alphabet.indexOf(texte.charAt(i+2))]["occurences"]++;
-    trigrammes[alphabet.indexOf(texte.charAt(i))*26*26+alphabet.indexOf(texte.charAt(i+1))*26+alphabet.indexOf(texte.charAt(i+2))]["pos"].push(i+1);
+    trigrammes[alphabet.indexOf(texte.charAt(i))*26*26+alphabet.indexOf(texte.charAt(i+1))*26+alphabet.indexOf(texte.charAt(i+2))]["Occurences"]++;
+    trigrammes[alphabet.indexOf(texte.charAt(i))*26*26+alphabet.indexOf(texte.charAt(i+1))*26+alphabet.indexOf(texte.charAt(i+2))]["Position"].push(i+1);
   
   }     
        
   //On trie le tableau
-  trigrammes.sort(sortbyoccurences);
+  trigrammes.sort(sortbyOccurences);
   // my add   
     i=0;
-  while(trigrammes[i]["occurences"]>1)
-       {ecartList(trigrammes[i]);
-          // sortie+=trigrammes[i]["nom"]+" : "+trigrammes[i]["occurences"]+"--"+"Position "+trigrammes[i]["pos"]+"--ecart--"+trigrammes[i]["ecart"] + "\n";
-           i++;
-       }     
-       trigrammes = trigrammes.slice(0,i) ;       
-  let allEcart = trigrammes.reduce((accumulator, obj) => accumulator.concat(obj["ecart"]),[] );
+  while(trigrammes[i]["Occurences"]>1) {
+      ecartList(trigrammes[i]);
+      i++;  
+  }     
+  if(i === 0){
+      return [{"Repetition":"NEANT"}];
+  }
+  trigrammes = trigrammes.slice(0,i) ;       
+  let allEcart = trigrammes.reduce((accumulator, obj) => accumulator.concat(obj["Ecart"]),[] );
   let listPgcd = pgcdList(allEcart,keymin,keyMax);
   trigrammes.push({"LougueurCle" : listPgcd}) ;
-  console.log("Tous les ecarts"+allEcart + " -- total " + allEcart.length);
+/*   console.log("Tous les ecarts"+allEcart + " -- total " + allEcart.length);
   console.log(" --------------------- ------------------------  ");
-  console.log(" Longueur Cle Probable " + listPgcd) 
+  console.log(" Longueur Cle Probable " + listPgcd)  */
  	return trigrammes;	
-	
 }
 function pgcd(a,b) {
   a = Math.abs(a);
