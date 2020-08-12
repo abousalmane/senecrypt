@@ -114,19 +114,26 @@ if(check(text, keyMin, keyMax)){
             "polygramme" : radioAlgo          
           }, resHandler,spinShower);
 }
-console.log(text+" "+ keyMin+ " " + keyMax);
-
 }
 function send(jsobject,resHandler, spinShower){
   spinShower(true);
   const http= new XMLHttpRequest();
   http.open("POST", '/kasiski');
   http.setRequestHeader("Content-Type","application/json");
+  http.timeout = 8000;
   http.onload = function(){
     if(this.status===200){
       resHandler(JSON.parse(http.response));
       spinShower(false);
     }
+  }
+  http.ontimeout = (e) =>{
+    spinShower(false);
+    warning("Désolé, la requéte a expiré ");
+  }
+  http.onerror = function(){
+    spinShower(false);
+    warning("Erreur de connexion");
   }
 http.send(JSON.stringify(jsobject));
 }
@@ -194,7 +201,6 @@ resHandler = (respObj) =>{
   if(respObj[0]["Repetition"] === "NEANT"){
     document.getElementById("rstText").innerHTML= "<strong> Aucune répétition</strong> de "+ document.querySelector('input[type=radio]:checked').value+
     "s n'est trouvé; <br/> La méthode d'analyse de Kasiski Babbage n'est pas applicable" ;
-    console.log("NEANT");
     return ;
   }
   let longeurCles = respObj.pop();
@@ -230,7 +236,7 @@ function generateTable(table, data) {
     row.setAttribute("scope","row");
     for (key in element) {
       let cell = row.insertCell();
-      let text = document.createTextNode(element[key]);
+      let text = document.createTextNode( (key==="Position" || key==="Ecart")? element[key].join(' ') : element[key]);
       cell.appendChild(text);
     }
   }

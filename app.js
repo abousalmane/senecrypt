@@ -57,11 +57,21 @@ app.post('/kasiski',function (req, res) {
   let keyMin=req.body['keyMin'];
   let keyMax=req.body['keyMax'];
   let polygramme = req.body['polygramme'];
-  let rslt = analyser.trigramme(crypto,keyMin,keyMax);
+  let rslt;
+  switch(polygramme){
+  case 'trigramme':
+      rslt = analyser.trigramme(crypto,keyMin,keyMax);  break;
+  case 'bigramme' :{
+    rslt = analyser.bigramme(crypto,keyMin,keyMax); break;
+  }
+  case 'quadrigramme' :{
+    rslt = analyser.quadrigramme(crypto,keyMin,keyMax); break;
+  }
+      
+  }
   res.setHeader('Content-Type','application/json');
   res.status(200);
   res.send(JSON.stringify(rslt));
-  
 });
 
 

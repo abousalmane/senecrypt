@@ -180,11 +180,20 @@ function send(jsobject,resHandler, spinShower){
   const http= new XMLHttpRequest();
   http.open("POST", '/crypt');
   http.setRequestHeader("Content-Type","application/json");
+  http.timeout = 8000; // After 8 second of non -response the request expire
   http.onload = function(){
     if(this.status===200){
       resHandler(http.responseText);
       spinShower(false);
     }
+  }
+  http.onerror = function(){
+    spinShower(false);
+    warning("Erreur de connexion");
+  }
+  http.ontimeout = (e) =>{
+    spinShower(false);
+    warning("Désolé, la requéte a expiré");
   }
 http.send(JSON.stringify(jsobject));
 }

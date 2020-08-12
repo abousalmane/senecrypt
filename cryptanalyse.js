@@ -42,13 +42,6 @@ function trigramme(texte, keymin=3, keyMax=25)
 	var i;
 	var j;
 	var k;
-    var sortie='';
-    
-    //texte=formate_stat_entree(texte);
-    
-    sortie+="Nombre de caracteres analysés du texte : "+texte.length+"\n";
-
-
    // On commence par initialiser le tableau des bigrammes...
    for (i=0;i<26;i++)
      for (j=0;j<26;j++)
@@ -71,7 +64,7 @@ function trigramme(texte, keymin=3, keyMax=25)
        
   //On trie le tableau
   trigrammes.sort(sortbyOccurences);
-  // my add   
+  // Onrecupere que les trigrammes aparu pls dune fois   
     i=0;
   while(trigrammes[i]["Occurences"]>1) {
       ecartList(trigrammes[i]);
@@ -89,6 +82,97 @@ function trigramme(texte, keymin=3, keyMax=25)
   console.log(" Longueur Cle Probable " + listPgcd)  */
  	return trigrammes;	
 }
+function bigramme(texte,keymin=3, keyMax=25)
+{
+	var bigrammes=new Array(676);
+	var alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	
+	var i;
+	var j;
+    var sortie='';
+    sortie+="Nombre de caracteres analyses du texte : "+texte.length+"\n";
+// On commence par initialiser le tableau des bigrammes...
+   for (i=0;i<26;i++)
+     for (j=0;j<26;j++)
+       {
+       	  bigrammes[i*26+j]=new Object;
+       	  bigrammes[i*26+j]["Bigrammes"]=alphabet.charAt(i)+alphabet.charAt(j);
+           bigrammes[i*26+j]["Occurences"]=0;
+           bigrammes[i*26+j]["Position"]=[];
+           
+       }    
+  //On le remplit!
+  for (i=0;i<texte.length-1;i++)
+  {
+    bigrammes[alphabet.indexOf(texte.charAt(i))*26+alphabet.indexOf(texte.charAt(i+1))]["Occurences"]++;
+    bigrammes[alphabet.indexOf(texte.charAt(i))*26+alphabet.indexOf(texte.charAt(i+1))]["Position"].push(i+1);
+    
+  }     
+       
+  //On trie le tableau
+  bigrammes.sort(sortbyOccurences);
+  i=0;
+  while(bigrammes[i]["Occurences"]>1) {
+    ecartList(bigrammes[i]);
+    i++;  
+}     
+if(i === 0){
+    return [{"Repetition":"NEANT"}];
+}
+  bigrammes = bigrammes.slice(0,i);
+  let allEcart = bigrammes.reduce((accumulator, obj) => accumulator.concat(obj["Ecart"]),[] );
+  let listPgcd = pgcdList(allEcart,keymin,keyMax);
+  bigrammes.push({"LougueurCle" : listPgcd}) ;
+
+ return bigrammes; 
+}
+function quadrigramme(texte, keyMin=3, keyMax=25)
+{
+	var quadrigrammes=new Array(456976);
+	var alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	var i;
+	var j;
+	var k;
+	var l;
+   // On commence par initialiser le tableau des bigrammes...
+   for (i=0;i<26;i++)
+     for (j=0;j<26;j++)
+       for (k=0;k<26;k++)
+         for (l=0;l<26;l++)
+         {
+       	    quadrigrammes[i*26*26*26+j*26*26+k*26+l]=new Object;
+       	    quadrigrammes[i*26*26*26+j*26*26+k*26+l]["Quadrigrammes"]=alphabet.charAt(i)+alphabet.charAt(j)+alphabet.charAt(k)+alphabet.charAt(l);
+             quadrigrammes[i*26*26*26+j*26*26+k*26+l]["Occurences"]=0;
+             quadrigrammes[i*26*26*26+j*26*26+k*26+l]["Position"]=[];
+         }
+       
+  //On le remplit!
+  
+  for (i=0;i<texte.length-3;i++)
+  {
+  	quadrigrammes[alphabet.indexOf(texte.charAt(i))*26*26*26+alphabet.indexOf(texte.charAt(i+1))*26*26+alphabet.indexOf(texte.charAt(i+2))*26+alphabet.indexOf(texte.charAt(i+3))]["Occurences"]++;
+    quadrigrammes[alphabet.indexOf(texte.charAt(i))*26*26*26+alphabet.indexOf(texte.charAt(i+1))*26*26+alphabet.indexOf(texte.charAt(i+2))*26+alphabet.indexOf(texte.charAt(i+3))]["Position"].push(i+1);
+  }     
+       
+  //On trie le tableau
+  quadrigrammes.sort(sortbyOccurences);
+  i=0;
+  while(quadrigrammes[i]["Occurences"]>1) {
+      ecartList(quadrigrammes[i]);
+      i++;  
+  }     
+  if(i === 0){
+      return [{"Repetition":"NEANT"}];
+  }
+  quadrigrammes = quadrigrammes.slice(0,i) ;       
+  let allEcart = quadrigrammes.reduce((accumulator, obj) => accumulator.concat(obj["Ecart"]),[] );
+  let listPgcd = pgcdList(allEcart,keyMin,keyMax);
+  quadrigrammes.push({"LougueurCle" : listPgcd}) ;
+
+  return quadrigrammes;     
+}
+
+
 function pgcd(a,b) {
   a = Math.abs(a);
   b = Math.abs(b);
@@ -110,7 +194,9 @@ function pgcd(a,b) {
 "DCLDHWTYYIDGMVRDGMPLSWGJLAGOEEKJOFEKUYTAANYTDWIYBNLNYNP"+
 "WEBFNLFYNAJEBFR")); */ // cle =5 
 //console.log(trigramme("LFWKIMJCLPSISWKHJOGLKMVGURAGKMKMXMAMJCVXWUYLGGIISWALXAEYCXMFKMKBQBDCLAEFLFWKIMJCGUZUGSKECZGBWYMOACFVMQKYFWXTWMLAIDOYQBWFGKSDIULQGVSYHJAVEFWBLAEFLFWKIMJCFHSNNGGNWPWDAVMQFAAXWFZCXBVELKWMLAVGKYEDEMJXHUXDAVYXL",5,16)); // cle = 6
-// console.log(trigramme("JCCMFQKDWLFVZQWCSCESXYOAVSXLWARBBVZQEQWEGKZSVKZQXCBVDIIZWIUCVWTJSTZUWKOQKXIDOQJSTCSVRJIZHBRBBISDVRMJJQJOOVGLVBWPSARTNCSCIOQVBBRZIJIZWOKVRCESUVFMKOTVSTCSDFMIZHTVGGVIFMSZKGAFIDIWZVHAVFMWSZDSZTCUDSTVGDRZDVGTVBBVGLLBKFECZZTRUMVBBISLVIFVOCOZMJCUDSQCSUGCZKOQKQMJTITSAUSOZGIEHACSAZZMEQMCOXRWFCSDZRMGFMJECVXIMOQJJCLBNLFMKCCLBMWCCZBMKFIMSZJSZCSURQIUOUCSZLPIEECZRMWWTVSBKCCJQMJFCSOVJGCIZIICCKSMKQMLLYLCVECCJOKTFWTVMJIZCOXFWBIWVVIVACCICCCOCKFMJINWWBUOBKSVUFM")); // cle = 
+//console.log(quadrigramme("JCCMFQKDWLFVZQWCSCESXYOAVSXLWARBBVZQEQWEGKZSVKZQXCBVDIIZWIUCVWTJSTZUWKOQKXIDOQJSTCSVRJIZHBRBBISDVRMJJQJOOVGLVBWPSARTNCSCIOQVBBRZIJIZWOKVRCESUVFMKOTVSTCSDFMIZHTVGGVIFMSZKGAFIDIWZVHAVFMWSZDSZTCUDSTVGDRZDVGTVBBVGLLBKFECZZTRUMVBBISLVIFVOCOZMJCUDSQCSUGCZKOQKQMJTITSAUSOZGIEHACSAZZMEQMCOXRWFCSDZRMGFMJECVXIMOQJJCLBNLFMKCCLBMWCCZBMKFIMSZJSZCSURQIUOUCSZLPIEECZRMWWTVSBKCCJQMJFCSOVJGCIZIICCKSMKQMLLYLCVECCJOKTFWTVMJIZCOXFWBIWVVIVACCICCCOCKFMJINWWBUOBKSVUFM",3,20)); // cle = 3
 module.exports = {
-    trigramme
+    trigramme,
+    bigramme,
+    quadrigramme
 };
