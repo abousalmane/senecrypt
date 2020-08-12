@@ -51,16 +51,16 @@ let op = req.body['op'];
     res.status(200);
     res.end(result);
 });
-
+var analyser = require('./cryptanalyse.js');
 app.post('/kasiski',function (req, res) {
   let crypto= req.body['crypto'];
   let keyMin=req.body['keyMin'];
   let keyMax=req.body['keyMax'];
   let polygramme = req.body['polygramme'];
-  let rslt = "wainting....." + crypto + keyMin+" "+ keyMax+" " + polygramme;
-  res.setHeader('Content-Type','text/plain');
+  let rslt = analyser.trigramme(crypto,keyMin,keyMax);
+  res.setHeader('Content-Type','application/json');
   res.status(200);
-  res.end(rslt);
+  res.send(JSON.stringify(rslt));
   
 });
 

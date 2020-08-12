@@ -122,8 +122,8 @@ if(text.length === 0 || !text.trim()){
      lettersLabel.push(freq[i]["lettre"]);
     }   
  }
- console.log(val);
- console.log(lettersLabel);
+/*  console.log(val);
+ console.log(lettersLabel); */
  setChart(lettersLabel,val);
 
 });
@@ -183,7 +183,6 @@ function generateTableHead(table, data) {
   }
 }
 function generateTable(table, data) {
-  //let tbody= document.createElement("tbody");
   for (let element of data) {
     let row = table.insertRow();
     row.setAttribute("scope","row");

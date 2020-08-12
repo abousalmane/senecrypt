@@ -120,7 +120,7 @@ function send(jsobject,resHandler, spinShower){
   http.setRequestHeader("Content-Type","application/json");
   http.onload = function(){
     if(this.status===200){
-      resHandler(http.responseText);
+      resHandler(JSON.parse(http.response));
       spinShower(false);
     }
   }
@@ -177,7 +177,7 @@ function warning(alertMsg){
    btn.appendChild(sp);
    divWarn.appendChild(msg)
    divWarn.appendChild(btn);
-   msgarea.appendChild(divWarn);
+   msgarea.appendChild(divWarn);  
    window.setTimeout(()=>{
     let warn=new bootstrap.Alert(document.querySelector('.alert'));
       warn.close()}, 3000);
@@ -186,10 +186,14 @@ function formatResp(resptxt){
 
   return resptxt;
 }
-resHandler = (respText) =>{
-  document.getElementById("rstSection").innerText=formatResp(respText);
-  }
+resHandler = (respObj) =>{
 
+  let LongeurCles = respObj.pop();
+console.log(respObj);
+
+  //console.log(respObj);
+  document.getElementById("rstSection").innerText=formatResp(LongeurCles["LougueurCle"]);
+  }
 </script>
 
  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
