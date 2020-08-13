@@ -11,28 +11,54 @@ ecartList = (objTrig) =>{
 
     }
 }
-// Calcul le pgcd de tous les ecart puis retournent ceux ayant le plus doccurrences situe entre KeyMin et KeyMax
+// Calcul le pgcd de tous les ecart puis retournent un array tableau des diviseurs comms au Ecarts
 pgcdList = (listEcart, keyMin,keyMax) =>{
   let pgcdEcart=[];
-    for(let i = 0; i< listEcart.length - 1;i++)   {  
+  // Si n'y a qu un seul ecart on cherche ses diviseurs entre keyMin et KeyMax
+  if(listEcart.length === 1){
+    let c=keyMin, l =Math.ceil(listEcart[0]/2);
+    while(c < l && c  <= keyMax){
+        if(listEcart[0] % c ===0) 
+             pgcdEcart.push(c) ;
+      c++;
+    }
+    if(listEcart[0]<=keyMax)
+      pgcdEcart.push(listEcart[0]);
+   return pgcdEcart; 
+  }
+  // sinon
+    for(let i = 0; i<listEcart.length - 1;i++)   {  
         for(let j = i+1; j<listEcart.length;j++)
         {
            let currPgcd =  pgcd(listEcart[j], listEcart[i])
            if( currPgcd >= keyMin  && currPgcd <= keyMax )
-           pgcdEcart.push(currPgcd);
+             pgcdEcart.push(currPgcd);
         }
             
     }
+    if(pgcdEcart.length === 0)
+    return [];
     // retourne un objet qui a pour cle les pgcd et pour valeur leurs nombres doccurences
     let pgcdObjt = pgcdEcart.reduce( (acc, curr) =>{
       acc[curr] ? acc[curr]++ : acc[curr] = 1;
       return acc; 
     },{});
-  return Object.keys(pgcdObjt).sort( (a,b)=>{ return  pgcdObjt[b] - pgcdObjt[a]});
-
+    // on recupere les cle selon leurs ordres doccurence
+  let listCle = Object.keys(pgcdObjt).sort( (a,b)=>{ return  pgcdObjt[b] - pgcdObjt[a]})//.map(Number);
+  //Ajoutons les diviseurs du plus petit des PGCDs de tous les  ecarts, diviseurs superieurs a  keyMin  
+  let minCle = Math.min(...listCle);
+  let diviseurMin=[], c=keyMin, l=Math.ceil(minCle/2);
+  console.log("mincle "+minCle);
+  while(c <= l ){
+      if(minCle % c ===0) 
+           diviseurMin.push(c) ;
+    c++;
+  }
+  console.log(diviseurMin);
+  listCle.splice(listCle.indexOf(minCle),0,...diviseurMin);
+  return listCle;
    
 }
-
 
 function trigramme(texte, keymin=3, keyMax=25)
 {
@@ -193,8 +219,9 @@ function pgcd(a,b) {
 "WGMUSWOVMATNYBUHTCOCWFYTNMGYTQMKBBNLGFBTWOJFTWGNTEJKNEE"+
 "DCLDHWTYYIDGMVRDGMPLSWGJLAGOEEKJOFEKUYTAANYTDWIYBNLNYNP"+
 "WEBFNLFYNAJEBFR")); */ // cle =5 
-//console.log(trigramme("LFWKIMJCLPSISWKHJOGLKMVGURAGKMKMXMAMJCVXWUYLGGIISWALXAEYCXMFKMKBQBDCLAEFLFWKIMJCGUZUGSKECZGBWYMOACFVMQKYFWXTWMLAIDOYQBWFGKSDIULQGVSYHJAVEFWBLAEFLFWKIMJCFHSNNGGNWPWDAVMQFAAXWFZCXBVELKWMLAVGKYEDEMJXHUXDAVYXL",5,16)); // cle = 6
+//console.log(trigramme("LFWKIMJCLPSISWKHJOGLKMVGURAGKMKMXMAMJCVXWUYLGGIISWALXAEYCXMFKMKBQBDCLAEFLFWKIMJCGUZUGSKECZGBWYMOACFVMQKYFWXTWMLAIDOYQBWFGKSDIULQGVSYHJAVEFWBLAEFLFWKIMJCFHSNNGGNWPWDAVMQFAAXWFZCXBVELKWMLAVGKYEDEMJXHUXDAVYXL",3,16)); // cle = 6
 //console.log(quadrigramme("JCCMFQKDWLFVZQWCSCESXYOAVSXLWARBBVZQEQWEGKZSVKZQXCBVDIIZWIUCVWTJSTZUWKOQKXIDOQJSTCSVRJIZHBRBBISDVRMJJQJOOVGLVBWPSARTNCSCIOQVBBRZIJIZWOKVRCESUVFMKOTVSTCSDFMIZHTVGGVIFMSZKGAFIDIWZVHAVFMWSZDSZTCUDSTVGDRZDVGTVBBVGLLBKFECZZTRUMVBBISLVIFVOCOZMJCUDSQCSUGCZKOQKQMJTITSAUSOZGIEHACSAZZMEQMCOXRWFCSDZRMGFMJECVXIMOQJJCLBNLFMKCCLBMWCCZBMKFIMSZJSZCSURQIUOUCSZLPIEECZRMWWTVSBKCCJQMJFCSOVJGCIZIICCKSMKQMLLYLCVECCJOKTFWTVMJIZCOXFWBIWVVIVACCICCCOCKFMJINWWBUOBKSVUFM",3,20)); // cle = 3
+//console.log(bigramme("MFUVAHGUTSGVMFUTUJPPETQSOUCIFP",4,10)) // 3
 module.exports = {
     trigramme,
     bigramme,

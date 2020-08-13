@@ -54,8 +54,8 @@ let op = req.body['op'];
 var analyser = require('./cryptanalyse.js');
 app.post('/kasiski',function (req, res) {
   let crypto= req.body['crypto'];
-  let keyMin=req.body['keyMin'];
-  let keyMax=req.body['keyMax'];
+  let keyMin=parseInt(req.body['keyMin'],10);
+  let keyMax=parseInt(req.body['keyMax'],10);
   let polygramme = req.body['polygramme'];
   let rslt;
   switch(polygramme){
