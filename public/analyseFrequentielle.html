@@ -122,8 +122,6 @@ if(text.length === 0 || !text.trim()){
      lettersLabel.push(freq[i]["lettre"]);
     }   
  }
-/*  console.log(val);
- console.log(lettersLabel); */
  setChart(lettersLabel,val);
 
 });
@@ -140,11 +138,7 @@ function frequences(texte)
 	
 	var i;
     
-    //texte=formate_stat_entree(texte);
-    
-
-
-   // On commence par initialiser le tableau des bigrammes...
+   // On commence par initialiser le tableau des frequences...
    for (i=0;i<26;i++)
        {
        	  lettres[i]=new Object;

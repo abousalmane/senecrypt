@@ -48,13 +48,11 @@ pgcdList = (listEcart, keyMin,keyMax) =>{
   //Ajoutons les diviseurs du plus petit des PGCDs de tous les  ecarts, diviseurs superieurs a  keyMin  
   let minCle = Math.min(...listCle);
   let diviseurMin=[], c=keyMin, l=Math.ceil(minCle/2);
-  console.log("mincle "+minCle);
   while(c <= l ){
       if(minCle % c ===0) 
            diviseurMin.push(c) ;
     c++;
   }
-  console.log(diviseurMin);
   listCle.splice(listCle.indexOf(minCle),0,...diviseurMin);
   return listCle;
    

@@ -183,7 +183,7 @@ function send(jsobject,resHandler, spinShower){
   http.timeout = 8000; // After 8 second of non -response the request expire
   http.onload = function(){
     if(this.status===200){
-      resHandler(http.responseText);
+      resHandler(http.responseText,jsobject["op"]);
       spinShower(false);
     }
   }
@@ -215,10 +215,10 @@ let span= document.createElement("span");
   }
 
 }
-function formatCrypto( str){
+function formatCrypto( str, mode){
    
   let ret="", pad= 5 - str.length % 5;
-  if( pad !== 0){
+  if( pad !== 0 && mode === 0){
     str+= randomCharGenerator(pad);
 
   }
@@ -236,6 +236,6 @@ function randomCharGenerator(length) {
    }
    return result;
 }
-resHandler = (respText) =>{
-  document.getElementById("rst").innerText=formatCrypto(respText);
+resHandler = (respText,mode) =>{
+  document.getElementById("rst").innerText=formatCrypto(respText,mode);
   }

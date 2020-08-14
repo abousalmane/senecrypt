@@ -14,7 +14,10 @@
 input{
   width: 5em;
 }
-
+img {
+    display: block;
+    margin: auto;
+   }
 </style>
 </head>
 <body>
@@ -65,13 +68,14 @@ input{
 
       <div class="container p-5 mt-4">
         <div class="row">
-            <div class="col-lg-6 border border-dark mb-4" >
-                <h2 class="h3">La methode de Kasiski / Babbage </h2>
+            <div class="col mb-4" >
+               <div class="border border-dark"> 
+                 <h2 class="h3">La methode de Kasiski / Babbage </h2>
                 <p>Cette methode permet de determiner <strong> la longueur de la clé </strong> d'un chiffre <strong>polyalphabetique</strong> 
                 (tels que Vigenere, Beaufort, Allemand, etc...) et de pouvoir donc le decrypter en separant le cryptogramme en des colonnes 
                 égales a la longueur de la clé puis de faire une etude de frequence par colonne.
                 Pour savoir les détails de cette methode, lire le texte ci-dessous apres le programme d'analyse.
-            </p>
+                </p>
                 <form class="form-control" style="background-color:navajowhite;">
                     <textarea name="text" id="crypto" rows="8" class="form-control" required placeholder="Saisir ou coller votre crypto ici" ></textarea> <br/>
                     <label for="keyMin">Longueur Clé entre <input type="number" id="keyMin" size="3" placeholder="3" value="3" min="3" max="28" class="mb-2"/></label>
@@ -84,104 +88,127 @@ input{
                     <button id="start" class="m-2"> Démarrer l'analyse </button>
                 </form>
                 <div id="holder" class="m-2">  </div>
-                <div >
-                  <p id="rstText" class="text-weigth-bold" ></p>
-                    <table> </table>
-                </div>
               </div>
-               <div class="col-lg-6">
-                  <!--Dans Cette partie on explique comment marche la methode de cryptanalyse de Kasiski Babbage -->
-                <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
-                  <a class="navbar-brand" href="#">Navbar</a>
-                  <ul class="nav nav-pills">
-                    <li class="nav-item">
-                      <a class="nav-link" href="#fat">@fat</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#mdo">@mdo</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
-                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a class="dropdown-item" href="#one">one</a></li>
-                        <li><a class="dropdown-item" href="#two">two</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#three">three</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </nav>
-                <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
-                  <h4 id="fat">L'histoire</h4>
-                  <p>
-                  On pense que le Londonien <strong>Charles Babbage ((1792-1871))</strong>  effectua
-                   la première véritable cryptanalyse du chiffre  polyalphabetique de Vigenère vers 1854. 
-                  En parallèle, un officier prussien à la retraite, <strong>Friedrich Wilhelm Kasiski(1805-1881)</strong> parvint 
-                  au même résultat sans avoir eu vent des travaux de Babbage puisque ce dernier ne les avait pas publiés. 
-                  Kasiski rédigea <i>Die Geheimschriften und die Dechiffrierkunst</i> en 1863 où il présentait le test qui
-                   allait porter son nom : 
-                  <strong>le test de Kasiski</strong>  qui permet d'estimer la taille de la clé. 
-                  </p>
-                  <h4 id="mdo">Théorie de la méthode</h4>
-                  <p>
-                   Babbage s’est dit qu’a chaque fois groupe de trigramme (trois lettres consécutives du message chiffré) apparaissait plus d'une fois dans le texte c'est que:
-                   <ul>
-                     <li>soit la même séquence de lettres du texte clair a été chiffre avec les mêmes de la clef</li>
-                     <li> soit deux suites de lettres différentes dans le texte clair auraient (possibilité faible) par pure coïncidence engendré la même suite dans le texte chiffré.
-                    </li> 
+              <div class="col">
+                <p id="rstText" class="text-weigth-bold" ></p>
+                  <table> </table>
+              </div>
+              <div class="col-md-11 mb-3 m-auto border border-dark text-justify " style='max-height: 650px; overflow-y: scroll' >
+                <!--Dans Cette partie on explique comment marche la methode de cryptanalyse de Kasiski Babbage -->
+              <nav id="kasiski-Theorie" class="navbar sticky-top navbar-light bg-light px-3">
+                <a class="navbar-brand">Explication</a>
+                <ul class="nav nav-pills">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#histo">Histoire</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#theo">Le test en théorie </a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Exemple</a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <li><a class="dropdown-item" href="#one">Exemple 1</a></li>
+                      <li><a class="dropdown-item" href="#two">Exemple 2</a></li>
+                      <li><a class="dropdown-item" href="#three">Décryptement</a></li>
                     </ul>
+                  </li>
+                </ul>
+              </nav>
+              <div data-spy="scroll" class="ml-1" data-target="#kasiski-Theorie" data-offset="0">
+                <h4 id="histo" class=" mt-2">L'histoire</h4>
+                <p>
+                On pense que le Londonien <strong>Charles Babbage ((1792-1871))</strong>  effectua
+                 la première véritable cryptanalyse du chiffre  polyalphabetique de Vigenère vers 1854. 
+                En parallèle, un officier prussien à la retraite, <strong>Friedrich Wilhelm Kasiski(1805-1881)</strong> parvint 
+                au même résultat sans avoir eu vent des travaux de Babbage puisque ce dernier ne les avait pas publiés. 
+                Kasiski rédigea <i>Die Geheimschriften und die Dechiffrierkunst</i> en 1863 où il présentait le test qui
+                 allait porter son nom : 
+                <strong>le test de Kasiski</strong>  qui permet d'estimer la taille de la clé. 
+                </p>
+                <h4 id="theo">Théorie de la méthode</h4>
+                <p>
+                 Babbage s’est dit qu’a chaque fois groupe de trigramme (trois lettres consécutives du message chiffré) apparaissait plus d'une fois dans le texte c'est que:
+                 <ul>
+                   <li>soit la même séquence de lettres du texte clair a été chiffre avec les mêmes de la clef</li>
+                   <li> soit deux suites de lettres différentes dans le texte clair auraient (possibilité faible) par pure coïncidence engendré la même suite dans le texte chiffré.
+                  </li> 
+                  </ul>
 Le 1er cas étant le plus probable, Par conséquent, l’écart entre deux mêmes groupes de lettres chiffrées est
 un multiple de la longueur de la clé. Par exemple, si la répétition d’un groupe est espacée de 30 lettres, puis 
 celle d’un autre de 25, <strong>le plus grand diviseur commun</strong> de 25 et 30 est 5. La clé possède donc dans ce cas
 5 lettres.</p>
-                  <h4 id="one">Exemple 1</h4>
-                  <p> Considérons par exemple le mot-clé « ABCD » qui sert à chiffrer « MESSAGER TRES MESQUIN MESOPOTAMIEN ».
-                    <img src="img/kasiski/exemple1.png" alt="Exemple 1 decryptement avec methode de kasiski"/> <br/>
-                    Dans ce cas, il y a 12 lettres entre les deux « MFU », on en déduit que la longueur de la clé est 
-                    un diviseur de 12 (sinon la clé et les deux « MES » ne seraient pas alignés). La clé peut donc posséder
-                     soit 12, 6, 4, 3 ou 2 lettres (avec une lettre, nous aurions un chiffrement monoalphabétique facilement
-                      cassé avec une analyse fréquentielle). Avec un texte plus long, on découvrirait d'autres séquences qui
-                       permettraient d'affiner le résultat et réduire la taille de la clé à une ou deux possibilités. 
+                <h4 id="one">Exemple 1</h4>
+                <p> Considérons par exemple le mot-clé « ABCD » qui sert à chiffrer « MESSAGER TRES MESQUIN MESOPOTAMIEN ».
+                  <img src="img/kasiski/exemple1.png " width="650" alt="Exemple 1 decryptement avec methode de kasiski"/> <br/>
+                  Dans ce cas, il y a 12 lettres entre les deux « MFU », on en déduit que la longueur de la clé est 
+                  un diviseur de 12 (sinon la clé et les deux « MES » ne seraient pas alignés). La clé peut donc posséder
+                   soit 12, 6, 4, 3 ou 2 lettres (avec une lettre, nous aurions un chiffrement monoalphabétique facilement
+                    cassé avec une analyse fréquentielle). Avec un texte plus long, on découvrirait d'autres séquences qui
+                     permettraient d'affiner le résultat et réduire la taille de la clé à une ou deux possibilités. 
+                </p>
+                <h4 id="two">Exemple sur un texte plus long</h4>
+                <p>Soit un texte chiffré de plusieurs centaines de caractères.
+                   Ce texte paraît a priori aléatoire et pourtant il contient des redondances intéressantes.</p>
+                <p>KQOWEFVJPUJUUNUKGLMEKJINMWUXFQMKJBGWRLFNFGHUDWUUMBSVLPS
+                  NCMUEKQCTESWREEKOYSSIWCTUAXYOTAPXPLWPNTCGOJBGFQHTDWXIZA
+                  YGFFNSXCSEYNCTSSPNTUJNYTGGWZGRWUUNEJUUQEAPYMEKQHUIDUXFP
+                  GUYTSMTFFSHNUOCZGMRUWEYTRGKMEEDCTVRECFBDJQCUSWVBPNLGOYL
+                  SKMTEFVJJTWWMFMWPNMEMTMHRSPXFSSKFFSTNUOCZGMDOEOYEEKCPJR
+                  GPMURSKHFRSEIUEVGOYCWXIZAYGOSAANYDOEOYJLWUNHAMEBFELXYVL
+                  WNOJNSIOFRWUCCESWKVIDGMUCGOCRUWGNMAAFFVNSIUDEKQHCEUCPFC
+                  MPVSUDGAVEMNYMAMVLFMAOYFNTQCUAFVFJNXKLNEIWCWODCCULWRIFT
+                  WGMUSWOVMATNYBUHTCOCWFYTNMGYTQMKBBNLGFBTWOJFTWGNTEJKNEE
+                  DCLDHWTVBUVGFBIJG</p>
+                  <p> En l'analysant avec notre programme ou trouvre le resulat suivant
+                   <div class="contain">
+                      <img src="img/kasiski/RsltEx2.png" alt="Resulat de lanalyse du crypto" style="max-width: width 50px;"  class="rounded mx-auto d-block"/> <br/>
+                   </div>
+                    Ce qui releve donc que la clé est un diviseur commun au valeurs des ecarts (95, 315, 220, 135, 260, 80, etc.)
+                    Ainsi on voit aisément qu'elle est de <strong>longueur 5</strong>.   
+                  
                   </p>
-                  <h4 id="two">Exemple sur un texte plus long</h4>
-                  <p>Soit un texte chiffré de plusieurs centaines de caractères.
-                     Ce texte paraît a priori aléatoire et pourtant il contient des redondances intéressantes.</p>
-                  <p>KQOWEFVJPUJUUNUKGLMEKJINMWUXFQMKJBGWRLFNFGHUDWUUMBSVLPS
-                    NCMUEKQCTESWREEKOYSSIWCTUAXYOTAPXPLWPNTCGOJBGFQHTDWXIZA
-                    YGFFNSXCSEYNCTSSPNTUJNYTGGWZGRWUUNEJUUQEAPYMEKQHUIDUXFP
-                    GUYTSMTFFSHNUOCZGMRUWEYTRGKMEEDCTVRECFBDJQCUSWVBPNLGOYL
-                    SKMTEFVJJTWWMFMWPNMEMTMHRSPXFSSKFFSTNUOCZGMDOEOYEEKCPJR
-                    GPMURSKHFRSEIUEVGOYCWXIZAYGOSAANYDOEOYJLWUNHAMEBFELXYVL
-                    WNOJNSIOFRWUCCESWKVIDGMUCGOCRUWGNMAAFFVNSIUDEKQHCEUCPFC
-                    MPVSUDGAVEMNYMAMVLFMAOYFNTQCUAFVFJNXKLNEIWCWODCCULWRIFT
-                    WGMUSWOVMATNYBUHTCOCWFYTNMGYTQMKBBNLGFBTWOJFTWGNTEJKNEE
-                    DCLDHWTVBUVGFBIJG</p>
-                    <p> En l'analysant avec notre programme ou trouvre le resulat suivant
-                     <div class="contain">
-                        <img src="img/kasiski/RsltEx2.png" alt="Resulat de lanalyse du crypto" style="max-width: width 50px;"  class="rounded mx-auto d-block"/> <br/>
-                     </div>
-                      Ce qui releve donc que la clé est un diviseur commun au valeurs des ecarts (95, 315, 220, 135, 260, 80, etc.)
-                      Ainsi on voit aisément qu'elle est de <strong>longueur 5</strong>.   
-                    
-                    </p>
-                  <h4 id="three">Suite du décryptment connaissant la longueur de la clé</h4>
-                  <p>On suppose que l'on sait que ce message a été obtenu à partir du texte clair 
-                    en appliquant le chiffre de Vigenère avec une clé de longueur 5. Alors, la 1ère 
-                    lettre, la 6ème, la 11ème, etc... ont toutes été chiffrées en utilisant la même lettre de la clé.
-                   Autrement dit, elles ont été chiffrées en utilisant le même <a href="explications.html#item-1-1-2" target="_blank">décalage de César</a> <br>
-                   n va alors séparer le texte codé en 3 parties : la première comporte les lettres 1,6,11,... la seconde les lettres 2,7,12,... 
-                   la troisième les lettres 3,9,14,.... On trouve : 
+                <h4 id="three">Suite du décryptment connaissant la longueur de la clé</h4>
+                <p>On suppose que l'on sait que ce message a été obtenu à partir du texte clair 
+                  en appliquant le chiffre de Vigenère avec une clé de longueur 5. Alors, la 1ère 
+                  lettre, la 6ème, la 11ème, etc... ont toutes été chiffrées en utilisant la même lettre de la clé.
+                 Autrement dit, elles ont été chiffrées en utilisant le même <a href="explications.html#item-1-1-2" target="_blank">décalage de César</a> <br>
+                 n va alors séparer le texte chiffré en 5 parties : la première comporte les lettres 1,6,11,... la seconde les lettres 2,7,12,... 
+                 la troisième les lettres 3,9,14,.... On trouve : 
+                 <ul>
+                   <ol>KFJKKWMWFWSNKSKIAAWGFWYSYSJGWJAKDGMHZWGDEJWLSFWWMSSTZEKGSSVWYAEWMLWSWSDGWASKUMDMMATFXIDWWWTHWMMLWWJDWDDSAKKAWLWLJ</ol>
+                   <ol>QVUGJUKRGUVCQWOWXPPOQXGXNPNWUUPQUUTNGEKCCQVGKVWPTPKNGOCPKEGXGNOUEXNIUWGOGFIQCPGNVOQVKWCRGONTFGKGOGKCTGGWGJUNINEFE</ol>
+                   <ol>OJULIXJLHULMCRYCYXNJHIFCCNYZUUYHXYFUMYMTFCBOMJMNMXFUMYPMHIOIOYYNBYOOCKMCNFUHPVAYLYCFLCCIMVYCYYBFJNNLYMMGOOYYYYBYB</ol>
+                   <ol>WPNMNFBFUMPUTESTOPTBTZFSTTTGNQMUFTFORTEVBUPYTJFMHFFODEJUFUYZSDJHFVJFCVURMVDCFSVMFFUJNWUFUMBOTTBBFTEDYVPJEFTTBNFNF</ol>
+                   <ol>EUUEMQGNDBSEEESUTLCGDANESUGREEEIPSSCURERDSNLETMERSSCOERRRECAAOLAELNREICUANEECUEAMNANEOLTSAUCNQNTTEEHIRLLEEADNPNAR</ol>
+                 </ul>
+                </p>
+                <p>
+                  En faisant une analyse de fréquence sur chaque partie grace a <a href="analyseFrequentielle.html
+                  " target="_blank">la page dédiée de le site</a> on trouve que la lettre la plus fréquente pour la partie 1 est "W" 
+                  et en supposant que celle-ci chiffre la lettre "E" qui est la lettre la plus fréquente de la langue francaise alors 
+                  on determine le décalage servant a chiffrer cette ligne qui est la première lettre de la clé de Vigenère soit 
+                  k1 = "W" - "E"=22-4= <strong>20="S"</strong>. <br>
+                  On procedant de meme pour les autres parties on trouve que la cle servant à chiffrer ce cryptogramme est:
+                  <strong>SCUBA</strong> <br>
+                  Le décryptment reussi nous obtenons le texte suivant : <br>
+                  <img src="img/kasiski/RstDecrypt.png" alt="Resulat du dechiffrement avec la cle trouvé">
+            
 
-                  </p>
-                </div>
-               </div>
+                </p>
+              </div>
+            </div>   
+            
+           </div>
+ 
+        </div>
+
             <p>
               source : 
               <a href="https://fr.wikipedia.org/wiki/Cryptanalyse_du_chiffre_de_Vigen%C3%A8re" target="_blank">Cryptanalyse du chiffre de Vigenère</a>
 
             </p>   
             
-        </div>
+        
       </div>
                 
           
@@ -296,7 +323,6 @@ resHandler = (respObj) =>{
   }
   
   let longeurCles = respObj.pop();
-  console.log(longeurCles);
   if(longeurCles["LougueurCle"].length === 0){
     document.getElementById("rstText").innerHTML= "Aucune clé de longueur entre "+keyMin.value+ " et "+keyMax.value+" n'a est trouvée";
      return ;
