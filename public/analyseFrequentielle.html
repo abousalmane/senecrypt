@@ -6,6 +6,16 @@
     <title>Analyse de frequence</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css">
+    <style>
+      .table-wrap{
+        width: 300px;
+        max-height: 450px; 
+        overflow-y: auto;
+      }
+      input{
+        width: 4em;
+      }
+    </style>
 </head>
 <body>
   <header >
@@ -52,22 +62,40 @@
     </nav>
   </header>
 <div class="container mt-5">
-  <div class="row p-5">
+  <div class="row pt-4">
     <div class="col-md-6">
-      <h2 class="h2">  Analyse Fréquentielle </h2>
+      <h1 class="text-center">Cas d'un chiffrement monoalphabétique</h1>
+      <h2 class="h2">  Analyse Fréquentielle d'un texte en entier </h2>
+      <p>Trouver les fréquences d'apparition de tous les caractères d'un texte</p>
       <p class="mt-2"><label for="champText">Entrer votre texte ici 	&curarr; </label></p>
       <textarea class="form-control" id="textField" rows="8" placeholder="NB: Seules les caratères alphabetiques seront traitées
       Les autres caracteres seront automatiquement supprimées" required>
       </textarea>
-       <div id="holder" class="mt-2"> 
-       </div>
-      <button type="button" id="btnValider" class="btn btn-primary mt-3 mr-4"> Afficher Fréquences</button>
-      <div class="p-3">
-        <canvas id="myChart" width="400" height="400"></canvas>
+      <button type="button" id="btnValider" class="btn btn-primary mt-3"> Afficher Fréquences</button>
+      <div>
+        <table > </table>
       </div>
     </div>
     <div class="col-md-6">
-      <table> </table>
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+  <div>
+    <h1>Cas d'un chiffrement polyalphabetique</h1>
+    <h2>Analyse fréquentielle Par séquence</h2>
+    <p>Trouver les fréquences d'apparition de chaque séquence d'un cryptogramme <h4>connaissant la longueur n de la clé</h4> <br>
+      Le crypto est d'abord scindé en <strong>n</strong> colonnes dont chaqu'une composées  de caractères ayant été chiffré par la meme lettre du mot-clé,
+      puis les fréquences sont calculées pour chaque colonne.  
+    </p>
+    <p class="mt-2"><label for="champText2">Entrer votre texte ici 	&curarr; </label></p>
+    <textarea class="form-control" id="textField2" rows="8" placeholder="NB: Seules les caratères alphabetiques seront traitées
+    Les autres caracteres seront automatiquement supprimées" required>
+    </textarea>
+    <label for="keyLen">Longueur de la Clé: <input type="number" id="keyLen" placeholder="n" min="2" max="25" /></label><br>
+    <button type="button" id="btnValider2" class="btn btn-primary mt-3"> Afficher Fréquences</button>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between">
+       <!--  <div class="coli table-wrap"><table></table></div-->
     </div>
   </div>
 </div>
@@ -98,21 +126,8 @@ if(text.length === 0 || !text.trim()){
   text=preFormat(text);
   var  freq= frequences(text);
   let table = document.querySelector("table");
-  while (table.firstChild) {
-    table.removeChild(table.lastChild);
-  }
-  let body = document.createElement("tbody");
-  table.classList.add("table","table-dark","table-striped", "table-hover");
-  let title = document.createElement("caption");
-  title.innerHTML = "Fréquences des lettres du texte";
-  title.style.captionSide="top";
-  title.classList.add("h3");
-  let data = Object.keys(freq[0]);
-  generateTableHead(table, data);
-  generateTable(body, freq);
-  table.appendChild(title);
-  table.appendChild(body);
-
+  
+  fillTable(table,freq,"Fréquences des lettres du texte");
   val=[];
   lettersLabel = [];
   for (i=0;i<26;i++)
@@ -125,6 +140,69 @@ if(text.length === 0 || !text.trim()){
  setChart(lettersLabel,val);
 
 });
+function removeTables(){
+  const c = document.querySelector(".d-flex");
+  while(c.firstChild)
+  c.removeChild(c.firstChild);
+}
+function fillTable(table,freqList,capt){
+  while (table.firstChild) {
+    table.removeChild(table.lastChild);
+  }
+  let body = document.createElement("tbody");
+  table.classList.add("table","table-dark","table-striped", "table-hover");
+  let title = document.createElement("caption");
+  title.innerHTML =capt;
+  title.style.captionSide="top";
+  title.classList.add("h3");
+  let data = Object.keys(freqList[0]);
+  generateTableHead(table, data);
+  generateTable(body, freqList);
+  table.appendChild(title);
+  table.appendChild(body);
+
+}
+document.getElementById("btnValider2").addEventListener("click", ()=>{
+  let text= document.getElementById("textField2").value;
+  let keyLenght = document.querySelector("input").value;
+  removeTables();
+if(text.length === 0 || !text.trim()){
+   alert("Veillez saisir un texte avant de valider !");
+   return false;
+ }
+ else {
+  text=preFormat(text);
+  let columns = [], currCol, freq;
+  for(let c=0;c<keyLenght;c++){
+    currCol = extrait(text,keyLenght,c);
+    columns.push(currCol);
+    freq= frequences(currCol);
+    fillTable(tableContainer(c),freq,"Fréquence colonne n "+(c+1) );
+  }
+  
+ }
+});
+function tableContainer(num){
+  let divTab = document.createElement("div");
+  divTab.classList.add("col"+num,"table-wrap");
+  let currTable = document.createElement("table");
+  divTab.appendChild(currTable);
+  document.querySelector(".d-flex").appendChild(divTab);
+  return currTable;
+}
+function extrait(chaine,ecart,depart)
+{
+	var resultat="";
+	var i=+depart;
+	
+	while (i<chaine.length)
+	{
+		resultat+=chaine.charAt(i);
+		i+=ecart;
+	}
+	
+	return resultat;
+}
 function sortbyvaleur(a,b)
 {
     return parseInt(b.occurences) - parseInt(a.occurences);
@@ -193,8 +271,10 @@ function preFormat (text){
 }   
 
 function setChart(valLabels,dataval){
-
-  var ctx = document.getElementById('myChart').getContext('2d');
+let theCanva = document.getElementById('myChart');
+    theCanva.setAttribute("width","400");
+    theCanva.setAttribute("height","400");
+  var ctx = theCanva.getContext('2d');
 let chartobj={
     type: 'bar',
     data: {
