@@ -9,7 +9,7 @@
     <style>
       .table-wrap{
         width: 300px;
-        max-height: 450px; 
+      /*  max-height: 450px; */
         overflow-y: auto;
       }
       input{
@@ -91,10 +91,11 @@
     <textarea class="form-control" id="textField2" rows="8" placeholder="NB: Seules les caratères alphabetiques seront traitées
     Les autres caracteres seront automatiquement supprimées" required>
     </textarea>
-    <label for="keyLen">Longueur de la Clé: <input type="number" id="keyLen" placeholder="n" min="2" max="25" /></label><br>
-    <button type="button" id="btnValider2" class="btn btn-primary mt-3"> Afficher Fréquences</button>
+    <label for="keyLen">Longueur de la Clé: <input type="number" id="keyLen" placeholder="n" min="2" max="25" required /></label><br>
+    <a id="btnValider2" href="#allCol" class="btn btn-primary mt-3" role="button" > Afficher Fréquences</a>
     </div>
-    <div class="d-flex flex-wrap justify-content-between">
+    <p id="allCol" style="white-space: pre;"></p>
+    <div id="freqs" class="d-flex flex-wrap justify-content-around mb-5">
        <!--  <div class="coli table-wrap"><table></table></div-->
     </div>
   </div>
@@ -130,7 +131,7 @@ if(text.length === 0 || !text.trim()){
   fillTable(table,freq,"Fréquences des lettres du texte");
   val=[];
   lettersLabel = [];
-  for (i=0;i<26;i++)
+  for (i=0;i<freq.length;i++)
    {
 
      val.push(parseFloat(freq[i]["pourcentage"].slice(0,-1))) ; // remove the last char that is % and convert to float 
@@ -164,21 +165,26 @@ function fillTable(table,freqList,capt){
 }
 document.getElementById("btnValider2").addEventListener("click", ()=>{
   let text= document.getElementById("textField2").value;
-  let keyLenght = document.querySelector("input").value;
+  let keyLenght = parseInt(document.querySelector("input").value);
   removeTables();
 if(text.length === 0 || !text.trim()){
    alert("Veillez saisir un texte avant de valider !");
-   return false;
+   return;
  }
- else {
+ if(!keyLenght){
+   alert("Veiller saisir la longeur de la clé");
+   return;
+ }
+
   text=preFormat(text);
+  document.getElementById("allCol").innerText="";
   let columns = [], currCol, freq;
   for(let c=0;c<keyLenght;c++){
     currCol = extrait(text,keyLenght,c);
-    columns.push(currCol);
+    printColumn(currCol,c+1);
+   // columns.push(currCol);
     freq= frequences(currCol);
     fillTable(tableContainer(c),freq,"Fréquence colonne n "+(c+1) );
-  }
   
  }
 });
@@ -190,22 +196,26 @@ function tableContainer(num){
   document.querySelector(".d-flex").appendChild(divTab);
   return currTable;
 }
-function extrait(chaine,ecart,depart)
+function extrait(chaine, ecart, depart)
 {
 	var resultat="";
-	var i=+depart;
+	let i=depart;
 	
 	while (i<chaine.length)
 	{
 		resultat+=chaine.charAt(i);
 		i+=ecart;
 	}
-	
 	return resultat;
 }
-function sortbyvaleur(a,b)
+function printColumn(col,num){
+document.getElementById("allCol").appendChild(
+  document.createTextNode("Colonne Nº"+num+": "+col+" Nbres de lettres "+col.length+"\n")
+);
+}
+function sortbyoccurrence(a,b)
 {
-    return parseInt(b.occurences) - parseInt(a.occurences);
+    return parseInt(b.occurrences) - parseInt(a.occurrences);
 }
 
 
@@ -221,7 +231,7 @@ function frequences(texte)
        {
        	  lettres[i]=new Object;
        	  lettres[i]["lettre"]=alphabet.charAt(i);
-          lettres[i]["occurences"]=0;
+          lettres[i]["occurrences"]=0;
           lettres[i]["pourcentage"]=0;
        }
        
@@ -229,19 +239,19 @@ function frequences(texte)
   
   for (i=0;i<texte.length;i++)
   {
-  	lettres[alphabet.indexOf(texte.charAt(i))]["occurences"]++;
+  	lettres[alphabet.indexOf(texte.charAt(i))]["occurrences"]++;
   }     
        
   //On trie le tableau
-  lettres.sort(sortbyvaleur);
- 
-  for (i=0;i<26;i++)
+  lettres.sort(sortbyoccurrence);
+  i=0;
+  while(lettres[i]["occurrences"]>0)
    {
 
-      lettres[i]["pourcentage"]=(Math.round(10000*lettres[i]["occurences"]/(texte.length-1))/100)+"%"
+      lettres[i]["pourcentage"]=(Math.round(10000*lettres[i]["occurrences"]/(texte.length))/100)+"%";
+      i++;
     }   
-
-  return lettres;
+  return lettres.slice(0,i);
 }
 function generateTableHead(table, data) {
   let thead = table.createTHead();
