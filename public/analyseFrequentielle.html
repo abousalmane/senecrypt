@@ -9,7 +9,6 @@
     <style>
       .table-wrap{
         width: 300px;
-      /*  max-height: 450px; */
         overflow-y: auto;
       }
       input{
@@ -184,8 +183,7 @@ if(text.length === 0 || !text.trim()){
     printColumn(currCol,c+1);
    // columns.push(currCol);
     freq= frequences(currCol);
-    fillTable(tableContainer(c),freq,"Fréquence colonne n "+(c+1) );
-  
+    fillTable(tableContainer(c),freq,"Fréquence colonne nº "+(c+1) ); 
  }
 });
 function tableContainer(num){

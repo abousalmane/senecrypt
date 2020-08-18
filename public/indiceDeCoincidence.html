@@ -62,26 +62,59 @@ input{
         </div>
         </nav>
       </header>
-
       <div class="container p-5 mt-4">
         <div class="row border border-dark">
-            <div class="col mb-4" >
-                <h2 class="h3">La methode de Kasiski / Babbage </h2>
-                <p>Cette methode permet de determiner <strong> la longueur de la clé </strong> d'un chiffre <strong>polyalphabetique</strong> 
-                (tels que Vigenere, Beaufort, Allemand, etc...) et de pouvoir donc le decrypter en separant le cryptogramme en des colonnes 
-                égales a la longueur de la clé puis de faire une etude de frequence par colonne.
-                Pour savoir les détails de cette methode, lire le texte ci-dessous apres le programme d'analyse.
-            </p>
+            <section class="col mb-4" >
+                <h2 class="h3">La méthode de l'indice de coincidence </h2>
+                <p>L'indice de Coïncidence (IC) est la probabilité que deux lettres choisies aléatoirement dans un texte soient identiques.
+                   Il fut inventé par William Friedman et publié en 1920, dans l'article "The Index of Coincidence and its Applications in Cryptography",
+                   Riverbank Publications Number 22. 
+                   Il se calcule avec la formule : <img src="img/indiceCoincidence.svg" alt="formule de l'IC"> avec
+                   avec n le nombre de lettres total du message, n<sub>A</sub> le nombre de A, n<sub>B</sub> le nombre de B, etc. <br>
+                  </p>
+                  <h3>Indice de coincidence d'un texte aléatoire</h3>
+                  <p>Pour un texte long, complétement aléatoire et sans biais, où toutes les lettres ont la meme probabilité d'apparition
+                    l'IC est de 1/26=0,0385.
+                    C'est l'indice de coïncidence pour un message avec des lettres uniformément distribuées. 
+                    <h3>IC dans une langue donnée</h3>
+                    <p>
+                      Introduisons maintenant un biais dans la distribution et raisonnons sur un texte de longueur finie.
+                       Nous avons un texte de 100 lettres et le nombre d'unités pour chaque lettre n'est pas identique. Disons que nous avons 20 lettres « A », 5 lettres « B », 7 lettres « C », ..., et un seul « Z ». Dans ce cas, 
+                       la chance de trouver une paire quelconque de lettres identiques est : (20/100)*(19/99) + (5/100)*(4/99) + (7/100)*(6/99) + ... + (1/100)*(0/99). 
+                      Nous avons alors une approximation de l'indice de coïncidence pour un langage qui suit cette distribution. 
+                      On peut aussi obtenir une estimation de la langue utilisée dans un texte en regardant son indice de coïncidence,
+                       la distribution des lettres n'étant pas la même entre les langues. Les indices peuvent légèrement varier selon les sources
+                       et les textes considérés pour l'analyse. Friedman donne par exemple un indice de 0,0778 pour le français.
+                    </p>
+                    <h3>IC d'un chiffre mono-alphabétique ou de transposition</h3>
+                    Pour tout chiffre monoalphabétique, la distribution des fréquences est invariante,
+                   donc l'IC sera le même que pour le texte clair. Ce qui est également vrai pour un chiffrement par transposition.
+                   Ainsi, dans ces cas la valeur de l'IC est voisine de 0,074 c'est a dire celle d'un texte clair en francais.
+                  </p> 
+                   <h3>IC d'un chiffre polyalphabetique</h3>
+                   <p>
+                     Pour les chiffres polyalphabetiques  l'indice de coincidence est faible (proche de 0.0385),
+                     c'est à dire similaire à une répartition aléatoire. 
+                     Plus le nombre d'alphabets utilisé est grand, plus l'indice est petite.
+                     Par exemple: Pour un chiffre de Vigenère avec une clé entre 4 et 8 lettres aura un IC d'environ 0.045±0.05
+                   </p>
+                   <h4>application de l'IC au décryptememt</h4>
+                   <p>
+                     Le programme suivant vous permet:
+                     <ul>
+                       <li>De Calculer l'IC d'un cryptogramme pour savoir s'il s'agit d'un chiffrement polyalphabetique</li>
+                       <li>Et le cas échéant, utiliser notre programme de décryptememt automatique d'un chiffre polyalphabetique basé sur le calcul de l'IC</li>
+                     </ul>
+                   </p>
                 <form class="form-control" style="background-color:navajowhite;">
                     <textarea name="text" id="crypto" rows="8" class="form-control" required placeholder="Saisir ou coller votre crypto ici" ></textarea> <br/>
-                    <label for="keyMin">Longueur Clé entre <input type="number" id="keyMin" size="3" placeholder="3" value="3" min="3" max="28" class="mb-2"/></label>
-                    <label for="keyMax"> et <input type="number" id="keyMax" size="3" placeholder="25" value="25" min="5" max="30" class="mb-2"/> </label>
-                    <br/>
-                    <span>Rechercher Répétition </span> 
-                    <label for="bigramme" class="font-weight-bold"> <input type="radio" name="polygramme" value="bigramme" id="bigramme"> Bigramme </label>
-                    <label for="trigramme" class="font-weight-bold"> <input type="radio" name="polygramme" id="trigramme" value="trigramme" checked> trigramme</label>
-                    <label for="quadrigramme" class="font-weight-bold"><input type="radio" name="polygramme" value="quadrigramme" id="quadrigramme"> Quadrigramme </label> <br/>
-                    <button id="start" class="m-2"> Démarrer l'analyse </button>
+                    <button id="calculIC" class="m-2"> Caculer l'IC </button> <br>
+                    <label for="algo">Algorithme <select name="algo" id="selector">
+                      <option value="Vigenere">Vigenere</option>
+                      <option value="Beaufort">Beaufort</option>
+                      <option value="Allemande">Allemande</option>
+                    </select> </label>
+                    <button id="decrypt" class="m-2">Decrypter </button>
                 </form>
                 <div id="holder" class="m-2">  </div>
                 <div >
@@ -89,36 +122,76 @@ input{
                     <table> </table>
                 </div>
                
-            </div>
+              </section>
         </div>
       </div>
                 
           
 <script>
  
- document.getElementById("start").addEventListener("click", (ev) =>{
+ document.getElementById("calculIC").addEventListener("click", (ev) =>{
           ev.preventDefault();
-          inputMananger();
+          let text = document.getElementById("crypto").value;
+text=format(text);
+if(check(text)){
+   let indc= indiccoinc(text);
+let rslt = document.getElementById("rstText");
+while(rslt.firstChild)
+  rslt.removeChild(rslt.firstChild);
+rslt.innerText="L'INDICE DE COINCIDENCE DU TEXTE EST DE : "+indc;
+}
 
  });
- function inputMananger(){
-let text = document.getElementById("crypto").value;
-let keyMin = document.getElementById("keyMin").value;
-let keyMax = document.getElementById("keyMax").value;
-if(check(text, keyMin, keyMax)){
-  let radioAlgo = document.querySelector('input[type=radio]:checked').value;
-   text= format(text);
-      send({"crypto": text,
-            "keyMin": keyMin,
-            "keyMax": keyMax,
-            "polygramme" : radioAlgo          
-          }, resHandler,spinShower);
+ document.getElementById("decrypt").addEventListener("click", e=>{
+  e.preventDefault();
+  let text = document.getElementById("crypto").value;
+text=format(text);
+if(check(text)){
+let algo = document.querySelector("select").value;
+send({"crypto":text, "algo":algo},resHandler,spinShower);
 }
+
+ });
+ var alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+// La fonction suivante sont consacrees au calcul de l'indice de coincidence du texte
+function indiccoinc(texte)
+{
+	var nombres=new Array(26);  // Le nombre de fois que chaque lettre intervient dans le texte
+	var indice=0.0;
+	var nb=0;
+	
+	// On commence par rÃ©aliser les pourcentages...
+	nombres=calculnombres(texte);
+	for (var i=0;i<26;i++)
+	{
+		indice=nombres[i]*(nombres[i]-1)+indice;
+		nb=nb+nombres[i];
+	}
+	indice=indice/(nb*(nb-1));
+	return indice;
+}
+
+    
+function calculnombres(texte)
+{
+	var nombres=new Array(26);
+	var nb,prov,j;
+	
+	for (var i=0;i<26;i++)
+	{
+		nombres[i]=0.0;
+	}
+	for (var i=0;i<texte.length;i++)
+	{
+		nombres[alphabet.indexOf(texte.charAt(i))]++;
+	}	
+	
+	return nombres;
 }
 function send(jsobject,resHandler, spinShower){
   spinShower(true);
   const http= new XMLHttpRequest();
-  http.open("POST", '/kasiski');
+  http.open("POST", '/ic');
   http.setRequestHeader("Content-Type","application/json");
   http.timeout = 8000;
   http.onload = function(){
@@ -152,16 +225,11 @@ let span= document.createElement("span");
   else { while(holder.firstChild)
           holder.removeChild(holder.lastChild)        
   }
-
 }
 
-function check(str, keyMin, keyMax){
+function check(str){
   if(str.length === 0 || !str.trim()){
-   warning("Veillez saisir le texte chiffré avant de valider !");
-   return false;
- }
- if( parseInt(keyMin) >= parseInt(keyMax)){
-   warning("La longueur maximal de la clé doit etre plus grand que sa longueur maximal !");
+   warning("Veillez saisir le texte à décrypter avant de valider !");
    return false;
  }
  return true;
@@ -170,6 +238,45 @@ function format (text){
    text=text.replace(/[^a-zA-Z]/gi, '');
     return text.toUpperCase();
 }  
+function send(jsobject,resHandler, spinShower){
+  spinShower(true);
+  const http= new XMLHttpRequest();
+  http.open("POST", '/ic');
+  http.setRequestHeader("Content-Type","application/json");
+  http.timeout = 8000; // After 8 second of non-response the request expire
+  http.onload = function(){
+    if(this.status===200){     
+      resHandler(JSON.parse(http.response));
+      spinShower(false);
+ 
+    }
+  }
+  http.onerror = function(){
+    spinShower(false);
+    warning("Erreur de connexion");
+  }
+  http.ontimeout = (e) =>{
+    spinShower(false);
+    warning("Désolé, la requéte a expiré");
+  }
+http.send(JSON.stringify(jsobject));
+}
+spinShower = (bool)=> {
+  let holder=document.getElementById("holder");
+  if(bool){
+  let divSpin = document.createElement("div");
+  divSpin.classList.add("spinner-border", "text-primary");
+  divSpin.role="status";
+let span= document.createElement("span");
+    span.textContent = " Chargement en cours ...";
+    span.classList.add("text-primary");
+    holder.appendChild(divSpin);
+    holder.appendChild(span);
+  }
+  else { while(holder.firstChild)
+          holder.removeChild(holder.lastChild)        
+  }
+}
 
 function warning(alertMsg){
   let msgarea=document.getElementById("holder");
@@ -194,53 +301,9 @@ function warning(alertMsg){
       warn.close()}, 3000);
 }
 resHandler = (respObj) =>{
-  let table = document.querySelector("table");
-  while (table.firstChild) {
-    table.removeChild(table.lastChild);
+console.log(respObj);
   }
-  if(respObj[0]["Repetition"] === "NEANT"){
-    document.getElementById("rstText").innerHTML= "<strong> Aucune répétition</strong> de "+ document.querySelector('input[type=radio]:checked').value+
-    "s n'est trouvé; <br/> La méthode d'analyse de Kasiski Babbage n'est pas applicable" ;
-    return ;
-  }
-  let longeurCles = respObj.pop();
- document.getElementById("rstText").innerHTML= "<strong> Longueur(s) de la clef </strong> Par ordre de probabilité du plus grand au plus petit: " 
- + "<strong>"+ longeurCles["LougueurCle"].join(' ') + "</strong> <br/> Obtenu en calulant les PGDCs de tous les écarts entres les répétitions des "+ 
- document.querySelector('input[type=radio]:checked').value +"s présentés dans le tableau ci_dessous. " ;
-  let body = document.createElement("tbody");
-  table.classList.add("table","table-dark","table-striped", "table-hover");
-  let title = document.createElement("caption");
-  title.innerHTML = "Résultat de l'analyse :";
-  title.style.captionSide="top";
-  title.classList.add("h3");
-  let data = Object.keys(respObj[0]);
-  generateTableHead(table, data);
-  generateTable(body, respObj);
-  table.appendChild(title);
-  table.appendChild(body);
-  }
-  function generateTableHead(table, data) {
-  let thead = table.createTHead();
-  let row = thead.insertRow();
-  for (let key of data) {
-    let th = document.createElement("th");
-    th.setAttribute("scope","col");
-    let text = document.createTextNode(key);
-    th.appendChild(text);
-    row.appendChild(th);
-  }
-}
-function generateTable(table, data) {
-  for (let element of data) {
-    let row = table.insertRow();
-    row.setAttribute("scope","row");
-    for (key in element) {
-      let cell = row.insertCell();
-      let text = document.createTextNode( (key==="Position" || key==="Ecart")? element[key].join(' ') : element[key]);
-      cell.appendChild(text);
-    }
-  }
-}
+ 
 </script>
 
  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>

@@ -18,6 +18,12 @@ img {
     display: block;
     margin: auto;
    }
+.lien {
+  color: maroon;
+}
+.lien:visited{
+  color: dimgrey;
+}
 </style>
 </head>
 <body>
@@ -93,10 +99,10 @@ img {
                 <p id="rstText" class="text-weigth-bold" ></p>
                   <table> </table>
               </div>
-              <div class="col-md-11 mb-3 m-auto border border-dark text-justify " style='max-height: 650px; overflow-y: scroll' >
+              <div class="col mb-3 m-auto border border-dark text-justify " style='max-height: 650px; overflow-y: scroll' >
                 <!--Dans Cette partie on explique comment marche la methode de cryptanalyse de Kasiski Babbage -->
               <nav id="kasiski-Theorie" class="navbar sticky-top navbar-light bg-light px-3">
-                <a class="navbar-brand">Explication</a>
+                <a class="navbar-brand lien">Explication</a>
                 <ul class="nav nav-pills">
                   <li class="nav-item">
                     <a class="nav-link" href="#histo">Histoire</a>
@@ -107,9 +113,9 @@ img {
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Exemple</a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a class="dropdown-item" href="#one">Exemple 1</a></li>
-                      <li><a class="dropdown-item" href="#two">Exemple 2</a></li>
-                      <li><a class="dropdown-item" href="#three">Décryptement</a></li>
+                      <li><a class="dropdown-item" href="#ex1">Exemple 1</a></li>
+                      <li><a class="dropdown-item" href="#ex2">Exemple 2</a></li>
+                      <li><a class="dropdown-item" href="#decrypt">Décryptement</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -137,7 +143,7 @@ Le 1er cas étant le plus probable, Par conséquent, l’écart entre deux mêm
 un multiple de la longueur de la clé. Par exemple, si la répétition d’un groupe est espacée de 30 lettres, puis 
 celle d’un autre de 25, <strong>le plus grand diviseur commun</strong> de 25 et 30 est 5. La clé possède donc dans ce cas
 5 lettres.</p>
-                <h4 id="one">Exemple 1</h4>
+                <h4 id="ex1">Exemple 1</h4>
                 <p> Considérons par exemple le mot-clé « ABCD » qui sert à chiffrer « MESSAGER TRES MESQUIN MESOPOTAMIEN ».
                   <img src="img/kasiski/exemple1.png " width="650" alt="Exemple 1 decryptement avec methode de kasiski"/> <br/>
                   Dans ce cas, il y a 12 lettres entre les deux « MFU », on en déduit que la longueur de la clé est 
@@ -146,7 +152,7 @@ celle d’un autre de 25, <strong>le plus grand diviseur commun</strong> de 25 e
                     cassé avec une analyse fréquentielle). Avec un texte plus long, on découvrirait d'autres séquences qui
                      permettraient d'affiner le résultat et réduire la taille de la clé à une ou deux possibilités. 
                 </p>
-                <h4 id="two">Exemple sur un texte plus long</h4>
+                <h4 id="ex2">Exemple sur un texte plus long</h4>
                 <p>Soit un texte chiffré de plusieurs centaines de caractères.
                    Ce texte paraît a priori aléatoire et pourtant il contient des redondances intéressantes.</p>
                 <p>KQOWEFVJPUJUUNUKGLMEKJINMWUXFQMKJBGWRLFNFGHUDWUUMBSVLPS
@@ -167,11 +173,11 @@ celle d’un autre de 25, <strong>le plus grand diviseur commun</strong> de 25 e
                     Ainsi on voit aisément qu'elle est de <strong>longueur 5</strong>.   
                   
                   </p>
-                <h4 id="three">Suite du décryptment connaissant la longueur de la clé</h4>
+                <h4 id="decrypt">Suite du décryptment connaissant la longueur de la clé</h4>
                 <p>On suppose que l'on sait que ce message a été obtenu à partir du texte clair 
                   en appliquant le chiffre de Vigenère avec une clé de longueur 5. Alors, la 1ère 
                   lettre, la 6ème, la 11ème, etc... ont toutes été chiffrées en utilisant la même lettre de la clé.
-                 Autrement dit, elles ont été chiffrées en utilisant le même <a href="explications.html#item-1-1-2" target="_blank">décalage de César</a> <br>
+                 Autrement dit, elles ont été chiffrées en utilisant le même <a class="lien" href="explications.html#item-1-1-2" target="_blank">décalage de César</a> <br>
                  n va alors séparer le texte chiffré en 5 parties : la première comporte les lettres 1,6,11,... la seconde les lettres 2,7,12,... 
                  la troisième les lettres 3,9,14,.... On trouve : 
                  <ul>
@@ -183,8 +189,8 @@ celle d’un autre de 25, <strong>le plus grand diviseur commun</strong> de 25 e
                  </ul>
                 </p>
                 <p>
-                  En faisant une analyse de fréquence sur chaque partie grace a <a href="analyseFrequentielle.html
-                  " target="_blank">la page dédiée de le site</a> on trouve que la lettre la plus fréquente pour la partie 1 est "W" 
+                  En faisant une analyse de fréquence sur chaque partie grace a <a class="lien" href="analyseFrequentielle.html#textField2
+                  " target="_blank">la page dédiée sur le site</a> on trouve que la lettre la plus fréquente pour la partie 1 est "W" 
                   et en supposant que celle-ci chiffre la lettre "E" qui est la lettre la plus fréquente de la langue francaise alors 
                   on determine le décalage servant a chiffrer cette ligne qui est la première lettre de la clé de Vigenère soit 
                   k1 = "W" - "E"=22-4= <strong>20="S"</strong>. <br>
@@ -192,21 +198,41 @@ celle d’un autre de 25, <strong>le plus grand diviseur commun</strong> de 25 e
                   <strong>SCUBA</strong> <br>
                   Le décryptment reussi nous obtenons le texte suivant : <br>
                   <img src="img/kasiski/RstDecrypt.png" alt="Resulat du dechiffrement avec la cle trouvé">
-                 Qui se trouve etre un extait du peome <i>Albatros</i>  de Baudelaire <br>
-                    <img src="" alt="Albatros">
-
+                 Qui se trouve etre un extait du poéme <i>Albatros</i>  de Baudelaire.
                 </p>
+                <p style="white-space: pre;">
+                  Souvent, pour s’amuser, les hommes d’équipage
+                  Prennent des albatros, vastes oiseaux des mers,
+                  Qui suivent, indolents compagnons de voyage,
+                  Le navire glissant sur les gouffres amers.
+
+                  A peine les ont-ils déposés sur les planches,
+                  Que ces rois de l’azur, maladroits et honteux,
+                  Laissent piteusement leurs grandes ailes blanches
+                  Comme des avirons traîner à côté d’eux.
+                  
+                  Ce voyageur ailé, comme il est gauche et veule !
+                  Lui, naguère si beau, qu’il est comique et laid !
+                  L’un agace son bec avec un brûle-gueule,
+                  L’autre mime, en boitant, l’infirme qui volait !
+                  
+                  Le Poète est semblable au prince des nuées
+                  Qui hante la tempête et se rit de l’archer ;
+                  Exilé sur le sol au milieu des huées,
+                  Ses ailes de géant l’empêchent de marcher.
+                  
+                  Charles Baudelaire
+                  </p>
               </div>
             </div>   
             
            </div>
  
         </div>
-
             <p>
-              source : 
-              <a href="https://fr.wikipedia.org/wiki/Cryptanalyse_du_chiffre_de_Vigen%C3%A8re" target="_blank">Cryptanalyse du chiffre de Vigenère</a>
-
+              <strong>source :</strong> <br>
+              <a class="lien" href="https://fr.wikipedia.org/wiki/Cryptanalyse_du_chiffre_de_Vigen%C3%A8re" target="_blank">Cryptanalyse du chiffre de Vigenère</a> <br>
+              <a class="lien" href="http://www.bibmath.net/crypto/index.php?action=affiche&quoi=poly/viganalyse" target="_blank">Comment vaincre le chiffre de vigenère ?</a>
             </p>   
             
         

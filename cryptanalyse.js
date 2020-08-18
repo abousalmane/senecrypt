@@ -208,6 +208,207 @@ function pgcd(a,b) {
   }
   return a;
 }
+// Ensemble de fonctions qui tentent de decrypter automatiquement
+// Un message chiffre avec le chiffre de Vigenère ou ses variantes
+// Senecrypt 
+var alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var MINCLE=1;
+var MAXCLE=25;
+var frequencetheo=[0.0797,0.0107,0.0347,0.0400,0.1800,0.01010,0.0104,0.0135,0.0734,0.0030,0.0007,0.0548,0.0317,0.0702,0.0527,0.0280,0.0113,0.0664,0.0772,.0728,.0574,.0117,.0006,.0045,.0031,.0004];
+
+function analyseGenreVigenere(entree,algo) {
+
+  let sortie={};
+	let maxindice=0;
+  let longueurcle=1;
+	let indice;
+	let dec,i;
+	let nombres,cle;
+	
+	var ligneencours,colencours,result="";
+	
+	for (i=MINCLE;i<=Math.min(MAXCLE,entree.length-1);i++)
+	{
+		indice=0;
+		for (dec=0;dec<i;dec++)
+		{
+			prov=extrait(entree,i,dec);
+			indice=indice+indiccoinc(prov);			
+		}
+		indice=indice/i;
+		if (indice>maxindice) 
+		{
+			maxindice=indice;
+			longueurcle=i;
+		}
+		/* Si l'indice est anormalement grand, on s'éjecte !*/
+		if (indice>0.075) i=MAXCLE;
+	}
+
+	sortie["indice"]=indice;
+	sortie["longCle"]=longueurcle; 
+	cle="";
+	for (i=0;i<longueurcle;i++)
+	{
+		// On calcule les frÃ©quences des lettres chiffrÃ©es avec cette lettre de la cle.
+
+		prov=extrait(entree,longueurcle,i);
+		nombres=calculfrequences(prov);
+		
+		cle=cle+alphabet.charAt(optimise(nombres));
+		
+	    }
+	
+	sortie["cle"]=cle;
+	
+	if(algo === "Vigenere"){
+      for (i=0; i<entree.length; i++)
+    {
+      ligneencours=alphabet.indexOf(entree.charAt(i));
+      colencours=alphabet.indexOf(cle.charAt(i%cle.length));
+      ajout=alphabet[ ((ligneencours-colencours)+26)%26]; // changer pour adapter a beaufort , allmande ...
+      result=result+ajout;
+    }
+  }
+  else if(algo==="Beaufort"){
+    for (i=0; i<entree.length; i++)
+	{
+		ligneencours=alphabet.indexOf(entree.charAt(i));
+		colencours=alphabet.indexOf(cle.charAt(i%cle.length));
+		ajout=alphabet[ ((colencours-ligneencours)+26)%26]; // changer pour adapter a beaufort , allmande ...
+		result=result+ajout;
+	}
+  }
+  else if(algo==="Allemande") {
+    for (i=0; i<entree.length; i++)
+	{
+		ligneencours=alphabet.indexOf(entree.charAt(i));
+		colencours=alphabet.indexOf(cle.charAt(i%cle.length));
+		ajout=alphabet[ (ligneencours+colencours)%26]; // changer pour adapter a beaufort , allmande ...
+		result=result+ajout;
+	}
+  }
+	sortie["clair"] = result;	
+	return sortie;
+}
+
+// La fonction suivante extraite d'une chaine une sous-chaine en prenant tous les "ecarts" caractÃ¨res
+// et en commenÃ§ant Ã  "depart"
+
+function extrait(chaine,ecart,depart)
+{
+	var resultat="";
+	var i=+depart;
+	
+	while (i<chaine.length)
+	{
+		resultat+=chaine.charAt(i);
+		i+=ecart;
+	}
+	
+	return resultat;
+}
+
+
+// Les fonctions suivantes sont consacrees au calcul de l'indice de coincidence du texte
+
+function indiccoinc(texte)
+{
+	var nombres=new Array(26);  // Le nombre de fois que chaque lettre intervient dans le texte
+	var indice=0.0;
+	var nb=0;
+	
+	// On commence par réaliser les pourcentages...
+	nombres=calculnombres(texte);
+	for (var i=0;i<26;i++)
+	{
+		indice=nombres[i]*(nombres[i]-1)+indice;
+		nb=nb+nombres[i];
+	}
+	indice=indice/(nb*(nb-1));
+	return indice;
+}
+
+    
+function calculnombres(texte)
+{
+	var nombres=new Array(26);
+	var nb,prov,j;
+	
+	for (var i=0;i<26;i++)
+	{
+		nombres[i]=0.0;
+	}
+	for (var i=0;i<texte.length;i++)
+	{
+		nombres[alphabet.indexOf(texte.charAt(i))]++;
+	}	
+	
+	return nombres;
+}
+
+function indice_coincidences(texte,clemin,clemax)
+{
+	var i,indice;
+	var sortie="";
+	
+	
+	for (i=Math.max(clemin,2);i<=Math.min(clemax,entree.length-1);i++)
+	{
+		indice=0;
+		for (dec=0;dec<i;dec++)
+		{
+			prov=extrait(entree,i,dec);
+			indice=indice+indiccoinc(prov);			
+		}
+		indice=Math.round(indice*1000/i)/1000;
+		sortie=sortie+"Pour une longueur de clÃ© de "+i+", l'indice de coÃ¯ncidence vaut "+indice+"\n";
+	}
+	
+	return sortie;
+	
+}
+
+// Les fonctions suivantes permettent de choisir la clé (une fois sa longueur connue)
+// en optimisant l'écart par rapport Ã  la frÃ©quence thÃ©orique
+
+function calculfrequences(texte)
+{
+	var nombres=calculnombres(texte);
+	var i;
+	
+	for (i=0;i<26;i++) 
+	{
+		nombres[i]=nombres[i]/texte.length;
+	}	
+	
+	return nombres;
+}
+
+function optimise(nombres)
+{
+   var meilleur=0;
+   var mincomp=10;
+   var prov;
+   var i,j;
+   
+   for (i=0;i<26;i++)
+   {
+		prov=0;
+		for (j=0;j<26;j++)
+		{
+		    prov=prov+(nombres[(j+i+26)%26]-frequencetheo[j])*(nombres[(j+i+26)%26]-frequencetheo[j]);
+		}
+		if (prov<mincomp)
+		{
+		    mincomp=prov;
+		    meilleur=i;
+		}
+	}
+	return meilleur;
+}
+
+//console.log(analyseGenreVigenere("JCCMFQKDWLFVZQWCSCESXYOAVSXLWARBBVZQEQWEGKZSVKZQXCBVDIIZWIUCVWTJSTZUWKOQKXIDOQJSTCSVRJIZHBRBBISDVRMJJQJOOVGLVBWPSARTNCSCIOQVBBRZIJIZWOKVRCESUVFMKOTVSTCSDFMIZHTVGGVIFMSZKGAFIDIWZVHAVFMWSZDSZTCUDSTVGDRZDVGTVBBVGLLBKFECZZTRUMVBBISLVIFVOCOZMJCUDSQCSUGCZKOQKQMJTITSAUSOZGIEHACSAZZMEQMCOXRWFCSDZRMGFMJECVXIMOQJJCLBNLFMKCCLBMWCCZBMKFIMSZJSZCSURQIUOUCSZLPIEECZRMWWTVSBKCCJQMJFCSOVJGCIZIICCKSMKQMLLYLCVECCJOKTFWTVMJIZCOXFWBIWVVIVACCICCCOCKFMJINWWBUOBKSVUFM"));
 /* console.log(trigramme("KQOWEFVJPUJUUNUKGLMEKJINMWUXFQMKJBGWRLFNFGHUDWUUMB"+
 "SVLPSNCMUEKQCTESWREEKOYSSIWCTUAXYOTAPXPLWPNTCGOJBGFQHTDWXIZAYGFFNSXCSEYNCTSSPNTUJNYTGGWZGR"+
 "WUUNEJUUQEAPYMEKQHUIDUXFPGUYTSMTFFSHNUOCZGMRUWEYTRGKMEEDCTVRECFBDJQC"+
@@ -223,5 +424,6 @@ function pgcd(a,b) {
 module.exports = {
     trigramme,
     bigramme,
-    quadrigramme
+    quadrigramme,
+    analyseGenreVigenere
 };

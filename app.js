@@ -73,6 +73,13 @@ app.post('/kasiski',function (req, res) {
   res.status(200);
   res.send(JSON.stringify(rslt));
 });
-
+app.post('/ic',function (req, res) {
+  let crypto= req.body['crypto'];
+  let algo = req.body['algo'];
+  let rslt = analyser.analyseGenreVigenere(crypto,algo); 
+  res.setHeader('Content-Type','application/json');
+  res.status(200);
+  res.send(JSON.stringify(rslt));
+});
 
 app.listen(process.env.PORT || 8080);
