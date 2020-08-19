@@ -180,7 +180,7 @@ function send(jsobject,resHandler, spinShower){
   const http= new XMLHttpRequest();
   http.open("POST", '/crypt');
   http.setRequestHeader("Content-Type","application/json");
-  http.timeout = 8000; // After 8 second of non -response the request expire
+  http.timeout = 10000; // After 10 second of non -response the request expire
   http.onload = function(){
     if(this.status===200){
       resHandler(http.responseText,jsobject["op"]);

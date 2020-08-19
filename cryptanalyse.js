@@ -245,7 +245,7 @@ function analyseGenreVigenere(entree,algo) {
 		if (indice>0.075) i=MAXCLE;
 	}
 
-	sortie["indice"]=indice;
+	sortie["indice"]=Number(indice.toFixed(4));
 	sortie["longCle"]=longueurcle; 
 	cle="";
 	for (i=0;i<longueurcle;i++)
@@ -253,11 +253,14 @@ function analyseGenreVigenere(entree,algo) {
 		// On calcule les frÃ©quences des lettres chiffrÃ©es avec cette lettre de la cle.
 
 		prov=extrait(entree,longueurcle,i);
-		nombres=calculfrequences(prov);
-		
-		cle=cle+alphabet.charAt(optimise(nombres));
-		
-	    }
+    nombres=calculfrequences(prov);
+    if(algo==="Vigenere")
+      cle=cle+alphabet.charAt(optimise(nombres));
+    else if(algo === "Allemande")
+      cle=cle+alphabet.charAt(26-optimise(nombres));
+    else if (algo==="Beaufort")
+    cle=cle+alphabet.charAt((26-optimise(nombres))%26);
+ }
 	
 	sortie["cle"]=cle;
 	
@@ -278,7 +281,7 @@ function analyseGenreVigenere(entree,algo) {
 		ajout=alphabet[ ((colencours-ligneencours)+26)%26]; // changer pour adapter a beaufort , allmande ...
 		result=result+ajout;
 	}
-  }
+}
   else if(algo==="Allemande") {
     for (i=0; i<entree.length; i++)
 	{

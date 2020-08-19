@@ -163,8 +163,7 @@ function beaufort (text,key,operation=0, algoFamily=vigenereFamily){  // y= k-x 
 		 return algoFamily(text,key,-1,-1,1);
 }
 
-
-  module.exports = {
+module.exports = {
 	 cesar,
 	 affine,
 	 vigenere,

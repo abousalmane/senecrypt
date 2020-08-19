@@ -14,7 +14,11 @@
 input{
   width: 5em;
 }
-
+#rstText{
+  background-color: coral; 
+  overflow-wrap:break-word ;
+    white-space:pre-line ;
+}
 </style>
 </head>
 <body>
@@ -301,6 +305,12 @@ function warning(alertMsg){
       warn.close()}, 3000);
 }
 resHandler = (respObj) =>{
+  document.getElementById("rstText").innerHTML
+  ="Longueur probable de la clé : <strong>"+respObj["longCle"]+"</strong>\n"+
+    "Obtenu en faisant la somme des IC des colonnes avec diferrents longueurs de clé jusqu'a l'obtention d'un IC vraisemblable"+
+    " de valeur: <strong>"+respObj["indice"]+"</strong>\n"+
+    "La clé trouvée est: <strong> "+ respObj["cle"]+"</strong>\n"+
+    "le texte clair correspondant est: \n"+ respObj["clair"];
 console.log(respObj);
   }
  
