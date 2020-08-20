@@ -44,7 +44,10 @@ let op = req.body['op'];
         key=key.toUpperCase();
         result = subs.allemande(text,key,op);
         break;
-	
+      case 'playfair' :
+        let poly = require('./polygrammatiques.js');
+        key=key.toUpperCase();
+        result = poly.playfair(text,key,op);
     }
 
     res.setHeader('Content-Type','text/plain');

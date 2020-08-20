@@ -39,8 +39,8 @@ function initilise()
 function  substAlgo ()
 {
   initilise();
-  const selection= document.querySelector('input[type=radio]:checked');
-  //console.log(selection.id);
+ selection=document.querySelector('input[type=radio]:checked');
+  //console.log(selection.value);
   let keyLabel=document.getElementById('keyLabel');
   if (selection.value==="cesar") {
 
@@ -78,7 +78,6 @@ function  substAlgo ()
     affKey2.style.width="4em";
 
   }
-
 }
 function transpAlgo(){
 
@@ -237,5 +236,38 @@ function randomCharGenerator(length) {
    return result;
 }
 resHandler = (respText,mode) =>{
-  document.getElementById("rst").innerText=formatCrypto(respText,mode);
+  let output="";
+  let displayer= document.getElementById("rst");
+           displayer.innerHTML="";
+  if(document.querySelector('input[type=radio]:checked').value==="playfair"){
+     let  square = respText.slice(-25);
+     respText =respText.substring(0,respText.length-25);
+     displayer.appendChild(fillSquare(square)) ;
   }
+ output= "Longueur Texte: "+ respText.length+" caractères\n";
+  displayer.appendChild(document.createTextNode(
+    output+formatCrypto(respText,mode)
+  ));
+  }
+  function fillSquare(text){
+
+    let  tb=document.createElement("table");
+         tb.id="pfSquare";
+    let k=0;
+  for(let i = 0; i < 5; i++){
+      var tr = tb.insertRow(); tr.style.backgroundColor = "#FFFF99";
+      tr.width='400px'
+      for(var j = 0; j < 5; j++){
+        
+              let n = i*5+j;
+              var td = tr.insertCell();
+              td.appendChild(document.createTextNode(text.charAt(n) ));
+              td.style.border = '10px solid black';               
+      }
+  }
+  let cp =tb.createCaption(); cp.innerHTML= "<strong>Le tableau clé</strong>";
+    cp.style.color="black";
+  cp.style.captionSide="top";
+  tb.style.margin="auto";
+  return tb; 
+}
