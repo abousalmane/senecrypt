@@ -217,7 +217,7 @@ let span= document.createElement("span");
 function formatCrypto( str, mode){
    
   let ret="", pad= 5 - str.length % 5;
-  if( pad !== 0 && mode === 0){
+  if( pad !== 5 && mode === 0){
     str+= randomCharGenerator(pad);
 
   }
