@@ -81,8 +81,7 @@ function  substAlgo ()
 }
 function transpAlgo(){
 
-  document.getElementById("rst").innerText= "Le chiffrement par transposition Pas encore disponible";
-console.log("not yet handled !")
+  //document.getElementById("rst").innerText= "Le chiffrement par transposition Pas encore disponible";
 }
 
 /**

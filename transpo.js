@@ -20,7 +20,7 @@ function createKeyTab(keyText)
     	
     }
   }
-  console.log(tab);
+  //console.log(tab);
   return tab;
 }
 
@@ -28,7 +28,6 @@ function transpoTab(text , key, op=0){
   let nb, i, lastLine, output;
   let columns, border; 
   const textLength=text.length, keyLength =  key.length;
-	 // key=formate_entree(key);
 	 nb=Math.floor(textLength/keyLength);
    lastLine=textLength-nb*keyLength;
    const keyTab= createKeyTab(key);
@@ -75,3 +74,6 @@ function transpoTab(text , key, op=0){
     console.log(output);
     return output;
 }
+module.exports = {
+  transpoTab
+};

@@ -84,10 +84,10 @@ input:valid + span::before {
             <a class="nav-link" aria-current="page" href="/">Accueil </a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
               Outils Crypto
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
               <li><a class="dropdown-item" href="alphabets.html">Generation d'alphabets </a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item"  href="calculsModulaires.html">Calculs modulaires</a></li>
@@ -95,10 +95,10 @@ input:valid + span::before {
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="decryptor" role="button" data-toggle="dropdown" aria-expanded="false">
               Cryptanalyse
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu" aria-labelledby="decryptor">
               <li><a class="dropdown-item" href="analyseFrequentielle.html">Analyse fréquentielle </a></li>
               <li><a class="dropdown-item" href="kasiski.html">Test de Kasiski/Babbage</a></li>
               <li><a class="dropdown-item" href="indiceDeCoincidence.html">Indice de coincidence</a></li>
@@ -236,10 +236,9 @@ input:valid + span::before {
              <span id="validity" ></span>
           </p>
          <div id="rst" class="text-justify pl-1 m-1"></div>
-          <p class="mt-2"><label for="champText">Entrer votre texte ici 	&curarr; </label></p>
-          <textarea class="form-control" id="textField" rows="8" placeholder="NB: Seules les caratères alphabetiques seront traitées
-          Les autres caracteres seront automatiquement supprimées" required>
-          </textarea>
+          <p class="mt-2"><label for="textField">Entrer votre texte ici 	&curarr; </label></p>
+          <textarea class="form-control" id="textField" rows="8" placeholder="NB: Seules les caratères alphabetiques seront traitées 
+          Les autres caracteres seront automatiquement supprimées" required></textarea>
            <div id="holder" class="mt-2"> 
            </div>
           <button type="button" id="btnChiffrer" class="btn btn-primary mt-3 mr-4"> Chiffrer</button>
@@ -248,6 +247,8 @@ input:valid + span::before {
       </div>
     </div>
   </div> 
+  <noscript> Oooups, Javascript est désactivé sur votre navigateur, Certaines fonctionalités du site ne pourront
+    pas s'executer ! </noscript>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
       integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"

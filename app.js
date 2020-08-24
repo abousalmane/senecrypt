@@ -4,7 +4,7 @@ var app = express();
 
 var bodyParser = require('body-parser');
 var subs = require('./substitution.js');
-app.use(express.static(__dirname +'/public'));
+app.use(express.static(__dirname +'/public',{maxAge: '86400000'}));//save cache 1h in client side eq=86400000miliseconds.
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 app.get('/',function(req,res) {
+  res.setHeader('Cache-Control','public, max-age=3600')
     res.sendFile(__dirname+'/index.html');
   });
 
@@ -48,6 +49,10 @@ let op = req.body['op'];
         let poly = require('./polygrammatiques.js');
         key=key.toUpperCase();
         result = poly.playfair(text,key,op);
+      case 'transpoSimple':
+        let tr = require('./transpo.js');
+        key=key.toUpperCase();
+        result = tr.transpoTab(text,key,op);
     }
 
     res.setHeader('Content-Type','text/plain');
