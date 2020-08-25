@@ -171,7 +171,7 @@ return true;
 }
 function format (text,algo,op){
   if(op===1 && algo==='polybe'){
-    text=text.replace(/\D/g,'');
+    text=text.replace(/[^1-5]/g,'');
     return text;
   }
     text=text.replace(/[^a-zA-Z]/gi, '');
