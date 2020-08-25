@@ -49,10 +49,12 @@ let op = req.body['op'];
         let poly = require('./polygrammatiques.js');
         key=key.toUpperCase();
         result = poly.playfair(text,key,op);
+        break;
       case 'transpoSimple':
         let tr = require('./transpo.js');
         key=key.toUpperCase();
         result = tr.transpoTab(text,key,op);
+        break;
     }
 
     res.setHeader('Content-Type','text/plain');

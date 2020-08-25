@@ -255,13 +255,13 @@ resHandler = (respText,mode) =>{
     let k=0;
   for(let i = 0; i < 5; i++){
       var tr = tb.insertRow(); tr.style.backgroundColor = "#FFFF99";
-      tr.width='400px'
       for(var j = 0; j < 5; j++){
         
               let n = i*5+j;
               var td = tr.insertCell();
               td.appendChild(document.createTextNode(text.charAt(n) ));
-              td.style.border = '10px solid black';               
+              td.style.border = '10px solid black'; td.width='50px';
+              td.style.textAlign='center';          
       }
   }
   let cp =tb.createCaption(); cp.innerHTML= "<strong>Le tableau clé</strong>";
