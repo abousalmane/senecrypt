@@ -105,7 +105,7 @@ var key= document.getElementById("cipherKey");
 var text = document.getElementById("textField");
 if(check(radioAlgo, key, text)){
    let algo =radioAlgo.value;
-   let finalText= format(text.value);
+   let finalText= format(text.value,algo,op);
    let keyValue = ((radioAlgo.value==="cesar") ? document.getElementById("alphabetCesar").value : (radioAlgo.value==="affine") ? [document.getElementById("affineKey1").value,key.value] : key.value);
   send({"algo": algo,
         "key": keyValue,
@@ -169,7 +169,11 @@ else if(selectAlgo.value==="affine"){
  }
 return true;
 }
-function format (text){
+function format (text,algo,op){
+  if(op===1 && algo==='polybe'){
+    text=text.replace(/\D/g,'');
+    return text;
+  }
     text=text.replace(/[^a-zA-Z]/gi, '');
     return text.toUpperCase();
 }    
@@ -243,6 +247,24 @@ resHandler = (respText,mode) =>{
      respText =respText.substring(0,respText.length-25);
      displayer.appendChild(fillSquare(square)) ;
   }
+  if(document.querySelector('input[type=radio]:checked').value==="polybe"){
+    let  square = respText.slice(-25);
+    respText =respText.substring(0,respText.length-25);
+    let tab=fillSquare(square);
+    let head=tab.createTHead();
+    head.style.backgroundColor='green';
+    let row = head.insertRow(0);
+    row.insertCell(0),innerHTML=" "
+     for(let c=1;c<=5;c++){
+       let cell=row.insertCell(c);//inset heager
+       cell.innerHTML=c;
+       cell=tab.rows[c].insertCell(0);///insert first column
+       cell.style.backgroundColor='green'
+       cell.width='30px';
+       cell.innerHTML=c; 
+     }
+    displayer.appendChild(tab) ;
+ }
  output= "Longueur Texte: "+ respText.length+" caractères\n";
   displayer.appendChild(document.createTextNode(
     output+formatCrypto(respText,mode)
@@ -252,6 +274,7 @@ resHandler = (respText,mode) =>{
 
     let  tb=document.createElement("table");
          tb.id="pfSquare";
+         tb.style.textAlign='center'; 
     let k=0;
   for(let i = 0; i < 5; i++){
       var tr = tb.insertRow(); tr.style.backgroundColor = "#FFFF99";
@@ -260,8 +283,7 @@ resHandler = (respText,mode) =>{
               let n = i*5+j;
               var td = tr.insertCell();
               td.appendChild(document.createTextNode(text.charAt(n) ));
-              td.style.border = '10px solid black'; td.width='50px';
-              td.style.textAlign='center';          
+              td.style.border = '10px solid black'; td.width='50px';         
       }
   }
   let cp =tb.createCaption(); cp.innerHTML= "<strong>Le tableau clé</strong>";

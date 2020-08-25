@@ -4,6 +4,7 @@ var app = express();
 
 var bodyParser = require('body-parser');
 var subs = require('./substitution.js');
+var poly = require('./polygrammatiques.js');
 app.use(express.static(__dirname +'/public',{maxAge: '86400000'}));//save cache 1h in client side eq=86400000miliseconds.
 
 app.use(bodyParser.urlencoded({
@@ -46,10 +47,13 @@ let op = req.body['op'];
         result = subs.allemande(text,key,op);
         break;
       case 'playfair' :
-        let poly = require('./polygrammatiques.js');
         key=key.toUpperCase();
         result = poly.playfair(text,key,op);
         break;
+      case 'polybe':
+        key=key.toUpperCase();
+        result = poly.polybe(text,key,op);
+       break;
       case 'transpoSimple':
         let tr = require('./transpo.js');
         key=key.toUpperCase();
