@@ -5,6 +5,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var subs = require('./substitution.js');
 var poly = require('./polygrammatiques.js');
+var tr = require('./transpo.js');
 app.use(express.static(__dirname +'/public',{maxAge: '86400000'}));//save cache 1h in client side eq=86400000miliseconds.
 
 app.use(bodyParser.urlencoded({
@@ -22,10 +23,10 @@ let algo= req.body['algo'];
 let key=req.body['key'];
 let text=req.body['text'];
 let op = req.body['op'];
-  /*   console.log("algo "+ algo);
+   /*  console.log("algo "+ algo);
     console.log("key "+ key);
     console.log("text "+ text);
-    console.log("op " + op); */
+    console.log("op " + op);   */
     var result;
     switch(algo){
       case 'cesar' :
@@ -35,30 +36,27 @@ let op = req.body['op'];
         result = subs.affine(text,parseInt(key[0],10),parseInt(key[1],10),op);
         break;
       case 'vigenere' :
-        key=key.toUpperCase();
         result = subs.vigenere(text,key,op);
         break;
       case 'beaufort' :
-        key=key.toUpperCase();
         result = subs.beaufort(text,key,op);
         break;
       case 'allemande' :
-        key=key.toUpperCase();
         result = subs.allemande(text,key,op);
         break;
       case 'playfair' :
-        key=key.toUpperCase();
         result = poly.playfair(text,key,op);
         break;
       case 'polybe':
-        key=key.toUpperCase();
         result = poly.polybe(text,key,op);
        break;
       case 'transpoSimple':
-        let tr = require('./transpo.js');
-        key=key.toUpperCase();
         result = tr.transpoTab(text,key,op);
         break;
+      case 'transpoDouble' :
+        result = op===0 ? tr.transpoTab(tr.transpoTab(text,key[0],op),key[1],op) : tr.transpoTab(tr.transpoTab(text,key[1],op),key[0],op);
+        break;
+
     }
 
     res.setHeader('Content-Type','text/plain');

@@ -3,9 +3,7 @@ function alphabetSelect()
   let choix=document.createElement("select");
     let option;
     option=document.createElement("option");
-    option.text="choisir clé";
-    option.selected=true;
-    option.disabled=true;
+    option.text="choisir clé"; option.selected=true; option.disabled=true;
     choix.add(option);
     for(let i=0;i<26;i++)
     {
@@ -27,28 +25,26 @@ function initilise()
         aff.style.display="none";
        cipherKey.style.display="inline";
        document.getElementById("validity").style.display="inline";
-       cipherKey.style.width="18em";
-       cipherKey.type="text";
-
-
+       cipherKey.style.width="18em"; cipherKey.type="text";
   if(alphCesar != null)
       alphCesar.style.display="none";
-
+  if(document.getElementById("trKey1")!=null){
+    document.getElementById("trKey1").parentNode.removeChild(document.getElementById("trKey1"));
+    cipherKey.placeholder="CLE";
+  }
 }
 
-function  substAlgo ()
+function  initAlgo ()
 {
   initilise();
  selection=document.querySelector('input[type=radio]:checked');
-  //console.log(selection.value);
   let keyLabel=document.getElementById('keyLabel');
   if (selection.value==="cesar") {
 
     document.getElementById('cipherKey').style.display="none";
     document.getElementById("validity").style.display="none";
     if(!document.getElementById("alphabetCesar")){
-      let alphabet=alphabetSelect();
-      alphabet.id="alphabetCesar";
+      let alphabet=alphabetSelect(); alphabet.id="alphabetCesar";
       keyLabel.appendChild(alphabet)
     }else
     {
@@ -67,21 +63,23 @@ function  substAlgo ()
       {
         option=document.createElement("option");
         option.text= i;
-        // option.value=i;
         choix.add(option);
       }      
     }
-    
     choix.style.display="inline";
     let affKey2=document.getElementById("cipherKey");
-    affKey2.type="number";
-    affKey2.style.width="4em";
-
+    affKey2.type="number"; affKey2.style.width="4em";
   }
-}
-function transpAlgo(){
-
-  //document.getElementById("rst").innerText= "Le chiffrement par transposition Pas encore disponible";
+  else if(selection.value==="transpoDouble"){
+    let key2 = document.getElementById('cipherKey');
+    if(document.getElementById('trKey1')==null){
+      let key1 = key2.cloneNode();
+      key2.parentNode.insertBefore(key1,key2);
+      key1.id='trKey1';
+      key1.placeholder="CLE nº 1 "; key2.placeholder="CLE nº 2";
+    }
+    
+  }
 }
 
 /**
@@ -106,13 +104,22 @@ var text = document.getElementById("textField");
 if(check(radioAlgo, key, text)){
    let algo =radioAlgo.value;
    let finalText= format(text.value,algo,op);
-   let keyValue = ((radioAlgo.value==="cesar") ? document.getElementById("alphabetCesar").value : (radioAlgo.value==="affine") ? [document.getElementById("affineKey1").value,key.value] : key.value);
-  send({"algo": algo,
+   let keyValue = getkey(algo)
+    send({"algo": algo,
         "key": keyValue,
         "text": finalText,
          "op" : op               
 }, resHandler,spinShower);
 }
+}
+function getkey(choosedRadio){
+  let key=document.getElementById("cipherKey");
+  switch(choosedRadio){
+    case 'cesar' : return document.getElementById("alphabetCesar").value;
+    case 'affine': return [document.getElementById("affineKey1").value,key.value];
+    case 'transpoDouble': return [document.getElementById('trKey1').value.toUpperCase(), key.value.toUpperCase()];
+    default : return key.value.toUpperCase();
+  }
 
 }
 function warning(alertMsg){
@@ -143,7 +150,7 @@ function check(selectAlgo, key, text){
   warning("Vous devez choisir un algorithme avant de valider !");
   return false;
  }
-if(selectAlgo.value!=="cesar" && selectAlgo.value!=="affine"){
+if(selectAlgo.value!=="cesar" && selectAlgo.value!=="affine" && selectAlgo.value!=="transpoDouble"){
   if(!key.checkValidity()){
     warning("Format de cle incorrect !");
     return false;

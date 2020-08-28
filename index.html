@@ -141,44 +141,44 @@ input:valid + span::before {
               <div class="card-body">
                <div>
                 <label for="cesar" class="h4 text-left algoLabel">
-                  <input type="radio" id="cesar" name="algo" value="cesar" autocomplete="off" required onclick="substAlgo()">
+                  <input type="radio" id="cesar" name="algo" value="cesar" autocomplete="off" required onclick="initAlgo()">
                   César</label>
                   <a class="lienCours  font-weight-bold" href="explications.html#item-1-1"> Explication</a><br />
                </div>
                
               <div>
                 <label for="affine" class="h4 algoLabel">
-                <input type="radio" id="affine" name="algo" value="affine" autocomplete="off" onclick="substAlgo()" >
+                <input type="radio" id="affine" name="algo" value="affine" autocomplete="off" onclick="initAlgo()" >
                  Affine</label> 
                 <a class="lienCours  font-weight-bold" href="explications.html#item-1-1-2"> Explication</a><br />
               </div>
                <div>
                 <label for="vigenere" class="h4 algoLabel">
-                  <input type="radio" id="vigenere" name="algo" value="vigenere"  onclick="substAlgo()">
+                  <input type="radio" id="vigenere" name="algo" value="vigenere"  onclick="initAlgo()">
                     Vigenere </label>
                    <a class="lienCours text-right font-weight-bold" href="explications.html#item-1-2"> Explication</a><br />
                </div>
                <div>
                 <label for="beaufort" class="h4 algoLabel">
-                  <input type="radio" id="beaufort" name="algo" value="beaufort"  onclick="substAlgo()">
+                  <input type="radio" id="beaufort" name="algo" value="beaufort"  onclick="initAlgo()">
                    Beaufort</label>
                 <a class="lienCours  font-weight-bold" href="explications.html#item-1-3"> Explication</a><br />
                </div>
                 <div>
                   <label for="allemande" class="h4 algoLabel">
-                   <input type="radio" id="allemande" name="algo" value="allemande"  onclick="substAlgo()">
+                   <input type="radio" id="allemande" name="algo" value="allemande"  onclick="initAlgo()">
                    Allemande </label> 
                     <a class="lienCours  font-weight-bold" href="explications.html#item-1-4"> Explication</a><br />
                 </div>
                 <div>
                   <label for="playfair" class="h4 algoLabel">
-                   <input type="radio" id="playfair" name="algo" value="playfair"  onclick="substAlgo()">
+                   <input type="radio" id="playfair" name="algo" value="playfair"  onclick="initAlgo()">
                    Playfair </label> 
                     <a class="lienCours  font-weight-bold" href="explications.html#item-1-4"> Explication</a><br />
                 </div>
                 <div>
                   <label for="polybe" class="h4 algoLabel">
-                   <input type="radio" id="polybe" name="algo" value="polybe"  onclick="substAlgo()">
+                   <input type="radio" id="polybe" name="algo" value="polybe"  onclick="initAlgo()">
                    Polybe </label> 
                     <a class="lienCours  font-weight-bold" href="explications.html#item-1-4"> Explication</a><br />
                 </div>
@@ -196,12 +196,12 @@ input:valid + span::before {
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#algoBox">
               <div class="card-body">
               <div>
-                <label for="transpoSimple" class="h4"><input type="radio" id="transpoSimple" name="algo" value="transpoSimple"  onclick="transpAlgo()">
+                <label for="transpoSimple" class="h4"><input type="radio" id="transpoSimple" name="algo" value="transpoSimple"  onclick="initAlgo()">
                   Transposition Simple</label>
                 <a class="lienCours  font-weight-bold" href="explications.html#item-2"> Explication</a><br />
               </div>
                 <div>
-                  <label for="transpoDouble" class="h4"><input type="radio" id="transpoDouble" name="algo" value="transpoDouble" onclick="transpAlgo()">
+                  <label for="transpoDouble" class="h4"><input type="radio" id="transpoDouble" name="algo" value="transpoDouble" autocomplete="off" onclick="initAlgo()">
                    Double Transposition</label> <a class="lienCours  font-weight-bold" href="explications.html#item-2"> Explication</a><br />
                   </div>
               </div>
@@ -232,7 +232,7 @@ input:valid + span::before {
             <select class="mr-2" id="affineKey1" required> 
               <option selected disabled>Inversibles mod26 dans Z/26Z</option>
             </select>
-            <input class="mr-2" type="text" id="cipherKey" pattern="[A-Za-z]+" required > 
+            <input class="mr-2" type="text" id="cipherKey" placeholder="CLE" pattern="[A-Za-z]+" required > 
              <span id="validity" ></span>
           </p>
          <div id="rst" class="text-justify pl-1 m-1"></div>

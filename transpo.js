@@ -25,17 +25,15 @@ function createKeyTab(keyText)
 }
 
 function transpoTab(text , key, op=0){
-  let nb, i, lastLine, output;
-  let columns, border; 
+  let nb, i, lastLine, output, columns, border; 
+  text=fiveTimes(text);
   const textLength=text.length, keyLength =  key.length;
 	 nb=Math.floor(textLength/keyLength);
    lastLine=textLength-nb*keyLength;
    const keyTab= createKeyTab(key);
    columns=new Array(keyLength);
   if(op===0){
-
       for (i=0;i<keyLength;i++) {
-
       if (i<lastLine) border=nb+1; else border=nb;
       columns[i]="";
       for (j=0;j<border;j++)
@@ -44,7 +42,6 @@ function transpoTab(text , key, op=0){
       }
     }
     // On releve par les columns...
-    
     output="";
     for (i=0; i<keyLength; i++){
     	output+=columns[keyTab[i]];
@@ -57,22 +54,38 @@ function transpoTab(text , key, op=0){
     
     for (i=0;i<keyLength;i++)
     {
-    	if (keyTab.indexOf(i)<lastLine) border=nb+1; else border=nb;
+    	if (keyTab[i]<lastLine) border=nb+1; else border=nb;
       columns[keyTab[i]]=text.substring(current,current+border);
-      console.log(columns)
+     // console.log(columns)
     	current+=border;
     }
     
     output="";
     for (j=0;j<nb;j++){
       for (i=0;i<keyLength;i++) output+=columns[i].charAt(j);
-      console.log(output)
+      //console.log(output)
     }
     for (i=0;i<lastLine;i++) output+=columns[i].charAt(nb);
    
     }
-    console.log(output);
+    //console.log(output);
     return output;
+}
+function fiveTimes(plain){
+  let ret="", pad= 5 - plain.length % 5;
+  if( pad !== 5){
+    plain+= randomCharGenerator(pad);
+  }
+return plain;
+}
+function randomCharGenerator(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 module.exports = {
   transpoTab
