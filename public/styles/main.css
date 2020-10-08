@@ -1,8 +1,11 @@
 html,
 body {
-  background-color: burlywood;
+  background-color: #f0ffff;
 }
 
 textarea {
     text-align:start;
+}
+main{
+background-color: #a3c4db;
 }

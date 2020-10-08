@@ -10,11 +10,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css">
     <style>
-   #nav-cours{
-       background-color: coral;
-   }
+
    .nav-link{
-       color: maroon;
+       color: #031616;
    }
    
    img {
@@ -29,48 +27,48 @@
 </head>
 <body>
   <header >
-    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark mb-2">
-      <div class="container-fluid">
-      <a class="navbar-brand" href="/">SeneCrypt</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/">Accueil </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-              Outils Crypto
-            </a>
-			<ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+	<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary ">
+		<div class="container-fluid">
+		<a class="navbar-brand" href="/">SeneCrypt</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+		  aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+		  <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+			<li class="nav-item active">
+			  <a class="nav-link"  href="/">Accueil </a>
+			</li>
+			<li class="nav-item dropdown">
+			  <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+				Outils Crypto
+			  </a>
+			  <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
 				<li><a class="dropdown-item" href="alphabets.html">Generation d'alphabets </a></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item active" href="calculsModulaires.html">Calculs modulaires</a></li>
+				<li><a class="dropdown-item"  href="calculsModulaires.html">Calculs modulaires</a></li>
 				<li><a class="dropdown-item" href="nombresPremiers.html">Nombres Premiers et factorisation</a></li>
 			  </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="decryptor" role="button" data-toggle="dropdown" aria-expanded="false">
-              Cryptanalyse
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="decryptor">
-              <li><a class="dropdown-item" href="analyseFrequentielle.html">Analyse fréquentielle </a></li>
-              <li><a class="dropdown-item" href="kasiski.html">Test de Kasiski/Babbage</a></li>
-              <li><a class="dropdown-item" href="indiceDeCoincidence.html">Indice de coincidence</a></li>
-              <li><a class="dropdown-item" href="motProbable.html">Test de mot probable</a></li>
-              <li><a class="dropdown-item" href="anagrammes.html">Recherche d'anagrammes</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="apropos.html">A propos</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    </nav>
+			</li>
+			<li class="nav-item dropdown">
+			  <a class="nav-link dropdown-toggle" href="#" id="decryptor" role="button" data-toggle="dropdown" aria-expanded="false">
+				Cryptanalyse
+			  </a>
+			  <ul class="dropdown-menu" aria-labelledby="decryptor">
+				<li><a class="dropdown-item" href="analyseFrequentielle.html">Analyse fréquentielle </a></li>
+				<li><a class="dropdown-item" href="kasiski.html">Test de Kasiski/Babbage</a></li>
+				<li><a class="dropdown-item" href="indiceDeCoincidence.html">Indice de coincidence</a></li>
+				<li><a class="dropdown-item" href="motProbable.html">Test de mot probable</a></li>
+				<li><a class="dropdown-item" href="anagrammes.html">Recherche d'anagrammes</a></li>
+			  </ul>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link " href="apropos.html">A propos</a>
+			</li>
+		  </ul>
+		</div>
+	  </div>
+	  </nav>
   </header>
 
 
@@ -78,7 +76,7 @@
   <div class="container mt-5">
     <div class="row p-4">
         <h2> Explication des algorithmes de chiffrement</h2>
-        <nav id="nav-cours" class="col-md-3 d-sm-none d-md-block navbar navbar-light">
+        <nav class="col-md-3 d-sm-none d-md-block navbar navbar-light bg-info">
             <nav class="nav nav-pills flex-column">
               <a class="nav-link" href="#item-1">Le Chiffrement par substitution</a>
               <nav class="nav nav-pills flex-column">
@@ -1040,8 +1038,8 @@
           <footer class="footer mt-4">
                 <h6> source: </h6>
                 <ul>
-                    <li> <a href="exo7.emath.fr/cours/ch_crypto.pdf" style="color: maroon;" > cours exo7 chapitre cryptographie </a></li>
-                    <li> <a href="#" style="color: maroon;"> source 2 </a></li>
+                    <li> <a href="www.exo7.emath.fr/cours/ch_crypto.pdf" target="_blank" style="color: #2a4747;" > cours exo7 chapitre cryptographie </a></li>
+                    <li> <a href="#" target="_blank" style="color: #2a4747;"> source 2 </a></li>
                 </ul>
           </footer>
     </div>
