@@ -84,7 +84,7 @@ img {
                 égales a la longueur de la clé puis de faire une etude de frequence par colonne.
                 Pour savoir les détails de cette methode, lire le texte ci-dessous apres le programme d'analyse.
                 </p>
-                <form class="form-control" style="background-color:navajowhite;">
+                <form class="form-control">
                     <textarea name="text" id="crypto" rows="8" class="form-control" required placeholder="Saisir ou coller votre crypto ici" ></textarea> <br/>
                     <label for="keyMin">Longueur Clé entre <input type="number" id="keyMin" size="3" placeholder="3" value="3" min="3" max="28" class="mb-2"/></label>
                     <label for="keyMax"> et <input type="number" id="keyMax" size="3" placeholder="25" value="25" min="5" max="30" class="mb-2"/> </label>
@@ -93,7 +93,7 @@ img {
                     <label for="bigramme" class="font-weight-bold"> <input type="radio" name="polygramme" value="bigramme" id="bigramme"> Bigramme </label>
                     <label for="trigramme" class="font-weight-bold"> <input type="radio" name="polygramme" id="trigramme" value="trigramme" checked> trigramme</label>
                     <label for="quadrigramme" class="font-weight-bold"><input type="radio" name="polygramme" value="quadrigramme" id="quadrigramme"> Quadrigramme </label> <br/>
-                    <button id="start" class="m-2"> Démarrer l'analyse </button>
+                    <button id="start" class="btn btn-primary m-2"> Démarrer l'analyse </button>
                 </form>
                 <div id="holder" class="m-2">  </div>
               </div>
